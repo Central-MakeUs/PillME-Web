@@ -56,9 +56,6 @@ importers:
       react-router:
         specifier: ^7.1.1
         version: 7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      the-new-css-reset:
-        specifier: ^1.11.3
-        version: 1.11.3
       zod:
         specifier: ^3.24.1
         version: 3.24.1
@@ -3378,9 +3375,6 @@ packages:
   text-extensions@2.4.0:
     resolution: {integrity: sha512-te/NtwBwfiNRLf9Ijqx3T0nlqZiQ2XrrtBvu+cLL8ZRrGkO0NHTug8MYFKyoSrv/sHTaSKfilUkizV6XhxMJ3g==}
     engines: {node: '>=8'}
-
-  the-new-css-reset@1.11.3:
-    resolution: {integrity: sha512-61SB81vu9foUyEIqoU1CeqxrdlsVjJojj/CBXoG8BdvlKFsllB0Rza63DblnRqH+3uttPj3FGWo7+c9nu7MT+A==}
 
   through@2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
@@ -7072,8 +7066,6 @@ snapshots:
       minimatch: 9.0.5
 
   text-extensions@2.4.0: {}
-
-  the-new-css-reset@1.11.3: {}
 
   through@2.3.8: {}
 
