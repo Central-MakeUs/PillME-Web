@@ -1,8 +1,8 @@
-import {
-  QueryClient,
-  QueryClientProvider as BaseQueryClientProvider,
-} from '@tanstack/react-query';
 import { type PropsWithChildren, useState } from 'react';
+import {
+  QueryClientProvider as BaseQueryClientProvider,
+  QueryClient,
+} from '@tanstack/react-query';
 
 export function QueryClientProvider({ children }: PropsWithChildren) {
   const [queryClient] = useState(
