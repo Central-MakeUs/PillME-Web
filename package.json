@@ -12,7 +12,10 @@
     "build-storybook": "storybook build",
     "knip": "knip",
     "docs": "typedoc --options typedoc.json",
-    "docs:dev": "http-server ./ -o ./docs/index.html -c-1"
+    "docs:dev": "http-server ./ -o ./docs/index.html -c-1",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

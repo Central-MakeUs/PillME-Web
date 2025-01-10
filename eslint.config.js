@@ -31,7 +31,7 @@ export default tseslint.config(
     },
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: { ...globals.browser },
     },
     rules: {
       eqeqeq: 'error',
@@ -101,16 +101,18 @@ export default tseslint.config(
         { fn: 'it', withinDescribe: 'it' },
       ],
     },
-    globals: {
-      globalThis: true,
-      describe: true,
-      it: true,
-      expect: true,
-      beforeEach: true,
-      afterEach: true,
-      beforeAll: true,
-      afterAll: true,
-      vi: true,
+    languageOptions: {
+      globals: {
+        globalThis: true,
+        describe: true,
+        it: true,
+        expect: true,
+        beforeEach: true,
+        afterEach: true,
+        beforeAll: true,
+        afterAll: true,
+        vi: true,
+      },
     },
   },
   {
