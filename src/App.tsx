@@ -1,5 +1,7 @@
+import { QueryClientProvider } from './providers/QueryClientProvider.tsx';
+
 function App() {
-  return <>PillMe</>;
+  return <QueryClientProvider>PillMe</QueryClientProvider>;
 }
 
 export default App;
