@@ -43,24 +43,9 @@ type ColorCategories = {
 type ColorToken = ColorCategories[keyof ColorCategories][number];
 
 export const color = (token: ColorToken) => {
-  const colorVar = globalVars.color[token];
-  if (!colorVar) {
+  if (!(token in globalVars.color)) {
     throw new Error(`Invalid color token: ${token}`);
   }
 
-  return style({
-    color: `${colorVar}`,
-  });
-};
-
-export const backgroundColor = (token: ColorToken) => {
-  const colorVar = globalVars.color[token];
-
-  if (!colorVar) {
-    throw new Error(`Invalid color token: ${token}`);
-  }
-
-  return style({
-    backgroundColor: `${colorVar}`,
-  });
+  return globalVars.color[token];
 };
