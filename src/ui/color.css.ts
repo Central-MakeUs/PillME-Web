@@ -1,9 +1,4 @@
-import { style } from '@vanilla-extract/css';
 import { globalVars } from './theme.css.ts';
-
-// ex:
-// style.css.ts
-// export const mainblue500 = backgroundColor('mainblue500');
 
 type ColorCategories = {
   blue: [
