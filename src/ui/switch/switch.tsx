@@ -1,41 +1,51 @@
-import { ComponentProps } from 'react';
 import * as RadixSwitch from '@radix-ui/react-switch';
 import * as styles from './switch.styles.css.ts';
 
-export type SwitchProps = ComponentProps<typeof RadixSwitch.Root> & {
-  leftLabel?: string;
-  rightLabel?: string;
+export type SwitchProps = Omit<
+  RadixSwitch.SwitchProps,
+  'checked' | 'onCheckedChange'
+> & {
+  left: string;
+  right: string;
+  value: string;
+  onValueChange: (value: string) => void;
 };
 
 export const Switch = ({
-  leftLabel,
-  rightLabel,
-  checked,
-  onCheckedChange,
+  left,
+  right,
+  value,
+  onValueChange,
   ...props
 }: SwitchProps) => {
+  const isChecked = value === right;
+
+  const handleCheckedChange = (checked: boolean) => {
+    onValueChange(checked ? right : left);
+  };
+
   return (
     <RadixSwitch.Root
       {...props}
-      checked={checked}
-      onCheckedChange={onCheckedChange}
+      checked={isChecked}
+      onCheckedChange={handleCheckedChange}
       className={styles.switchRoot}
     >
-      <div className={styles.switchSlider({ checked })} />
+      <div className={styles.switchSlider({ checked: isChecked })} />
 
       <RadixSwitch.Thumb
         className={styles.switchThumb({
-          checked: !checked,
+          checked: !isChecked,
         })}
       >
-        {leftLabel}
+        {left}
       </RadixSwitch.Thumb>
       <RadixSwitch.Thumb
         className={styles.switchThumb({
-          checked,
+          checked: isChecked,
         })}
       >
-        {rightLabel}
+        {right}
       </RadixSwitch.Thumb>
     </RadixSwitch.Root>
   );
