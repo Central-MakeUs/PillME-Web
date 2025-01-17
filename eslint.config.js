@@ -10,7 +10,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'storybook-static', 'pnpm-lock.yaml'] },
   eslint.configs.recommended,
   importPlugin.flatConfigs.recommended,
   tseslint.configs.recommended,
@@ -117,6 +117,7 @@ export default tseslint.config(
   },
   {
     files: ['*.js'],
+    ignores: ['dist', 'storybook-static'],
     rules: {
       '@typescript-eslint/no-require-imports': 'off',
     },
