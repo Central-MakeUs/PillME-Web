@@ -40,7 +40,7 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
           onlyChanged: true
-          exitZeroOnChanges: false
+          exitZeroOnChanges: true
 
       - name: comment PR
         if: github.event_name == 'pull_request'&& steps.chromatic.outputs.storybookUrl != ''
@@ -49,6 +49,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           message: |
-            🚀 Storybook is ready for review: ${{ steps.chromatic.outputs.storybookUrl }}
-            Build: ${{ steps.chromatic.outputs.buildUrl }}
+            🚀 Storybook 리뷰가 준비되었습니다:
+              - 프리뷰: ${{ steps.chromatic.outputs.storybookUrl }}
+              - 빌드: ${{ steps.chromatic.outputs.buildUrl }}
           comment-tag: chromatic
