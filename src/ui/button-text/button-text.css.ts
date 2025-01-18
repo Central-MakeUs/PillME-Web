@@ -5,7 +5,6 @@ import { typography } from '../typography.css.ts';
 export const buttonText = style([
   {
     display: 'inline-flex',
-    flexDirection: 'row',
     justifyContent: 'flex-end',
     flexShrink: '0',
     alignItems: 'center',
