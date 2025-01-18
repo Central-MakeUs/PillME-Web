@@ -47,6 +47,8 @@ const meta: Meta<typeof FormField> = {
                 control: form.control as any,
               }}
             />
+            {/* 
+            // error State는 이렇게 관리, storybook에선 보여주기 힘듬
             <FormField
               control={form.control}
               name="username"
@@ -71,7 +73,7 @@ const meta: Meta<typeof FormField> = {
                   <FormErrorMessage />
                 </FormItem>
               )}
-            />
+            /> */}
             <button hidden />
           </form>
         </Form>
@@ -91,6 +93,29 @@ export const First: Story = {
       render={({ field }) => (
         <FormItem>
           <FormLabel>폼 라밸</FormLabel>
+          <InputContainer>
+            <Input {...field} />
+            {field.value && (
+              <InputRightElement>
+                <DeleteCir />
+              </InputRightElement>
+            )}
+          </InputContainer>
+          <FormErrorMessage />
+        </FormItem>
+      )}
+    />
+  ),
+};
+
+export const required: Story = {
+  render: (args) => (
+    <FormField
+      control={args.control}
+      name="username"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel required>폼 라밸</FormLabel>
           <InputContainer>
             <Input {...field} />
             {field.value && (

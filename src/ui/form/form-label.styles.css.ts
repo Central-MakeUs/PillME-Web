@@ -6,5 +6,11 @@ export const formLabelBase = style([
   typography('body_2_14_sb'),
   {
     color: globalVars.color.grey800,
+    display: 'flex',
+    gap: 4,
   },
 ]);
+
+export const requiredIcon = style({
+  color: globalVars.color.mainblue500,
+});

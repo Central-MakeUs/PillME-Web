@@ -3,11 +3,12 @@ import { cx } from '../util.ts';
 import { useFormField } from './form-field.tsx';
 import * as styles from './form-label.styles.css.ts';
 
-export type FormLabelProps = ComponentProps<'label'>;
+export type FormLabelProps = ComponentProps<'label'> & {
+  required?: boolean;
+};
 
-// TODO required 속성 지원 필요
 export const FormLabel = (props: FormLabelProps) => {
-  const { children, className, ...restProps } = props;
+  const { children, className, required, ...restProps } = props;
 
   const { formItemId } = useFormField();
   return (
@@ -17,6 +18,7 @@ export const FormLabel = (props: FormLabelProps) => {
       className={cx(styles.formLabelBase, className)}
     >
       {children}
+      {required && <span className={styles.requiredIcon}>*</span>}
     </label>
   );
 };
