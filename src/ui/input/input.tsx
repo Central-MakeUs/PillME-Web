@@ -2,7 +2,7 @@ import { ComponentProps } from 'react';
 import { cx } from '../util.ts';
 import * as styles from './input.styles.css.ts';
 
-type InputProps = ComponentProps<'input'> & styles.InputVariants;
+export type InputProps = ComponentProps<'input'> & styles.InputVariants;
 
 export const Input = (props: InputProps) => {
   const { className, variant, ...restProps } = props;
