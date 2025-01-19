@@ -66,5 +66,15 @@ export { default as Trash } from './icon/name=trash.svg?react';
 export { default as Up } from './icon/name=up.svg?react';
 export { default as WarningCir } from './icon/name=warning_cir.svg?react';
 
+// nav bottom
+export { default as MyHome } from './nav/home.svg?react';
+export { default as MyPill } from './nav/mypill.svg?react';
+export { default as Chat } from './nav/chat.svg?react';
+export { default as MyPage } from './nav/mypage.svg?react';
+export { default as MyHomeActive } from './nav/home_active.svg?react';
+export { default as MyPillActive } from './nav/pill_active.svg?react';
+export { default as ChatActive } from './nav/chat_active.svg?react';
+export { default as MyPageActive } from './nav/mypage_active.svg?react';
+
 // Pillme 로고
 export { default as Logo } from './svg/img_logo.svg?react';
