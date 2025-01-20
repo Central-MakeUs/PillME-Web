@@ -3,6 +3,19 @@ import { RecipeVariants, recipe } from '@vanilla-extract/recipes';
 import { globalVars } from '../theme.css.ts';
 import { typography } from '../typography.css.ts';
 
+export const overlay = style({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100vw',
+  height: '100vh',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 1000,
+});
+
 export const dialog = style({
   backgroundColor: globalVars.color.white,
   borderRadius: '6px',
@@ -14,6 +27,11 @@ export const dialog = style({
   maxWidth: '324px',
   textAlign: 'center',
   boxSizing: 'border-box',
+  position: 'fixed',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  zIndex: 1100,
 });
 
 export const textContainer = style({

@@ -4,29 +4,30 @@ import * as styles from './dialog.css.ts';
 export type DialogAction = 'single' | 'danger' | 'default';
 
 export interface DialogProps {
+  trigger: React.ReactNode;
   title: string;
   description: string;
   action: DialogAction;
   leftButtonText?: string;
   rightButtonText?: string;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
   onConfirm?: () => void;
 }
 
 export const Dialog = ({
+  trigger,
   title,
   description,
   action,
   leftButtonText = '취소',
   rightButtonText = '확인',
-  open,
-  onOpenChange,
   onConfirm,
 }: DialogProps) => {
   return (
-    <RadixDialog.Root open={open} onOpenChange={onOpenChange}>
+    <RadixDialog.Root>
+      <RadixDialog.Trigger asChild>{trigger}</RadixDialog.Trigger>
+
       <RadixDialog.Portal>
+        <RadixDialog.Overlay className={styles.overlay} />
         <RadixDialog.Content className={styles.dialog}>
           <div className={styles.textContainer}>
             <RadixDialog.Title className={styles.title}>
