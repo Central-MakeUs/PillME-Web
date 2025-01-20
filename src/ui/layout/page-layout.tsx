@@ -9,11 +9,9 @@ export const PageLayout = (props: PropsWithChildren<LayoutProps>) => {
   const { header, children } = props;
 
   return (
-    <div className={styles.pageLayoutContainer}>
-      <div className={styles.pageLayoutContent}>
-        {header}
-        {children}
-      </div>
-    </div>
+    <>
+      {header}
+      <div className={styles.pageLayoutContent}>{children}</div>
+    </>
   );
 };

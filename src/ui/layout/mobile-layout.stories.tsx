@@ -15,14 +15,26 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
   render: (args) => <MobileLayout {...args}>hello</MobileLayout>,
 };
 
 export const WithHeader: Story = {
   render: (args) => (
     <MobileLayout {...args}>
-      <PageLayout header={<div>헤더</div>}>hello </PageLayout>{' '}
+      <PageLayout
+        header={
+          <div
+            style={{
+              backgroundColor: 'orange',
+            }}
+          >
+            헤더
+          </div>
+        }
+      >
+        hello{' '}
+      </PageLayout>{' '}
     </MobileLayout>
   ),
 };
@@ -34,8 +46,6 @@ export const WithBottomNavigation: Story = {
         header={
           <div
             style={{
-              position: 'sticky',
-              top: 0,
               backgroundColor: 'orange',
             }}
           >
