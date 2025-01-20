@@ -3,7 +3,11 @@ import { globalVars } from '../theme.css.ts';
 import { typography } from './../typography.css.ts';
 
 export const bottomNav = style({
+  position: 'fixed',
+  bottom: 0,
+  left: 0,
   width: '375px',
+  maxWidth: '100%',
   height: '84px',
   display: 'flex',
   justifyContent: 'center',
@@ -17,7 +21,6 @@ export const menuItem = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'flex-start',
   cursor: 'pointer',
   transition: 'color 0.2s ease-in-out',
   width: '50px',
