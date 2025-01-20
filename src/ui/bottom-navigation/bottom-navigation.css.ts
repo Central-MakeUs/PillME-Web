@@ -5,9 +5,10 @@ import { typography } from './../typography.css.ts';
 export const bottomNav = style({
   position: 'fixed',
   bottom: 0,
-  left: 0,
-  width: '375px',
-  maxWidth: '100%',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  width: '100%',
+  maxWidth: 440,
   height: '84px',
   display: 'flex',
   justifyContent: 'center',
