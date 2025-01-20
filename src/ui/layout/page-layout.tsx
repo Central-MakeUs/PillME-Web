@@ -1,4 +1,5 @@
 import { PropsWithChildren, ReactNode } from 'react';
+import * as styles from './page-layout.styles.css.ts';
 
 export type LayoutProps = {
   header?: ReactNode;
@@ -8,13 +9,8 @@ export const PageLayout = (props: PropsWithChildren<LayoutProps>) => {
   const { header, children } = props;
 
   return (
-    <div
-      style={{
-        height: 'calc(100dvh - 84px)',
-        overflow: 'auto',
-      }}
-    >
-      <div style={{ minHeight: '100%' }}>
+    <div className={styles.pageLayoutContainer}>
+      <div className={styles.pageLayoutContent}>
         {header}
         {children}
       </div>
