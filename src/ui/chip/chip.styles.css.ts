@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 import { type RecipeVariants, recipe } from '@vanilla-extract/recipes';
-import { typography } from '../typography.css.ts';
-import { globalVars } from './../theme.css.ts';
+import { typography } from '../typography.css';
+import { globalVars } from './../theme.css';
 
 const base = style([
   {

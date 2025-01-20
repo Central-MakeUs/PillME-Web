@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { BottomNavigation } from '../bottom-navigation/index.ts';
-import { MobileLayout } from './mobile-layout.tsx';
-import { PageLayout } from './page-layout.tsx';
+import { BottomNavigation } from '../bottom-navigation';
+import { MobileLayout } from './mobile-layout';
+import { PageLayout } from './page-layout';
 
 const meta: Meta = {
   title: 'ui/MobileLayout',

@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from 'react';
-import * as styles from './page-layout.styles.css.ts';
+import * as styles from './page-layout.styles.css';
 
 export type LayoutProps = {
   header?: ReactNode;

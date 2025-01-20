@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ArrowLeft, Cart, Logo } from '../../assets/index.ts';
-import { AppBar } from './app-bar.tsx';
+import { ArrowLeft, Cart, Logo } from '../../assets';
+import { AppBar } from './app-bar';
 
 const meta: Meta<typeof AppBar> = {
   title: 'ui/AppBar',

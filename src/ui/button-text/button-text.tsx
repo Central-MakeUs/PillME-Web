@@ -1,7 +1,7 @@
 import { ComponentProps } from 'react';
-import { ArrowRightr } from '../../assets/index.ts';
-import { cx } from '../util.ts';
-import * as styles from './button-text.css.ts';
+import { ArrowRightr } from '../../assets';
+import { cx } from '../util';
+import * as styles from './button-text.css';
 
 export type ButtonTextProps = ComponentProps<'span'> & {
   icon?: boolean;

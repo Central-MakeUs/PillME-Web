@@ -1,1 +1,1 @@
-export { ButtonText, type ButtonTextProps } from './button-text.tsx';
+export { ButtonText, type ButtonTextProps } from './button-text';

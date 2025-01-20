@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Dialog } from './dialog.tsx';
+import { Dialog } from './dialog';
 
 const meta: Meta<typeof Dialog> = {
   title: 'ui/Dialog',

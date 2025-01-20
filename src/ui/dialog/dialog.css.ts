@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 import { RecipeVariants, recipe } from '@vanilla-extract/recipes';
-import { globalVars } from '../theme.css.ts';
-import { typography } from '../typography.css.ts';
+import { globalVars } from '../theme.css';
+import { typography } from '../typography.css';
 
 export const overlay = style({
   position: 'fixed',

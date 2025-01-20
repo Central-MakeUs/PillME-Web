@@ -1,5 +1,5 @@
 import * as RadixSwitch from '@radix-ui/react-switch';
-import * as styles from './switch.styles.css.ts';
+import * as styles from './switch.styles.css';
 
 export type SwitchProps = Omit<
   RadixSwitch.SwitchProps,

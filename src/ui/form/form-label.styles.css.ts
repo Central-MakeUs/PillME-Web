@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
-import { globalVars } from '../theme.css.ts';
-import { typography } from '../typography.css.ts';
+import { globalVars } from '../theme.css';
+import { typography } from '../typography.css';
 
 export const formLabelBase = style([
   typography('body_2_14_sb'),

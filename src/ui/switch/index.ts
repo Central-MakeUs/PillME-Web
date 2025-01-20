@@ -1,1 +1,1 @@
-export { Switch, type SwitchProps } from './switch.tsx';
+export { Switch, type SwitchProps } from './switch';

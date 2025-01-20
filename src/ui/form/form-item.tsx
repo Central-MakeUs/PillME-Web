@@ -1,7 +1,7 @@
 import { type ComponentProps, useId } from 'react';
-import { cx } from '../util.ts';
-import { FormItemContext } from './form-field.tsx';
-import * as styles from './form-item.styles.css.ts';
+import { cx } from '../util';
+import { FormItemContext } from './form-field';
+import * as styles from './form-item.styles.css';
 
 export type FormItemProps = ComponentProps<'div'>;
 

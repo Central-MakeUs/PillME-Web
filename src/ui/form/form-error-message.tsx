@@ -1,8 +1,8 @@
 import { type ComponentProps } from 'react';
-import { ErrorCir } from '../../assets/index.ts';
-import { cx } from '../util.ts';
-import * as styles from './form-error-message.styles.css.ts';
-import { useFormField } from './form-field.tsx';
+import { ErrorCir } from '../../assets/index';
+import { cx } from '../util';
+import * as styles from './form-error-message.styles.css';
+import { useFormField } from './form-field';
 
 export type FormErrorMessageProps = ComponentProps<'p'>;
 

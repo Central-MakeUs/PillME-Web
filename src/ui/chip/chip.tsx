@@ -1,8 +1,8 @@
 import { ComponentProps, PropsWithChildren } from 'react';
-import { globalVars } from '../theme.css.ts';
-import { cx } from '../util.ts';
-import * as styles from './chip.styles.css.ts';
-import { DeleteIcon } from './delete-icon.tsx';
+import { globalVars } from '../theme.css';
+import { cx } from '../util';
+import * as styles from './chip.styles.css';
+import { DeleteIcon } from './delete-icon';
 
 export type ChipProps = ComponentProps<'div'> & styles.ChipVariants;
 

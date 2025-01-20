@@ -1,7 +1,7 @@
 import { ComponentProps, PropsWithChildren, ReactNode } from 'react';
-import { cx } from '../util.ts';
-import { AppBarElement } from './app-bar-element.tsx';
-import * as styles from './app-bar.styles.css.ts';
+import { cx } from '../util';
+import { AppBarElement } from './app-bar-element';
+import * as styles from './app-bar.styles.css';
 
 export type AppBarProps = ComponentProps<'div'> & {
   left?: ReactNode;

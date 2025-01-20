@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { color } from '../color.css.ts';
+import { color } from '../color.css';
 
 export const mobileLayoutWrapper = style({
   display: 'flex',

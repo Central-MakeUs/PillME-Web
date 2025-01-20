@@ -1,9 +1,6 @@
-export {
-  type InputContainerProps,
-  InputContainer,
-} from './input-container.tsx';
-export { Input, type InputProps } from './input.tsx';
+export { type InputContainerProps, InputContainer } from './input-container';
+export { Input, type InputProps } from './input';
 export {
   InputRightElement,
   type InputRightElementProps,
-} from './input-element.tsx';
+} from './input-element';
