@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Dialog, DialogAction } from './dialog.tsx';
+import { Dialog } from './dialog.tsx';
 
 const meta: Meta<typeof Dialog> = {
   title: 'ui/Dialog',
@@ -9,103 +8,75 @@ const meta: Meta<typeof Dialog> = {
     layout: 'centered',
   },
   argTypes: {
+    title: { control: 'text' },
+    description: { control: 'text' },
     action: {
-      control: 'select',
+      control: 'radio',
       options: ['single', 'danger', 'default'],
     },
-    open: {
-      control: 'boolean',
-    },
+    leftButtonText: { control: 'text' },
+    rightButtonText: { control: 'text' },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof Dialog>;
+  decorators: [
+    (Story) => (
+      <div>
+        <style>
+          {`
+            .open-dialog-button {
+              background-color: #4f46e5;
+              color: white;
+              padding: 10px 16px;
+              border-radius: 8px;
+              font-size: 14px;
+              font-weight: bold;
+              border: none;
+              cursor: pointer;
+              transition: background-color 0.2s;
+            }
+
+          `}
+        </style>
+        <Story />
+      </div>
+    ),
+  ],
+};
 
 export default meta;
-type Story = StoryObj<typeof Dialog>;
+type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const DefaultDialog: Story = {
   args: {
-    title: '타이틀자리입니다',
+    trigger: <button className="open-dialog-button">성분 분석</button>,
+    title: '타이틀 자리입니다.',
     description: '제품을 삭제할 시 복용 약 성분 분석에 반영돼요.',
     action: 'default',
     leftButtonText: 'button',
     rightButtonText: 'button',
-    open: true,
+    onConfirm: () => alert('dialog'),
   },
-  render: (args) => <Dialog {...args} onOpenChange={() => {}} />,
 };
 
-export const Danger: Story = {
+export const DangerDialog: Story = {
   args: {
-    title: '타이틀자리입니다',
+    trigger: <button className="open-dialog-button danger">성분 분석</button>,
+    title: '타이틀 자리입니다.',
     description: '제품을 삭제할 시 복용 약 성분 분석에 반영돼요.',
     action: 'danger',
     leftButtonText: 'button',
     rightButtonText: 'button',
-    open: true,
+    onConfirm: () => alert('dialog'),
   },
-  render: (args) => <Dialog {...args} onOpenChange={() => {}} />,
 };
 
-export const Single: Story = {
+export const SingleButtonDialog: Story = {
   args: {
-    title: '타이틀자리입니다',
+    trigger: <button className="open-dialog-button">성분 분석</button>,
+    title: '타이틀 자리입니다.',
     description: '제품을 삭제할 시 복용 약 성분 분석에 반영돼요.',
     action: 'single',
     rightButtonText: 'button',
-    open: true,
+    onConfirm: () => alert('dialog'),
   },
-  render: (args) => <Dialog {...args} onOpenChange={() => {}} />,
-};
-
-const WithStateDialog = () => {
-  const [open, setOpen] = useState(false);
-  const [action, setAction] = useState<DialogAction>('default');
-
-  return (
-    <div>
-      <button
-        onClick={() => {
-          setAction('default');
-          setOpen(true);
-        }}
-      >
-        Default Dialog
-      </button>
-      <button
-        onClick={() => {
-          setAction('danger');
-          setOpen(true);
-        }}
-      >
-        Danger Dialog
-      </button>
-      <button
-        onClick={() => {
-          setAction('single');
-          setOpen(true);
-        }}
-      >
-        Single Dialog
-      </button>
-
-      <Dialog
-        title="타이틀자리입니다"
-        description="제품을 삭제할 시 복용 약 성분 분석에 반영돼요."
-        action={action}
-        leftButtonText="button"
-        rightButtonText="button"
-        open={open}
-        onOpenChange={setOpen}
-        onConfirm={() => {
-          alert('확인 버튼 클릭됨!');
-          setOpen(false);
-        }}
-      />
-    </div>
-  );
-};
-
-export const WithState: Story = {
-  render: () => <WithStateDialog />,
 };
