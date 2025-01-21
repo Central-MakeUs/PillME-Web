@@ -1,6 +1,6 @@
 import { ComponentProps } from 'react';
-import { cx } from '../util.ts';
-import * as styles from './input-element.styles.css.ts';
+import { cx } from '../util';
+import * as styles from './input-element.styles.css';
 
 type InputElementProps = ComponentProps<'div'>;
 

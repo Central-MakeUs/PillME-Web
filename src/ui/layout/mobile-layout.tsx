@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react';
-import * as styles from './mobile-layout.styles.css.ts';
+import * as styles from './mobile-layout.styles.css';
 
 type MobileLayoutProps = ComponentProps<'div'>;
 

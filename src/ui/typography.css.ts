@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { globalVars } from './theme.css.ts';
+import { globalVars } from './theme.css';
 
 // ex:
 // style.css.ts

@@ -1,8 +1,8 @@
 import { style } from '@vanilla-extract/css';
 import { type RecipeVariants, recipe } from '@vanilla-extract/recipes';
-import { typography } from '../typography.css.ts';
-import { globalVars } from './../theme.css.ts';
-import { inputElement } from './input-element.styles.css.ts';
+import { typography } from '../typography.css';
+import { globalVars } from './../theme.css';
+import { inputElement } from './input-element.styles.css';
 
 export const inputWithElement = style({
   selectors: {

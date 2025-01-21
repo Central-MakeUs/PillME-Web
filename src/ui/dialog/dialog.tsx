@@ -1,5 +1,5 @@
 import * as RadixDialog from '@radix-ui/react-dialog';
-import * as styles from './dialog.css.ts';
+import * as styles from './dialog.css';
 
 export type DialogAction = 'single' | 'danger' | 'default';
 

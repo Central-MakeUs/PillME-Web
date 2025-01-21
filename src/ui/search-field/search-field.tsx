@@ -1,7 +1,7 @@
 import { ComponentProps } from 'react';
-import { DeleteCir, Search } from '../../assets/index.ts';
-import { cx } from '../util.ts';
-import * as styles from './search-field.styles.css.ts';
+import { DeleteCir, Search } from '../../assets';
+import { cx } from '../util';
+import * as styles from './search-field.styles.css';
 
 export type SearchFieldProps = ComponentProps<'input'> &
   styles.SearchFieldVariants &

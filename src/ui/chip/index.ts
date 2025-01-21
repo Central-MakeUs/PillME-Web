@@ -1,1 +1,1 @@
-export { Chip, type ChipProps } from './chip.tsx';
+export { Chip, type ChipProps } from './chip';

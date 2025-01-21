@@ -1,15 +1,10 @@
-export {
-  Form,
-  FormField,
-  FormItemContext,
-  useFormField,
-} from './form-field.tsx';
+export { Form, FormField, FormItemContext, useFormField } from './form-field';
 
-export { FormLabel, type FormLabelProps } from './form-label.tsx';
+export { FormLabel, type FormLabelProps } from './form-label';
 
 export {
   FormErrorMessage,
   type FormErrorMessageProps,
-} from './form-error-message.tsx';
+} from './form-error-message';
 
-export { FormItem, type FormItemProps } from './form-item.tsx';
+export { FormItem, type FormItemProps } from './form-item';

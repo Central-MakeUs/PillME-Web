@@ -1,7 +1,7 @@
 import { ComponentProps, PropsWithChildren } from 'react';
-import { ArrowRightr, Plus } from '../../assets/index.ts';
-import { cx } from '../util.ts';
-import * as styles from './button.styles.css.ts';
+import { ArrowRightr, Plus } from '../../assets';
+import { cx } from '../util';
+import * as styles from './button.styles.css';
 
 export type ButtonProps = ComponentProps<'button'> & styles.ButtonVariants;
 

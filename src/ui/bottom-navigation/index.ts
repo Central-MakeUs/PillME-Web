@@ -1,1 +1,1 @@
-export { BottomNavigation } from './bottom-navigation.tsx';
+export { BottomNavigation } from './bottom-navigation';

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DeleteCir } from '../../assets/index.ts';
-import { InputContainer } from './input-container.tsx';
-import { InputRightElement } from './input-element.tsx';
-import { Input } from './input.tsx';
+import { DeleteCir } from '../../assets/index';
+import { Input } from './input';
+import { InputContainer } from './input-container';
+import { InputRightElement } from './input-element';
 
 const meta: Meta<typeof Input> = {
   title: 'ui/Input',

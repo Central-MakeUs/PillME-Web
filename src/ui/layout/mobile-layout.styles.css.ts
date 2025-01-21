@@ -1,11 +1,11 @@
 import { style } from '@vanilla-extract/css';
-import { color } from '../color.css.ts';
+import { color } from '../color.css';
 
 export const mobileLayoutWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  minHeight: '100vh',
+  height: '100dvh',
   minWidth: 'max-content',
   backgroundColor: color('grey200'),
 });
@@ -15,6 +15,6 @@ export const mobileLayoutInner = style({
   flexDirection: 'column',
   width: '100%',
   maxWidth: 440,
-  minHeight: '100dvh',
+  height: '100dvh',
   backgroundColor: color('white'),
 });

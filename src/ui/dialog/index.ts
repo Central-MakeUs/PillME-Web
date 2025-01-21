@@ -1,1 +1,1 @@
-export { Dialog, type DialogProps } from './dialog.tsx';
+export { Dialog, type DialogProps } from './dialog';

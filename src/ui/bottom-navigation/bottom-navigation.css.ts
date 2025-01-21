@@ -1,12 +1,8 @@
 import { style } from '@vanilla-extract/css';
-import { globalVars } from '../theme.css.ts';
-import { typography } from './../typography.css.ts';
+import { globalVars } from '../theme.css';
+import { typography } from './../typography.css';
 
 export const bottomNav = style({
-  position: 'fixed',
-  bottom: 0,
-  left: '50%',
-  transform: 'translateX(-50%)',
   width: '100%',
   maxWidth: 440,
   height: '84px',

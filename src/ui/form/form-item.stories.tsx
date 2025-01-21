@@ -2,14 +2,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { DeleteCir } from '../../assets/index.ts';
-import { InputContainer } from '../input/input-container.tsx';
-import { InputRightElement } from '../input/input-element.tsx';
-import { Input } from '../input/input.tsx';
-import { FormErrorMessage } from './form-error-message.tsx';
-import { Form, FormField } from './form-field.tsx';
-import { FormItem } from './form-item.tsx';
-import { FormLabel } from './form-label.tsx';
+import { DeleteCir } from '../../assets/index';
+import { Input } from '../input/input';
+import { InputContainer } from '../input/input-container';
+import { InputRightElement } from '../input/input-element';
+import { FormErrorMessage } from './form-error-message';
+import { Form, FormField } from './form-field';
+import { FormItem } from './form-item';
+import { FormLabel } from './form-label';
 
 const formSchema = z.object({
   username: z.string().min(2, {

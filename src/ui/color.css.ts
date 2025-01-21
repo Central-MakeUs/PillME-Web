@@ -1,4 +1,4 @@
-import { globalVars } from './theme.css.ts';
+import { globalVars } from './theme.css';
 
 type ColorCategories = {
   blue: [

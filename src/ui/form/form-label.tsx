@@ -1,7 +1,7 @@
 import { type ComponentProps } from 'react';
-import { cx } from '../util.ts';
-import { useFormField } from './form-field.tsx';
-import * as styles from './form-label.styles.css.ts';
+import { cx } from '../util';
+import { useFormField } from './form-field';
+import * as styles from './form-label.styles.css';
 
 export type FormLabelProps = ComponentProps<'label'> & {
   required?: boolean;

@@ -1,5 +1,5 @@
 import { RecipeVariants, recipe } from '@vanilla-extract/recipes';
-import { typography } from '../typography.css.ts';
+import { typography } from '../typography.css';
 
 export const appBar = recipe({
   base: {

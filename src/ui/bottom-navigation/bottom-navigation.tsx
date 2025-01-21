@@ -8,9 +8,9 @@ import {
   MyPageActive,
   MyPill,
   MyPillActive,
-} from '../../assets/index.ts';
-import { cx } from '../util.ts';
-import * as styles from './bottom-navigation.css.ts';
+} from '../../assets';
+import { cx } from '../util';
+import * as styles from './bottom-navigation.css';
 
 export type MenuItem = 'home' | 'pill' | 'consultation' | 'mypage';
 
