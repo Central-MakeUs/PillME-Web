@@ -1,3 +1,3 @@
 export const ConsultationCompletePage = () => {
-  return <></>;
+  return <>ConsultationCompletePage</>;
 };

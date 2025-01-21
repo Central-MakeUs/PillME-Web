@@ -1,3 +1,3 @@
 export const PillboxManagePage = () => {
-  return <></>;
+  return <>PillboxManagePage</>;
 };

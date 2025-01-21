@@ -1,3 +1,3 @@
 export const OnboardingPage = () => {
-  return <></>;
+  return <>OnboardingPage</>;
 };

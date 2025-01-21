@@ -1,3 +1,5 @@
+import { PageLayout } from '../../ui/layout/page-layout';
+
 export const LoginPage = () => {
-  return <></>;
+  return <PageLayout>LoginPage</PageLayout>;
 };
