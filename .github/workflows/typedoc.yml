@@ -29,14 +29,12 @@ jobs:
 
       - name: Move docs, storybook, and Jekyll config to output folder
         run: |
-          mkdir -p ./static
-          mv docs ./static/docs
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./static
+          publish_dir: ./docs
 
       - name: Comment PR with deployment URL
         if: github.event_name == 'pull_request'
