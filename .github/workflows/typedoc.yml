@@ -1,0 +1,48 @@
+name: 'typedoc'
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: pnpm-setup-node
+        uses: ./.github/actions/pnpm-setup-node
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build docs
+        run: pnpm run docs
+
+      - name: Move docs, storybook, and Jekyll config to output folder
+        run: |
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+
+      - name: Comment PR with deployment URL
+        if: github.event_name == 'pull_request'
+        uses: thollander/actions-comment-pull-request@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          message: |
+            📚 TypeDoc 문서가 배포되었습니다:
+            - 문서 링크: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          comment-tag: typedoc-deploy
