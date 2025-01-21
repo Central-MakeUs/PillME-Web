@@ -11,7 +11,7 @@ export const HomePage = () => {
           <Logo />
         </AppBar>
       }
-      layoutClassName={styles.home}
+      className={styles.home}
     >
       HomePage
     </PageLayout>

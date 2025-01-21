@@ -1,21 +1,18 @@
-import { PropsWithChildren, ReactNode } from 'react';
+import { ComponentProps, PropsWithChildren, ReactNode } from 'react';
 import { cx } from '../util';
 import * as styles from './page-layout.styles.css';
 
 export type LayoutProps = {
   header?: ReactNode;
-  layoutClassName?: string;
-};
+} & ComponentProps<'div'>;
 
 export const PageLayout = (props: PropsWithChildren<LayoutProps>) => {
-  const { header, children, layoutClassName } = props;
+  const { header, children, className } = props;
 
   return (
     <>
       {header}
-      <div className={cx(styles.pageLayoutContent, layoutClassName)}>
-        {children}
-      </div>
+      <div className={cx(styles.pageLayoutContent, className)}>{children}</div>
     </>
   );
 };
