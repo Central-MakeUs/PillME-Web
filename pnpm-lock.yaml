@@ -26,6 +26,9 @@ importers:
       '@tanstack/react-virtual':
         specifier: ^3.11.2
         version: 3.11.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@use-funnel/browser':
+        specifier: ^0.0.11
+        version: 0.0.11(react@18.3.1)
       '@vanilla-extract/css':
         specifier: ^1.17.0
         version: 1.17.0
@@ -1782,6 +1785,16 @@ packages:
   '@typescript-eslint/visitor-keys@8.19.0':
     resolution: {integrity: sha512-mCFtBbFBJDCNCWUl5y6sZSCHXw1DEFEk3c/M3nRK2a4XUB8StGFtmcEMizdjKuBzB6e/smJAAWYug3VrdLMr1w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@use-funnel/browser@0.0.11':
+    resolution: {integrity: sha512-n1ghjFCqy8rJKZHRdyv2g5uqgFJaDsAqRO8DwbrS9acDVboL4+U836boH0KJ4RNnhL4kwX60AmHQXefQHQnf3Q==}
+    peerDependencies:
+      react: '>=16.8'
+
+  '@use-funnel/core@0.0.9':
+    resolution: {integrity: sha512-OSjsIV92pKAA1BrIsVZIPZdLw25XwMfeMT8HY3xTbEvkOvJS4MVBDjsVvP74Bbq+COQTsSIfeLpo6++lMt+6Hw==}
+    peerDependencies:
+      react: '>=16.8'
 
   '@vanilla-extract/babel-plugin-debug-ids@1.2.0':
     resolution: {integrity: sha512-z5nx2QBnOhvmlmBKeRX5sPVLz437wV30u+GJL+Hzj1rGiJYVNvgIIlzUpRNjVQ0MgAgiQIqIUbqPnmMc6HmDlQ==}
@@ -6151,6 +6164,15 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.19.0
       eslint-visitor-keys: 4.2.0
+
+  '@use-funnel/browser@0.0.11(react@18.3.1)':
+    dependencies:
+      '@use-funnel/core': 0.0.9(react@18.3.1)
+      react: 18.3.1
+
+  '@use-funnel/core@0.0.9(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
 
   '@vanilla-extract/babel-plugin-debug-ids@1.2.0':
     dependencies:
