@@ -1,4 +1,4 @@
-import { KeyboardEventHandler } from 'react';
+import { KeyboardEventHandler, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { DeleteCir } from '@/assets';
 import { Button } from '@/ui/button';
@@ -15,6 +15,7 @@ export const BirthStepFunnel = (props: BirthStepFunnelProps) => {
   const { onNext } = props;
 
   const {
+    setFocus,
     getValues,
     trigger,
     control,
@@ -51,6 +52,10 @@ export const BirthStepFunnel = (props: BirthStepFunnelProps) => {
   };
 
   const disabled = birth.length === 0;
+
+  useEffect(() => {
+    setFocus('birth');
+  }, []);
 
   return (
     <>

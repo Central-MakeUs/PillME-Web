@@ -1,4 +1,4 @@
-import { KeyboardEventHandler } from 'react';
+import { KeyboardEventHandler, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { DeleteCir } from '@/assets';
 import { Button } from '@/ui/button';
@@ -14,6 +14,7 @@ export const NameStepFunnel = (props: NameStepFunnelProps) => {
   const { onNext } = props;
 
   const {
+    setFocus,
     getValues,
     trigger,
     control,
@@ -49,6 +50,10 @@ export const NameStepFunnel = (props: NameStepFunnelProps) => {
   };
 
   const disabled = name.length === 0;
+
+  useEffect(() => {
+    setFocus('name');
+  }, []);
 
   return (
     <>
