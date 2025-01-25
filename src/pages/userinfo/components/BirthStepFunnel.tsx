@@ -1,4 +1,5 @@
 import { KeyboardEventHandler, useEffect } from 'react';
+import { isPast, isValid, parse } from 'date-fns';
 import { useFormContext } from 'react-hook-form';
 import { DeleteCir } from '@/assets';
 import { Button } from '@/ui/button';
@@ -14,6 +15,7 @@ export const BirthStepFunnel = (props: BirthStepFunnelProps) => {
   const { onNext } = props;
 
   const {
+    setError,
     setFocus,
     getValues,
     trigger,
@@ -26,6 +28,8 @@ export const BirthStepFunnel = (props: BirthStepFunnelProps) => {
 
   const onClickNextButton = async () => {
     await trigger('birth');
+
+    checkDate(getValues('birth'));
 
     if (errors.birth) {
       return;
@@ -43,11 +47,41 @@ export const BirthStepFunnel = (props: BirthStepFunnelProps) => {
 
     await trigger('birth');
 
+    checkDate(getValues('birth'));
+
     if (errors.birth) {
       return;
     }
 
     onNext(birth);
+  };
+
+  const checkDate = (date: string) => {
+    if (!/^\d{4}\.\d{2}\.\d{2}$/.test(date)) {
+      setError('birth', {
+        type: 'inValidDate',
+        message: 'YYYY.MM.DD 형식으로 입력해주세요.',
+      });
+      return;
+    }
+
+    const parsedDate = parse(date, 'yyyy.MM.dd', new Date());
+
+    if (!isValid(parsedDate)) {
+      setError('birth', {
+        type: 'inValidDate',
+        message: '잘못된 날짜에요.',
+      });
+      return;
+    }
+
+    if (!isPast(parsedDate)) {
+      setError('birth', {
+        type: 'inValidDate',
+        message: '과거의 날짜만 입력할 수 있어요.',
+      });
+      return;
+    }
   };
 
   const disabled = birth.length === 0;

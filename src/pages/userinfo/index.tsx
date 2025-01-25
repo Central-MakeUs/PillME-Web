@@ -21,9 +21,8 @@ export const userInfoSchema = z.object({
       /^[가-힣a-zA-Z0-9]{1,10}$/,
       '띄어쓰기 없이 한글, 영문, 숫자 최대 10글자만 가능해요.',
     ),
-  //TODO birth 유효성 검사 추가 필요
-  birth: z.string().default(''),
-  gender: z.enum(['MALE', 'FEMALE', 'NONE']).default('NONE'),
+  birth: z.string(),
+  gender: z.enum(['MALE', 'FEMALE', 'NONE']),
 });
 
 export type UserInfoSchema = z.infer<typeof userInfoSchema>;
@@ -60,6 +59,7 @@ export const UserInfoPage = () => {
 
   const onSubmit: SubmitHandler<UserInfoSchema> = (data) => {
     console.log(data);
+    navigate('home');
   };
 
   const hasPrevStep = funnel.step !== 'NameStep';
