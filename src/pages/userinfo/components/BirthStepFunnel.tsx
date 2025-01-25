@@ -10,7 +10,6 @@ type BirthStepFunnelProps = {
   onNext: (birth: string) => void;
 };
 
-// TODO onChange시 yyyy.mm.dd 포맷으로 변경 필요
 export const BirthStepFunnel = (props: BirthStepFunnelProps) => {
   const { onNext } = props;
 
@@ -80,6 +79,10 @@ export const BirthStepFunnel = (props: BirthStepFunnelProps) => {
                     variant={errors.birth ? 'error' : 'default'}
                     onKeyDown={onEnterKey}
                     placeholder="YYYY.MM.DD"
+                    onChange={({ target: { value } }) => {
+                      const formattedDate = formatBirthDate(value);
+                      field.onChange(formattedDate);
+                    }}
                   />
                   {field.value && (
                     <InputRightElement>
@@ -117,4 +120,22 @@ export const BirthStepFunnel = (props: BirthStepFunnelProps) => {
       </Button>
     </>
   );
+};
+
+const formatBirthDate = (value: string) => {
+  const numbers = value.replace(/\D/g, '');
+
+  if (numbers.length > 8) {
+    return value.slice(0, -1);
+  }
+
+  if (numbers.length < value.length) {
+    return numbers;
+  }
+
+  const format =
+    numbers.length <= 6 ? /(\d{4})(\d{1,2})/ : /(\d{4})(\d{2})(\d{2})/;
+  const template = numbers.length <= 6 ? '$1.$2' : '$1.$2.$3';
+
+  return numbers.replace(format, template);
 };
