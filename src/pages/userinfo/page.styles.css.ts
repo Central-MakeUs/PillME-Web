@@ -52,3 +52,63 @@ export const formFieldGroup = style({
 export const button = style({
   margin: '0 auto',
 });
+
+export const dropdownTrigger = style({
+  position: 'relative',
+  borderRadius: 6,
+  border: `1px solid ${color('mainblue500')}`,
+  width: '100%',
+  padding: '13px 16px',
+  selectors: {
+    '&[data-state="open"]': {
+      marginBottom: 150,
+    },
+  },
+  transition: 'all 0.3s',
+});
+
+export const dropdownTriggerIcon = style({
+  top: 0,
+  right: 12,
+  position: 'absolute',
+  width: 24,
+  height: '100%',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+export const dropdownMenuContent = style({
+  width: 'calc(100dvw - 40px)',
+  '@media': {
+    'screen and (min-width: 440px)': {
+      width: 400,
+    },
+  },
+  backgroundColor: color('white'),
+  borderRadius: 12,
+  overflow: 'hidden',
+  border: '1px solid black',
+});
+
+export const dropdownMenuItem = style({
+  position: 'relative',
+  padding: '12px 16px 12px 32px',
+  color: color('black'),
+});
+
+export const dropdownMenuSeparator = style({
+  backgroundColor: 'rgba(128, 128, 128, 0.55)',
+  height: 1,
+});
+
+export const dropdownMenuItemIndicator = style({
+  top: 0,
+  left: 7,
+  position: 'absolute',
+  width: 24,
+  height: 44,
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
