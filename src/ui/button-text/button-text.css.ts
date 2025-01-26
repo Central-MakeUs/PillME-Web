@@ -9,6 +9,7 @@ export const buttonText = style([
     flexShrink: '0',
     alignItems: 'center',
     color: globalVars.color.grey600,
+    cursor: 'pointer',
   },
   typography('body_3_14_r'),
 ]);
