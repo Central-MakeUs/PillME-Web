@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useFormContext } from 'react-hook-form';
-import { ArrowDrop, Check } from '@/assets';
+import { ArrowDrop } from '@/assets';
 import { Button } from '@/ui/button';
 import { FormErrorMessage, FormField, FormItem, FormLabel } from '@/ui/form';
 import { Input, InputContainer } from '@/ui/input';
