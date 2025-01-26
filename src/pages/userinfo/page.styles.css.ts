@@ -61,10 +61,11 @@ export const dropdownTrigger = style({
   padding: '13px 16px',
   selectors: {
     '&[data-state="open"]': {
-      marginBottom: 150,
+      marginBottom: 100,
     },
   },
   transition: 'all 0.3s',
+  cursor: 'pointer',
 });
 
 export const dropdownTriggerIcon = style({
@@ -88,18 +89,14 @@ export const dropdownMenuContent = style({
   backgroundColor: color('white'),
   borderRadius: 12,
   overflow: 'hidden',
-  border: '1px solid black',
+  boxShadow: '0px 0px 32px 0px rgba(0, 0, 0, 0.2)',
 });
 
 export const dropdownMenuItem = style({
   position: 'relative',
   padding: '12px 16px 12px 32px',
   color: color('black'),
-});
-
-export const dropdownMenuSeparator = style({
-  backgroundColor: 'rgba(128, 128, 128, 0.55)',
-  height: 1,
+  cursor: 'pointer',
 });
 
 export const dropdownMenuItemIndicator = style({

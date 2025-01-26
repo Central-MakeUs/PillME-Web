@@ -5,6 +5,7 @@ import { ArrowDrop, Check } from '@/assets';
 import { Button } from '@/ui/button';
 import { FormErrorMessage, FormField, FormItem, FormLabel } from '@/ui/form';
 import { Input, InputContainer } from '@/ui/input';
+import { DropdownCheck } from '../assets/dropdown-check';
 import { UserInfoSchema } from '../index';
 import * as styles from '../page.styles.css';
 
@@ -45,6 +46,7 @@ export const GenderStepFunnel = () => {
                       </span>
                     </button>
                   </DropdownMenu.Trigger>
+                  <FormErrorMessage />
                 </FormItem>
 
                 <DropdownMenu.Portal>
@@ -65,11 +67,10 @@ export const GenderStepFunnel = () => {
                           <DropdownMenu.DropdownMenuItemIndicator
                             className={styles.dropdownMenuItemIndicator}
                           >
-                            <Check />
+                            <DropdownCheck />
                           </DropdownMenu.DropdownMenuItemIndicator>
                         )}
                       </DropdownMenu.RadioItem>
-                      <div className={styles.dropdownMenuSeparator} />
                       <DropdownMenu.RadioItem
                         className={styles.dropdownMenuItem}
                         value="MALE"
@@ -79,21 +80,7 @@ export const GenderStepFunnel = () => {
                           <DropdownMenu.DropdownMenuItemIndicator
                             className={styles.dropdownMenuItemIndicator}
                           >
-                            <Check />
-                          </DropdownMenu.DropdownMenuItemIndicator>
-                        )}
-                      </DropdownMenu.RadioItem>
-                      <div className={styles.dropdownMenuSeparator} />
-                      <DropdownMenu.RadioItem
-                        className={styles.dropdownMenuItem}
-                        value="NONE"
-                      >
-                        선택안함
-                        {field.value === 'NONE' && (
-                          <DropdownMenu.DropdownMenuItemIndicator
-                            className={styles.dropdownMenuItemIndicator}
-                          >
-                            <Check />
+                            <DropdownCheck />
                           </DropdownMenu.DropdownMenuItemIndicator>
                         )}
                       </DropdownMenu.RadioItem>
@@ -144,9 +131,9 @@ export const GenderStepFunnel = () => {
 
 const formatGenderValueToText = (value: UserInfoSchema['gender']) => {
   const genderValueMap = {
-    NONE: '선택안함',
     FEMALE: '여성',
     MALE: '남성',
+    NONE: '선택',
   };
 
   return genderValueMap[value];

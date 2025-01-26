@@ -59,7 +59,13 @@ export const UserInfoPage = () => {
 
   const onSubmit: SubmitHandler<UserInfoSchema> = (data) => {
     console.log(data);
-    navigate('home');
+
+    if (data.gender === 'NONE') {
+      form.setError('gender', { message: '성별을 입력해주세요' });
+      return;
+    }
+
+    navigate('/home', { replace: true });
   };
 
   const hasPrevStep = funnel.step !== 'NameStep';
