@@ -11,18 +11,13 @@ import { BirthStepFunnel } from './components/BirthStepFunnel';
 import { GenderStepFunnel } from './components/GenderStepFunnel';
 import { NameStepFunnel } from './components/NameStepFunnel';
 import * as styles from './page.styles.css';
+import { birth, gender, name } from './schema';
 import { UserInfoOptionalState, userInfoSteps } from './userInfoStepState';
 
 export const userInfoSchema = z.object({
-  name: z
-    .string()
-    .min(1, '이름을 입력해주세요.')
-    .regex(
-      /^[가-힣a-zA-Z0-9]{1,10}$/,
-      '띄어쓰기 없이 한글, 영문, 숫자 최대 10글자만 가능해요.',
-    ),
-  birth: z.string(),
-  gender: z.enum(['MALE', 'FEMALE', 'NONE']),
+  name,
+  birth,
+  gender,
 });
 
 export type UserInfoSchema = z.infer<typeof userInfoSchema>;
