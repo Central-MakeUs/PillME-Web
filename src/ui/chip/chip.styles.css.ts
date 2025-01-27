@@ -9,6 +9,8 @@ const base = style([
     border: '1px solid',
     width: 'fit-content',
     backgroundColor: color('white'),
+    display: 'flex',
+    alignItems: 'center',
   },
 ]);
 
