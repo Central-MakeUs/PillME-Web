@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -8,6 +7,7 @@ import * as styles from './styles.css';
 
 const loginSchema = z.object({
   email: z.string().email('이메일을 형식에 맞게 입력해주세요'),
+  password: z.string(),
 });
 
 type FormData = z.infer<typeof loginSchema>;
@@ -16,30 +16,45 @@ export const LoginSection = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    watch,
+    setValue,
+    trigger,
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(loginSchema),
     mode: 'onChange',
   });
-
-  const [password, setPassword] = useState('');
 
   const onSubmit = (data: FormData) => {
     console.log('로그인 정보:', data);
     alert('로그인 성공!');
   };
 
+  const emailValue = watch('email', '');
+  const passwordValue = watch('password', '');
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
       <div className={styles.inputTextField}>
         <label className={styles.label}>이메일</label>
-        <input
-          type="email"
-          placeholder="이메일 입력"
-          className={styles.input}
-          {...register('email')}
-        />
-        {errors.email && (
+        <div className={styles.passwordWrapper}>
+          <input
+            type="email"
+            placeholder="이메일 입력"
+            className={styles.input}
+            {...register('email')}
+          />
+          {emailValue.length > 0 && (
+            <DeleteCir
+              onClick={() => {
+                setValue('email', '');
+                trigger('email');
+              }}
+              className={styles.clearButton}
+            />
+          )}
+        </div>
+        {errors.email && emailValue.length > 0 && (
           <div className={styles.errorMessage}>
             <ErrorCir />
             {errors.email.message}
@@ -54,21 +69,26 @@ export const LoginSection = () => {
             type="password"
             placeholder="비밀번호 입력"
             className={styles.input}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...register('password')}
           />
-          {password.length > 0 && (
+          {passwordValue.length > 0 && (
             <DeleteCir
-              onClick={() => setPassword('')}
+              onClick={() => {
+                setValue('password', '');
+                trigger('password');
+              }}
               className={styles.clearButton}
             />
           )}
         </div>
       </div>
 
+      {/* ✅ 로그인 버튼 */}
       <Button
         variant="primary"
-        disabled={!isValid}
+        disabled={
+          !(emailValue.length > 0 && passwordValue.length > 0 && !errors.email)
+        }
         size="large"
         style={{ width: '100%' }}
       >

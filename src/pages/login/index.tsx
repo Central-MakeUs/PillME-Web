@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import { ArrowLeft } from '../../assets';
 import { AppBar } from '../../ui/app-bar';
 import { ButtonText } from '../../ui/button-text';
@@ -6,9 +7,10 @@ import { LoginSection } from './loginSection';
 import * as styles from './styles.css';
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout>
-      <AppBar left={<ArrowLeft />} variant="page"></AppBar>
+    <PageLayout header={<AppBar left={<ArrowLeft />} variant="page" />}>
       <div className={styles.container}>
         <div className={styles.title}>
           이메일과 비밀번호를
@@ -18,7 +20,9 @@ export const LoginPage = () => {
         <LoginSection />
 
         <div className={styles.buttonText}>
-          <ButtonText>회원가입</ButtonText>
+          <ButtonText onClick={() => navigate('/register')}>
+            회원가입
+          </ButtonText>
           <div>|</div>
           <ButtonText>계정찾기</ButtonText>
         </div>
