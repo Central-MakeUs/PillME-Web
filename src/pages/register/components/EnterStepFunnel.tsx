@@ -13,7 +13,6 @@ export const EnterStepFunnel = (props: EnterStepProps) => {
 
   const {
     setFocus,
-    setValue,
     reset,
     trigger,
     watch,
@@ -55,7 +54,7 @@ export const EnterStepFunnel = (props: EnterStepProps) => {
 
   useEffect(() => {
     setFocus('email');
-  }, []);
+  }, [setFocus]);
 
   return (
     <>

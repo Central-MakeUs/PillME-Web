@@ -27,7 +27,7 @@ export const VerificationStepFunnel = (props: VerificationStepProps) => {
 
   useEffect(() => {
     setFocus('code');
-  }, []);
+  }, [setFocus]);
 
   const handleOtpChange = (value: string) => {
     setValue('code', value);

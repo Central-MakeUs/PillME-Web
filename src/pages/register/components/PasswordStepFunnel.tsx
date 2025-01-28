@@ -31,7 +31,7 @@ export const PasswordStepFunnel = () => {
 
   useEffect(() => {
     setFocus('password');
-  }, []);
+  }, [setFocus]);
 
   const disabled = !!errors.password || !!errors.confirmPassword;
 
