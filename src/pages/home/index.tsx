@@ -65,8 +65,9 @@ export const HomePage = () => {
         <div className={styles.bottomSheetHealthCategoryContainer}>
           {/* TODO 추후 캐러셀 추가 */}
           <section className={styles.recommendCategoryContainer}>
-            {/* TODO 타이포 스타일 추가 필요 */}
-            <h4>추천 건강 고민 카테고리</h4>
+            <h4 className={styles.recommendCategoryTitle}>
+              추천 건강 고민 카테고리
+            </h4>
             <div className={styles.recommendCategoryGallery}>
               {RECOMMEND_CATEGORY_LIST.map(({ icon, name }) => (
                 <RecommendCategory key={name} Icon={icon} name={name} />

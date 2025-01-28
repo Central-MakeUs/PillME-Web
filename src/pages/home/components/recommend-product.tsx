@@ -16,11 +16,10 @@ export const RecommendProductGallery = (
 
   return (
     <section className={styles.container}>
-      {/* TODO 타이포 스타일 추가 필요 */}
       <header className={styles.header}>
-        <p>{description}</p>
+        <p className={styles.description}>{description}</p>
         <div className={styles.headerTitleContainer}>
-          <h4>{title}</h4>
+          <h4 className={styles.title}>{title}</h4>
           <ButtonText icon>더보기</ButtonText>
         </div>
       </header>

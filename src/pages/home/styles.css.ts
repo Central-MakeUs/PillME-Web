@@ -79,6 +79,14 @@ export const recommendCategoryContainer = style({
   gap: 14,
 });
 
+export const recommendCategoryTitle = style([
+  typography('head_1_18_sb'),
+  {
+    color: color('grey800'),
+    padding: '5px 0',
+  },
+]);
+
 export const recommendCategoryGallery = style({
   display: 'grid',
   gridTemplateColumns: 'repeat(4, 1fr)',

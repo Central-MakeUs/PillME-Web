@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { color, typography } from '../../../ui';
 
 export const container = style({
   display: 'flex',
@@ -35,3 +36,17 @@ export const gallery = style({
     display: 'none',
   },
 });
+
+export const description = style([
+  typography('body_3_14_r'),
+  {
+    color: color('grey600'),
+  },
+]);
+
+export const title = style([
+  typography('title_2_20_b'),
+  {
+    color: color('grey800'),
+  },
+]);
