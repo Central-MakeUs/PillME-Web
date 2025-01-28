@@ -14,6 +14,7 @@ export const EnterStepFunnel = (props: EnterStepProps) => {
   const {
     setFocus,
     setValue,
+    reset,
     trigger,
     watch,
     control,
@@ -50,7 +51,7 @@ export const EnterStepFunnel = (props: EnterStepProps) => {
     onNext(email);
   };
 
-  const disabled = email.trim().length > 0 && !errors.email;
+  const disabled = email.trim().length === 0 || !!errors.email;
 
   useEffect(() => {
     setFocus('email');
@@ -83,8 +84,7 @@ export const EnterStepFunnel = (props: EnterStepProps) => {
                   <InputRightElement>
                     <DeleteCir
                       onClick={() => {
-                        setValue('email', '');
-                        trigger('email');
+                        reset();
                       }}
                     />
                   </InputRightElement>
@@ -98,7 +98,7 @@ export const EnterStepFunnel = (props: EnterStepProps) => {
       <Button
         type="button"
         onClick={onClickNextButton}
-        disabled={!disabled}
+        disabled={disabled}
         className={styles.FullWidth}
       >
         전송 요청
