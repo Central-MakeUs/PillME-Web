@@ -11,7 +11,7 @@ export type Code = z.infer<typeof code>;
 
 export const password = z
   .string()
-  .min(8, '비밀번호는 최소 8자 이상 입력해주세요')
+  .min(1, { message: '비밀번호를 입력해주세요.' })
   .regex(
     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>?/`~-])/,
     '비밀번호는 영문, 숫자, 특수문자를 조합하여 입력해주세요.',
