@@ -4,7 +4,6 @@ import { typography } from '../typography.css';
 export const appBar = recipe({
   base: {
     position: 'relative',
-    height: 44,
     display: 'flex',
     alignItems: 'center',
     maxWidth: 440,
@@ -14,14 +13,14 @@ export const appBar = recipe({
       default: [
         typography('title_1_22_b'),
         {
-          padding: '0 10px 0 20px',
+          padding: '6px 10px 6px 20px',
         },
       ],
       page: [
         typography('head_1_18_sb'),
         {
           justifyContent: 'center',
-          padding: '0 10px 0 3px',
+          padding: '6px 10px 6px 3px',
         },
       ],
     },

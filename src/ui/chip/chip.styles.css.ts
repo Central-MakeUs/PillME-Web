@@ -1,14 +1,16 @@
 import { style } from '@vanilla-extract/css';
 import { type RecipeVariants, recipe } from '@vanilla-extract/recipes';
+import { color } from '../color.css';
 import { typography } from '../typography.css';
 import { globalVars } from './../theme.css';
 
 const base = style([
   {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     border: '1px solid',
+    width: 'fit-content',
+    backgroundColor: color('white'),
+    display: 'flex',
+    alignItems: 'center',
   },
 ]);
 

@@ -8,7 +8,7 @@ export type SwitchProps = Omit<
   left: string;
   right: string;
   value: string;
-  onValueChange: (value: string) => void;
+  onValueChange?: (value: string) => void;
 };
 
 export const Switch = ({
@@ -21,7 +21,7 @@ export const Switch = ({
   const isChecked = value === right;
 
   const handleCheckedChange = (checked: boolean) => {
-    onValueChange(checked ? right : left);
+    onValueChange?.(checked ? right : left);
   };
 
   return (

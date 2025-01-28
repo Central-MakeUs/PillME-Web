@@ -48,6 +48,7 @@ export const searchFieldContainer = style({
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
+  width: '100%',
 });
 
 export const SearchFieldLeftElement = style({
