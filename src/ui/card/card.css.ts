@@ -1,4 +1,6 @@
 import { style } from '@vanilla-extract/css';
+import { color } from '../color.css';
+import { typography } from '../typography.css';
 
 export const container = style({
   flexShrink: 0,
@@ -26,18 +28,33 @@ export const image = style({
   height: 160,
 });
 
-export const company = style({
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-});
+export const company = style([
+  typography('body_5_12_r'),
+  {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    color: color('grey500'),
+  },
+]);
 
-export const productName = style({
-  display: '-webkit-box',
-  WebkitLineClamp: 2,
-  WebkitBoxOrient: 'vertical',
-  wordWrap: 'break-word',
-  wordBreak: 'keep-all',
-  overflow: 'hidden',
-  lineHeight: '1.2',
-});
+export const productName = style([
+  typography('body_3_14_r'),
+  {
+    display: '-webkit-inline-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    wordWrap: 'break-word',
+    wordBreak: 'keep-all',
+    whiteSpace: 'normal',
+    overflow: 'hidden',
+    color: color('black'),
+  },
+]);
+
+export const price = style([
+  typography('body_3_14_r'),
+  { color: color('black') },
+]);
+
+export const priceNumber = style([typography('head_2_16_sb')]);

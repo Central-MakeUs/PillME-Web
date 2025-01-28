@@ -7,7 +7,6 @@ export type CardProps = {
   price: number;
 };
 
-// TODO 세부 스타일 수정 필요 (글꼴)
 export const Card = (props: CardProps) => {
   const { imageUrl, company, name, price } = props;
 
@@ -19,7 +18,12 @@ export const Card = (props: CardProps) => {
           <p className={styles.company}>{company}</p>
           <p className={styles.productName}>{name}</p>
         </div>
-        <p>{Number(price).toLocaleString()}원</p>
+        <p className={styles.price}>
+          <span className={styles.priceNumber}>
+            {Number(price).toLocaleString()}
+          </span>
+          원
+        </p>
       </div>
     </div>
   );
