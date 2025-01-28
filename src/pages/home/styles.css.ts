@@ -91,39 +91,3 @@ export const recommendProductContainer = style({
   gap: 50,
   padding: '30px 20px 36px 20px',
 });
-
-export const recommendProductGalleryContainer = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 18,
-  overflow: 'hidden',
-});
-
-export const recommendProductGalleryHeader = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 2,
-  padding: '5px 0 8px 0',
-});
-
-export const recommendProductGalleryHeaderTitleContainer = style({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignContent: 'center',
-});
-
-export const recommendProductGallery = style({
-  display: 'flex',
-  gap: 18,
-  overflowX: 'auto',
-  width: 'calc(100dvw - 40px)',
-  '@media': {
-    'screen and (min-width: 440px)': {
-      width: 400,
-    },
-  },
-  whiteSpace: 'nowrap',
-  '::-webkit-scrollbar': {
-    display: 'none',
-  },
-});

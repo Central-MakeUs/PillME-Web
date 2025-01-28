@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { Cart, Logo } from '../../assets';
 import { AppBar } from '../../ui/app-bar';
 import { ButtonText } from '../../ui/button-text';
-import { Card } from '../../ui/card/card';
 import { Chip } from '../../ui/chip';
 import { PageLayout } from '../../ui/layout/page-layout';
 import { SearchField } from '../../ui/search-field';
 import { Spacer } from '../../ui/spacer/spacer';
 import { Switch } from '../../ui/switch';
 import { RecommendCategory } from './components/recommend-category';
-import { MOCK_PRODUCT_LIST } from './mock-product';
+import { RecommendProductGallery } from './components/recommend-product';
 import { RECOMMEND_CATEGORY_LIST } from './recommend-category';
 import * as styles from './styles.css';
 
@@ -66,7 +65,7 @@ export const HomePage = () => {
         <div className={styles.bottomSheetHealthCategoryContainer}>
           {/* TODO 추후 캐러셀 추가 */}
           <section className={styles.recommendCategoryContainer}>
-            {/* 스타일 추가 필요 */}
+            {/* TODO 타이포 스타일 추가 필요 */}
             <h4>추천 건강 고민 카테고리</h4>
             <div className={styles.recommendCategoryGallery}>
               {RECOMMEND_CATEGORY_LIST.map(({ icon, name }) => (
@@ -81,39 +80,15 @@ export const HomePage = () => {
         <div className={styles.separator} />
 
         <div className={styles.recommendProductContainer}>
-          <section className={styles.recommendProductGalleryContainer}>
-            {/* TODO 텍스트 스타일 추가 필요 */}
-            <header className={styles.recommendProductGalleryHeader}>
-              <p>약통에 많이 담기고 있어요!</p>
-              <div
-                className={styles.recommendProductGalleryHeaderTitleContainer}
-              >
-                <h4>인기 건강 기능 식품</h4>
-                <ButtonText icon>더보기</ButtonText>
-              </div>
-            </header>
-            <div className={styles.recommendProductGallery}>
-              {MOCK_PRODUCT_LIST.map((mockProduct) => (
-                <Card key={mockProduct.name} {...mockProduct} />
-              ))}
-            </div>
-          </section>
-          <section className={styles.recommendProductGalleryContainer}>
-            <header className={styles.recommendProductGalleryHeader}>
-              <p>20대 여성</p>
-              <div
-                className={styles.recommendProductGalleryHeaderTitleContainer}
-              >
-                <h4>추천 건강 식품</h4>
-                <ButtonText icon>더보기</ButtonText>
-              </div>
-            </header>
-            <div className={styles.recommendProductGallery}>
-              {MOCK_PRODUCT_LIST.map((mockProduct) => (
-                <Card key={mockProduct.name} {...mockProduct} />
-              ))}
-            </div>
-          </section>
+          {/* TODO 추후 배열로 렌더링할 예정 */}
+          <RecommendProductGallery
+            description="약통에 많이 담기고 있어요!"
+            title="인기 건강 기능 식품"
+          />
+          <RecommendProductGallery
+            description="20대 여성"
+            title="추천 건강 식품"
+          />
         </div>
       </div>
     </PageLayout>
