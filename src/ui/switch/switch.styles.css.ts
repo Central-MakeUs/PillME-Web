@@ -6,7 +6,6 @@ import { typography } from '../typography.css';
 export const switchRoot = style([
   typography('body_2_14_sb'),
   {
-    all: 'unset',
     position: 'relative',
     display: 'inline-flex',
     alignItems: 'center',
