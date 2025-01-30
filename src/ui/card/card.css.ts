@@ -7,7 +7,6 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   gap: 6,
-  width: 140,
 });
 
 export const textContainer = style({
@@ -24,7 +23,6 @@ export const header = style({
 });
 
 export const image = style({
-  width: 140,
   height: 160,
   borderRadius: 6,
 });
