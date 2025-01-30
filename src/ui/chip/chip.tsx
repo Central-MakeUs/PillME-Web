@@ -10,7 +10,14 @@ export const Chip = (props: PropsWithChildren<ChipProps>) => {
   const { className, state, shape, color, ...restProps } = props;
 
   const hasRightButton =
-    state === 'active' && shape === 'pill' && color === 'default';
+    shape === 'pill' &&
+    color === 'default' &&
+    (state === 'active' || state === 'default');
+
+  const deleteIconColor =
+    state === 'default'
+      ? globalVars.color.grey200
+      : globalVars.color.mainblue500;
 
   return (
     <div
@@ -26,7 +33,7 @@ export const Chip = (props: PropsWithChildren<ChipProps>) => {
       )}
     >
       {props.children}
-      {hasRightButton && <DeleteIcon color={globalVars.color.mainblue500} />}
+      {hasRightButton && <DeleteIcon color={deleteIconColor} />}
     </div>
   );
 };
