@@ -23,7 +23,7 @@ export const RecentKeyword = ({ list, handleDelete }: Props) => {
         <span className={styles.title}>최근 검색어</span>
         <ButtonText onClick={handleDelete}>전체삭제</ButtonText>
       </div>
-      <div className={styles.body}>{list.length > 0 && generateList}</div>
+      <div className={styles.body}>{generateList}</div>
     </div>
   );
 };

@@ -24,6 +24,6 @@ export const keywordItem = style({
   width: '156px',
 });
 
-export const rank = style([{}, typography('body_2_14_sb')]);
+export const rank = style([typography('body_2_14_sb')]);
 
-export const keyword = style([{}, typography('body_3_14_r')]);
+export const keyword = style([typography('body_3_14_r')]);

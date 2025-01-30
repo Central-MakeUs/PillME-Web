@@ -18,7 +18,7 @@ export const SearchPage = () => {
   const navigate = useNavigate();
 
   const { searchType } = useParams();
-  const [searchMode, setSearchMode] = useState<string>(() =>
+  const [searchMode, setSearchMode] = useState<string>(
     searchType === 'ai' ? '증상 AI 검색' : '제품 검색',
   );
 
@@ -37,7 +37,7 @@ export const SearchPage = () => {
 
     const newList = [
       newKeyword,
-      ...searchList.filter((value, _) => value !== newKeyword),
+      ...searchList.filter((value) => value !== newKeyword),
     ];
     return newList.slice(0, MAX_LIST_COUNT);
   };
