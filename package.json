@@ -34,6 +34,7 @@
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.5.2",
     "ky": "^1.7.4",
+    "motion": "^12.0.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-error-boundary": "^5.0.0",
