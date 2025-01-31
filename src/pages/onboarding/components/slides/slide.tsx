@@ -1,4 +1,4 @@
-import * as styles from './second.css';
+import * as styles from './slide.css';
 
 type SlideProps = {
   title: string;

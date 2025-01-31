@@ -22,13 +22,14 @@ export const header = style({
   gap: 10,
 });
 
-//TODO 타이포 변경 필요
-export const title = style([
-  typography('title_1_22_b'),
-  {
-    color: color('blue900'),
-  },
-]);
+export const title = style({
+  color: color('blue900'),
+  fontFamily: 'Pretendard',
+  fontWeight: 'bold',
+  fontSize: 26,
+  lineHeight: 1.36,
+  letterSpacing: '-0.03em',
+});
 
 export const description = style([
   typography('head_3_16_r'),
