@@ -1,10 +1,15 @@
-import { KeyboardEventHandler, useEffect } from 'react';
+import { ChangeEvent, KeyboardEventHandler, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { DeleteCir } from '@/assets';
+import { DeleteCir, DeleteLarge } from '@/assets';
+import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
 import { Button } from '@/ui/button';
 import { FormErrorMessage, FormField, FormItem, FormLabel } from '@/ui/form';
 import { Input, InputContainer, InputRightElement } from '@/ui/input';
+import { Spacer } from '@/ui/spacer/spacer';
+import { AGREEMENT_LIST } from '../agreement';
+import * as agreementStyles from '../agreementBottomSheet.css';
 import * as styles from '../page.styles.css';
+import { AgreeMent } from './AgreeMent';
 
 export const PasswordStepFunnel = () => {
   const {
@@ -29,11 +34,40 @@ export const PasswordStepFunnel = () => {
     }
   };
 
+  const disabled = !!errors.password || !!errors.confirmPassword;
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [agreementList, setAgreementList] = useState(
+    AGREEMENT_LIST.map((agreement) => ({
+      title: agreement,
+      checked: false,
+    })),
+  );
+
+  const toggleCheck = ({ target: { id } }: ChangeEvent) => {
+    const updatedAgreementList = agreementList.map((agreement, index) =>
+      index === Number(id)
+        ? { ...agreement, checked: !agreement.checked }
+        : agreement,
+    );
+
+    setAgreementList(updatedAgreementList);
+  };
+
+  const toggleAllCheck = ({
+    target: { checked },
+  }: ChangeEvent<HTMLInputElement>) => {
+    setAgreementList(
+      agreementList.map((agreement) => ({ ...agreement, checked })),
+    );
+  };
+
+  const allChecked = agreementList.every(({ checked }) => Boolean(checked));
+
   useEffect(() => {
     setFocus('password');
   }, [setFocus]);
-
-  const disabled = !!errors.password || !!errors.confirmPassword;
 
   return (
     <>
@@ -102,9 +136,52 @@ export const PasswordStepFunnel = () => {
           )}
         />
       </section>
-      <Button disabled={disabled} className={styles.FullWidth}>
+
+      <Button
+        disabled={disabled}
+        className={styles.FullWidth}
+        type="button"
+        onClick={() => setIsOpen(true)}
+      >
         입력 완료
       </Button>
+
+      <BottomSheet.Root open={isOpen} onOpenChange={() => setIsOpen(false)}>
+        <BottomSheet.Overlay />
+        <BottomSheet.Content>
+          <section className={agreementStyles.container}>
+            <header className={agreementStyles.header}>
+              <BottomSheet.Title asChild>
+                <h4>약관에 동의해주세요</h4>
+              </BottomSheet.Title>
+              <BottomSheet.Close className={agreementStyles.closeButton}>
+                <DeleteLarge />
+              </BottomSheet.Close>
+            </header>
+            <AgreeMent
+              id={'all'}
+              onChange={toggleAllCheck}
+              label="모두 동의합니다"
+              checked={allChecked}
+            />
+            <div className={agreementStyles.separator} />
+            <div className={agreementStyles.checkboxList}>
+              {agreementList.map(({ title, checked }, index) => (
+                <AgreeMent
+                  key={index}
+                  id={String(index)}
+                  onChange={toggleCheck}
+                  label={title}
+                  checked={checked}
+                />
+              ))}
+            </div>
+            <Spacer size={3} />
+            <Button disabled={!allChecked}>다음</Button>
+            <Spacer size={7} />
+          </section>
+        </BottomSheet.Content>
+      </BottomSheet.Root>
     </>
   );
 };
