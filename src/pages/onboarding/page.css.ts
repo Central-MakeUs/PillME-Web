@@ -6,28 +6,21 @@ export const onboarding = style({
     'radial-gradient(closest-side,rgba(255, 255, 255, 1) 0%,rgba(226, 233, 255, 1) 100%)',
   display: 'flex',
   flexDirection: 'column',
-  // justifyContent: 'space-between',
+  alignContent: 'space-between',
 });
 
 export const linkContainer = style({
-  paddingBottom: 77,
   display: 'flex',
   flexDirection: 'column',
-  gap: 25,
   alignItems: 'center',
-});
-
-export const spacer = style({
   flexGrow: 1,
-});
-
-export const button = style({
-  margin: '0 auto',
+  paddingTop: 48,
+  paddingBottom: 10,
 });
 
 export const text = style([
   typography('body_3_14_r'),
   {
-    color: color('grey300'),
+    color: color('grey600'),
   },
 ]);

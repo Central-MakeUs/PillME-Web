@@ -3,16 +3,22 @@ import { color } from '@/ui';
 
 export const embla = style({
   maxWidth: '100%',
+  height: '70%',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 32,
 });
 
 export const emblaViewport = style({
   overflow: 'hidden',
+  flexGrow: 1,
 });
 
 export const emblaContainer = style({
   display: 'flex',
   touchAction: 'pan-y pinch-zoom',
   marginLeft: 'calc(1rem * -1)',
+  height: '100%',
 });
 
 export const emblaSlide = style({
@@ -22,19 +28,6 @@ export const emblaSlide = style({
   paddingLeft: '1rem',
   position: 'relative',
   overflow: 'hidden',
-});
-
-export const emblaSlideNumber = style({
-  boxShadow: 'inset 0 0 0 0.2rem rgb(25, 25, 25)',
-  borderRadius: '1.8rem',
-  fontSize: '4rem',
-  fontWeight: 600,
-
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: 'calc(100dvh - 264px)',
-  userSelect: 'none',
 });
 
 export const emblaDots = style({
