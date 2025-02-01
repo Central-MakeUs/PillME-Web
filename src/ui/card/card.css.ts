@@ -25,6 +25,7 @@ export const header = style({
 export const image = style({
   height: 160,
   borderRadius: 6,
+  aspectRatio: 1,
 });
 
 export const company = style([
