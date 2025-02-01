@@ -6,7 +6,6 @@ export const onboarding = style({
     'radial-gradient(closest-side,rgba(255, 255, 255, 1) 0%,rgba(226, 233, 255, 1) 100%)',
   display: 'flex',
   flexDirection: 'column',
-  alignContent: 'space-between',
 });
 
 export const linkContainer = style({
