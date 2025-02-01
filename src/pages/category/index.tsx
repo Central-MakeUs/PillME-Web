@@ -4,9 +4,12 @@ import { AppBar } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
 import { CATEGORY_LIST } from './category';
+import { useScrollTop } from './hooks/useScrollTop';
 import * as styles from './page.css';
 
 export const CategoryPage = () => {
+  const { isTop, observerRef } = useScrollTop();
+
   const navigate = useNavigate();
 
   const goBack = () => navigate(-1);
@@ -15,13 +18,16 @@ export const CategoryPage = () => {
     <PageLayout
       header={
         <div>
-          <AppBar variant="page" left={<ArrowLeft onClick={goBack} />} />
+          <AppBar variant="page" left={<ArrowLeft onClick={goBack} />}>
+            {!isTop && <h1 className={styles.pageTitle}>건강 고민 선택</h1>}
+          </AppBar>
           <div className={styles.separator} />
         </div>
       }
     >
       <section className={styles.container}>
-        <h2 className={styles.pageTitle}>
+        <div ref={observerRef} />
+        <h2 className={styles.pageDescription}>
           건강 고민에 해당되는
           <br />
           카테고리를 선택해보세요

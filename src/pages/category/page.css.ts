@@ -7,11 +7,18 @@ export const separator = style({
   marginTop: 10,
 });
 
+export const pageTitle = style([
+  typography('head_1_18_sb'),
+  {
+    color: color('grey900'),
+  },
+]);
+
 export const container = style({
   padding: '20px 20px 40px 20px',
 });
 
-export const pageTitle = style([
+export const pageDescription = style([
   typography('title_1_22_b'),
   {
     color: color('grey800'),
