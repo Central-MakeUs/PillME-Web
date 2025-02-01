@@ -61,7 +61,7 @@ export const Router = () => {
 
         <Route path="category">
           <Route index element={<CategoryPage />} />
-          <Route path="result" element={<CategoryResultPage />} />
+          <Route path=":categoryName" element={<CategoryResultPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
