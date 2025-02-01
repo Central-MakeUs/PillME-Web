@@ -41,7 +41,7 @@ export const SearchResultPage = () => {
         </div>
         <div className={styles.products}>
           {MOCK_PRODUCT_LIST.map((mockProduct) => (
-            <Card key={mockProduct.name} {...mockProduct} width={180} />
+            <Card key={mockProduct.name} {...mockProduct} />
           ))}
         </div>
       </section>

@@ -50,3 +50,7 @@ export const title = style([
     color: color('grey800'),
   },
 ]);
+
+export const maxWidthBox = style({
+  width: 140,
+});

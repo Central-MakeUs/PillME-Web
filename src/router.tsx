@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
+import { CategoryPage } from './pages/category';
+import { CategoryResultPage } from './pages/category/result';
 import { ConsultationPage } from './pages/consultation';
 import { ConsultationDetailPage } from './pages/consultation/detail';
 import { ConsultationNewPage } from './pages/consultation/new';
@@ -55,6 +57,11 @@ export const Router = () => {
             <Route index element={<ConsultationNewPage />} />
             <Route path="complete" element={<ConsultationCompletePage />} />
           </Route>
+        </Route>
+
+        <Route path="category">
+          <Route index element={<CategoryPage />} />
+          <Route path=":categoryName" element={<CategoryResultPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
