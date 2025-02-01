@@ -7,6 +7,7 @@ const base = style({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
+  gap: 8,
   border: 'none',
   cursor: 'pointer',
   borderRadius: '40px',
