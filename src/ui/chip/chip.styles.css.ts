@@ -11,6 +11,7 @@ const base = style([
     backgroundColor: color('white'),
     display: 'flex',
     alignItems: 'center',
+    flexShrink: 0,
   },
 ]);
 

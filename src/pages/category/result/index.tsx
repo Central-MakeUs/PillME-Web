@@ -36,37 +36,58 @@ export const CategoryResultPage = () => {
         </div>
       }
     >
-      <div>
+      <div className={styles.productFilterList}>
         <div className={styles.productFilterContainer}>
-          <div>
-            <div>카테고리</div>
-            {/* chip 컨테이너 */}
-            <div>
-              <Chip shape="rect" color="default">
-                빈혈
-              </Chip>
-            </div>
+          <div className={styles.filterTitle}>
+            <p>카테고리</p>
+            <ArrowDrop />
           </div>
-          <div>관련성분</div>
-        </div>
-        <div className={styles.subBanner}>
-          <div>총 32개</div>
-          <div className={styles.userFilterContainer}>
-            <ButtonText>
-              전체 연령대
-              <ArrowDrop />
-            </ButtonText>
-            <ButtonText>
-              연관도 순
-              <ArrowDrop />
-            </ButtonText>
+          <div className={styles.filterList}>
+            <Chip shape="rect" color="default" state="default">
+              빈혈
+            </Chip>
+            <Chip shape="rect" color="default" state="default">
+              빈혈
+            </Chip>
+            <Chip shape="rect" color="default" state="default">
+              빈혈
+            </Chip>
+            <Chip shape="rect" color="default" state="default">
+              빈혈
+            </Chip>
+            <Chip shape="rect" color="default" state="default">
+              빈혈
+            </Chip>
+            <Chip shape="rect" color="default" state="default">
+              빈혈
+            </Chip>
+            <Chip shape="rect" color="default" state="default">
+              빈혈
+            </Chip>
+            <Chip shape="rect" color="default" state="default">
+              빈혈
+            </Chip>
           </div>
         </div>
-        <div className={styles.gallery}>
-          {MOCK_PRODUCT_LIST.map((mockProduct) => (
-            <Card key={mockProduct.name} {...mockProduct} width={180} />
-          ))}
+        <div>관련성분</div>
+      </div>
+      <div className={styles.subBanner}>
+        <div>총 32개</div>
+        <div className={styles.userFilterContainer}>
+          <ButtonText>
+            전체 연령대
+            <ArrowDrop />
+          </ButtonText>
+          <ButtonText>
+            연관도 순
+            <ArrowDrop />
+          </ButtonText>
         </div>
+      </div>
+      <div className={styles.gallery}>
+        {MOCK_PRODUCT_LIST.map((mockProduct) => (
+          <Card key={mockProduct.name} {...mockProduct} />
+        ))}
       </div>
     </PageLayout>
   );

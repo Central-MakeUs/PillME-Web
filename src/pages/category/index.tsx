@@ -14,6 +14,10 @@ export const CategoryPage = () => {
 
   const goBack = () => navigate(-1);
 
+  const onClickCategory = (category: string) => () => {
+    navigate(category);
+  };
+
   return (
     <PageLayout
       header={
@@ -40,8 +44,12 @@ export const CategoryPage = () => {
             <div className={styles.categoryGalleryContainer} key={title}>
               <h6 className={styles.categoryGalleryTitle}>{title}</h6>
               <div className={styles.categoryGallery}>
-                {subCategoryList.map(({ icon: Icon, name }) => (
-                  <div key={name} className={styles.categoryCard}>
+                {subCategoryList.map(({ icon: Icon, name, value }) => (
+                  <div
+                    key={name}
+                    className={styles.categoryCard}
+                    onClick={onClickCategory(value)}
+                  >
                     <Icon />
                     <p className={styles.categoryLabel}>{name}</p>
                   </div>
