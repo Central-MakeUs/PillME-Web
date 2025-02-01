@@ -79,6 +79,7 @@ export const recommendCategoryContainer = style({
   gap: 14,
 });
 
+// TODO 타이포 수정 필요
 export const recommendCategoryTitle = style([
   typography('head_1_18_sb'),
   {
