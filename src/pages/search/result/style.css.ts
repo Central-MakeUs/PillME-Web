@@ -50,3 +50,7 @@ export const tabChip = style({
   gap: '5px',
   flexWrap: 'wrap',
 });
+
+export const maxWidthBox = style({
+  width: 180,
+});
