@@ -6,7 +6,7 @@ export const mobileLayoutWrapper = style({
   flexDirection: 'column',
   alignItems: 'center',
   height: '100dvh',
-  minWidth: 'max-content',
+  width: '100%',
   backgroundColor: color('grey200'),
 });
 

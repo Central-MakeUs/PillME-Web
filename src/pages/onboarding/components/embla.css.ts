@@ -3,7 +3,7 @@ import { color } from '@/ui';
 
 export const embla = style({
   maxWidth: '100%',
-  height: '70%',
+  height: 500,
   display: 'flex',
   flexDirection: 'column',
   gap: 32,
