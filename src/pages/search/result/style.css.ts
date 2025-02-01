@@ -31,3 +31,22 @@ export const products = style({
   width: '100%',
   marginTop: '21px',
 });
+
+export const subContainer = style({
+  padding: '0 20px',
+  paddingTop: '20px',
+  marginTop: '10px',
+  borderTop: '1px solid',
+
+  display: 'flex',
+  flexDirection: 'column',
+});
+
+export const tabTitle = style([typography('head_1_18_sb')]);
+
+export const tabChip = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '5px',
+  flexWrap: 'wrap',
+});
