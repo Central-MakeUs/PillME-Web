@@ -5,20 +5,14 @@ export type CardProps = {
   company: string;
   name: string;
   price: number;
-  width?: number;
 };
 
 export const Card = (props: CardProps) => {
-  const { imageUrl, company, name, price, width = 140 } = props;
+  const { imageUrl, company, name, price } = props;
 
   return (
-    <div className={styles.container} style={{ width }}>
-      <img
-        src={imageUrl}
-        className={styles.image}
-        alt="제품"
-        style={{ width }}
-      />
+    <div className={styles.container}>
+      <img src={imageUrl} className={styles.image} alt="제품" />
       <div className={styles.textContainer}>
         <div className={styles.header}>
           <p className={styles.company}>{company}</p>

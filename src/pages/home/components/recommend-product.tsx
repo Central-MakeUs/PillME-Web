@@ -25,7 +25,9 @@ export const RecommendProductGallery = (
       </header>
       <div className={styles.gallery}>
         {MOCK_PRODUCT_LIST.map((mockProduct) => (
-          <Card key={mockProduct.name} {...mockProduct} />
+          <div key={mockProduct.name} className={styles.maxWidthBox}>
+            <Card {...mockProduct} />
+          </div>
         ))}
       </div>
     </section>

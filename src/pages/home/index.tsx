@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { Cart, Logo } from '../../assets';
 import { AppBar } from '../../ui/app-bar';
 import { ButtonText } from '../../ui/button-text';
@@ -13,6 +14,14 @@ import { RECOMMEND_CATEGORY_LIST } from './recommend-category';
 import * as styles from './styles.css';
 
 export const HomePage = () => {
+  const navigate = useNavigate();
+
+  const onClickCategoryResult = (category: string) => () => {
+    navigate(`/category/${category}`);
+  };
+
+  const onClickCategory = () => navigate('/category');
+
   const [searchMode, setSearchMode] = useState<string>('AI 증상 검색');
 
   return (
@@ -69,13 +78,18 @@ export const HomePage = () => {
               추천 건강 고민 카테고리
             </h4>
             <div className={styles.recommendCategoryGallery}>
-              {RECOMMEND_CATEGORY_LIST.map(({ icon, name }) => (
-                <RecommendCategory key={name} Icon={icon} name={name} />
+              {RECOMMEND_CATEGORY_LIST.map(({ icon, name, value }) => (
+                <RecommendCategory
+                  key={name}
+                  Icon={icon}
+                  name={name}
+                  onClick={onClickCategoryResult(value)}
+                />
               ))}
             </div>
           </section>
         </div>
-        <button className={styles.viewAllButton}>
+        <button className={styles.viewAllButton} onClick={onClickCategory}>
           <ButtonText icon>건강 고민 전체 보기</ButtonText>
         </button>
         <div className={styles.separator} />
