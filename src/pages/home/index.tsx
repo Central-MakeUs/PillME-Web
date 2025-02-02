@@ -24,6 +24,12 @@ export const HomePage = () => {
 
   const [searchMode, setSearchMode] = useState<string>('AI 증상 검색');
 
+  const handleSearchClick = () => {
+    const searchPath =
+      searchMode === '증상 AI 검색' ? '/search/ai' : '/search/default';
+    navigate(searchPath);
+  };
+
   return (
     <PageLayout
       header={
@@ -45,7 +51,7 @@ export const HomePage = () => {
           <SearchField
             placeholder="건강 불편 증상을 검색해 보세요"
             variant="home"
-            disabled
+            onClick={handleSearchClick}
           />
         </div>
         <Spacer size={32} />
