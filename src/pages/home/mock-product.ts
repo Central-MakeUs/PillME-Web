@@ -5,4 +5,7 @@ export const MOCK_PRODUCT = {
   price: 77000,
 };
 
-export const MOCK_PRODUCT_LIST = Array.from({ length: 10 }, () => MOCK_PRODUCT);
+export const MOCK_PRODUCT_LIST = Array.from({ length: 10 }, (_, index) => ({
+  id: index + 1,
+  ...MOCK_PRODUCT,
+}));
