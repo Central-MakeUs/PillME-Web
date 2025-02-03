@@ -7,7 +7,11 @@ import { Card } from '@/ui/card/card';
 import { Chip } from '@/ui/chip';
 import { IconButton } from '@/ui/icon-button';
 import { PageLayout } from '@/ui/layout/page-layout';
+import { ProductFilterLabel } from '@/ui/product-filter-list/product-filter-label';
+import { ProductFilterList } from '@/ui/product-filter-list/product-filter-list';
 import * as styles from './page.css';
+
+const MOCK_FILTER_LIST = Array.from({ length: 6 }, () => '빈혈');
 
 export const CategoryResultPage = () => {
   const navigate = useNavigate();
@@ -37,33 +41,42 @@ export const CategoryResultPage = () => {
       }
     >
       <div className={styles.productFilterList}>
-        <div className={styles.productFilterContainer}>
-          <div className={styles.filterTitle}>
-            <p>카테고리</p>
-            <ArrowDrop />
-          </div>
-          <div className={styles.filterList}>
-            <Chip shape="rect" color="grey500" borderColor="grey200">
-              빈혈
+        <ProductFilterList
+          label={
+            <ProductFilterLabel Icon={<ArrowDrop />}>
+              카테고리
+            </ProductFilterLabel>
+          }
+        >
+          {MOCK_FILTER_LIST.map((filter, index) => (
+            <Chip
+              shape="rect"
+              color="grey500"
+              borderColor="grey200"
+              key={index}
+            >
+              {filter}
             </Chip>
-            <Chip shape="rect" color="grey500" borderColor="grey200">
-              빈혈
+          ))}
+        </ProductFilterList>
+        <ProductFilterList
+          label={
+            <ProductFilterLabel Icon={<ArrowDrop />}>
+              관련 성분
+            </ProductFilterLabel>
+          }
+        >
+          {MOCK_FILTER_LIST.map((filter, index) => (
+            <Chip
+              shape="pill"
+              color="grey500"
+              borderColor="grey200"
+              key={index}
+            >
+              {filter}
             </Chip>
-            <Chip shape="rect" color="grey500" borderColor="grey200">
-              빈혈
-            </Chip>
-            <Chip shape="rect" color="grey500" borderColor="grey200">
-              빈혈
-            </Chip>
-            <Chip shape="rect" color="grey500" borderColor="grey200">
-              빈혈
-            </Chip>
-            <Chip shape="rect" color="grey500" borderColor="grey200">
-              빈혈
-            </Chip>
-          </div>
-        </div>
-        <div>관련성분</div>
+          ))}
+        </ProductFilterList>
       </div>
       <div className={styles.subBanner}>
         <div>총 32개</div>
