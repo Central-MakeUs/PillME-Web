@@ -3,7 +3,7 @@ import { ArrowRightr, Plus } from '@/assets';
 import { Button } from './button';
 
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: 'ui/Button',
   component: Button,
   argTypes: {
     variant: {
