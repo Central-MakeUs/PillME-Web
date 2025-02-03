@@ -3,7 +3,7 @@ import { cx } from '../util';
 import * as styles from './product-filter-label.css';
 
 type ProductFilterLabelProps = {
-  Icon: ReactNode;
+  Icon?: ReactNode;
 } & ComponentProps<'div'>;
 
 export const ProductFilterLabel = (
@@ -13,8 +13,7 @@ export const ProductFilterLabel = (
 
   return (
     <div {...restProps} className={cx(styles.label, className)}>
-      {/* Typo 추가 필요 */}
-      <p>{children}</p>
+      {children}
       {Icon}
     </div>
   );

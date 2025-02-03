@@ -14,33 +14,6 @@ export const productFilterList = style({
   padding: '20px 0 20px 20px',
 });
 
-export const filterTitle = style([
-  typography('body_2_14_sb'),
-  {
-    flexShrink: 0,
-    padding: '8px 8px 8px 0',
-    display: 'flex',
-    alignItems: 'center',
-    color: color('grey800'),
-  },
-]);
-
-export const filterList = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: 8,
-  overflowX: 'scroll',
-  paddingRight: 20,
-  '::-webkit-scrollbar': {
-    display: 'none',
-  },
-});
-
-export const productFilterContainer = style({
-  display: 'flex',
-  alignItems: 'center',
-});
-
 export const subBanner = style([
   {
     display: 'flex',

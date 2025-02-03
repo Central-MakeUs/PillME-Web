@@ -7,7 +7,11 @@ import { Card } from '@/ui/card/card';
 import { Chip } from '@/ui/chip';
 import { IconButton } from '@/ui/icon-button';
 import { PageLayout } from '@/ui/layout/page-layout';
+import { ProductFilterLabel } from '@/ui/product-filter-list/product-filter-label';
+import { ProductFilterList } from '@/ui/product-filter-list/product-filter-list';
 import * as styles from './page.css';
+
+const MOCK_FILTER_LIST = Array.from({ length: 6 }, () => '빈혈');
 
 export const RecommendPage = () => {
   const navigate = useNavigate();
@@ -39,32 +43,24 @@ export const RecommendPage = () => {
       }
     >
       <div className={styles.productFilterList}>
-        <div className={styles.productFilterContainer}>
-          <div className={styles.filterTitle}>
-            <p>추천성분</p>
-            <ArrowDrop />
-          </div>
-          <div className={styles.filterList}>
-            <Chip shape="pill" color="grey500" borderColor="grey200">
-              빈혈
+        <ProductFilterList
+          label={
+            <ProductFilterLabel Icon={<ArrowDrop />}>
+              추천성분
+            </ProductFilterLabel>
+          }
+        >
+          {MOCK_FILTER_LIST.map((filter, index) => (
+            <Chip
+              shape="pill"
+              color="grey500"
+              borderColor="grey200"
+              key={index}
+            >
+              {filter}
             </Chip>
-            <Chip shape="pill" color="grey500" borderColor="grey200">
-              빈혈
-            </Chip>
-            <Chip shape="pill" color="grey500" borderColor="grey200">
-              빈혈
-            </Chip>
-            <Chip shape="pill" color="grey500" borderColor="grey200">
-              빈혈
-            </Chip>
-            <Chip shape="pill" color="grey500" borderColor="grey200">
-              빈혈
-            </Chip>
-            <Chip shape="pill" color="grey500" borderColor="grey200">
-              빈혈
-            </Chip>
-          </div>
-        </div>
+          ))}
+        </ProductFilterList>
       </div>
       <div className={styles.subBanner}>
         <div>총 32개</div>
