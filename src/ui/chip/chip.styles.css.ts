@@ -1,19 +1,35 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 import { type RecipeVariants, recipe } from '@vanilla-extract/recipes';
-import { color } from '../color.css';
-import { typography } from '../typography.css';
-import { globalVars } from './../theme.css';
+import { globalVars, paletteTokens, typographyTokens } from './../theme.css';
 
 const base = style([
   {
     border: '1px solid',
     width: 'fit-content',
-    backgroundColor: color('white'),
     display: 'flex',
     alignItems: 'center',
     flexShrink: 0,
   },
 ]);
+
+const color = styleVariants(paletteTokens, (_, paletteTokenKey) => ({
+  color: globalVars.color[paletteTokenKey],
+}));
+
+const backgroundColor = styleVariants(paletteTokens, (_, paletteTokenKey) => ({
+  backgroundColor: globalVars.color[paletteTokenKey],
+}));
+
+const borderColor = styleVariants(paletteTokens, (_, paletteTokenKey) => ({
+  borderColor: globalVars.color[paletteTokenKey],
+}));
+
+export const typography = styleVariants(
+  typographyTokens,
+  (_, typographyTokenKey) => ({
+    ...globalVars.typography[typographyTokenKey],
+  }),
+);
 
 export const chipVariants = recipe({
   base,
@@ -21,51 +37,17 @@ export const chipVariants = recipe({
     shape: {
       pill: { borderRadius: 20, padding: '6px 10px' },
       rect: { borderRadius: 8, padding: '8px 10px' },
-    },
-    state: {
-      default: {
-        borderColor: globalVars.color.grey200,
-        color: globalVars.color.grey500,
-      },
-      active: {
-        backgroundColor: globalVars.color.blue100,
-        color: globalVars.color.mainblue500,
-      },
-      tag: [
-        typography('body_4_12_b'),
-        {
-          border: 0,
-          padding: '4px 10px',
-        },
-      ],
-    },
-    color: {
-      default: [typography('body_2_14_sb'), {}],
-      grey: {
-        backgroundColor: globalVars.color.grey200,
-        color: globalVars.color.grey500,
-      },
-      blue: {
-        backgroundColor: globalVars.color.blue200,
-        color: globalVars.color.blue400,
+      tag: {
+        border: 0,
+        padding: '2px 10px',
+        borderRadius: 20,
       },
     },
+    color,
+    borderColor,
+    backgroundColor,
+    typography,
   },
-  compoundVariants: [
-    {
-      variants: {
-        state: 'default',
-        shape: 'pill',
-        color: 'default',
-      },
-      style: [
-        typography('body_3_14_r'),
-        {
-          color: globalVars.color.grey900,
-        },
-      ],
-    },
-  ],
 });
 
 export type ChipVariants = Exclude<

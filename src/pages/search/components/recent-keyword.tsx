@@ -1,6 +1,8 @@
 import { Fragment } from 'react/jsx-runtime';
+import { Delete } from '@/assets';
 import { ButtonText } from '@/ui/button-text';
 import { Chip } from '@/ui/chip';
+import { globalVars } from '@/ui/theme.css';
 import * as styles from './recent-keyword.css';
 
 interface Props {
@@ -11,7 +13,13 @@ interface Props {
 export const RecentKeyword = ({ list, handleDelete }: Props) => {
   const generateList = list.map((keyword, idx) => (
     <Fragment key={idx}>
-      <Chip color="default" shape="pill" state="default">
+      <Chip
+        color="grey800"
+        backgroundColor="white"
+        borderColor="grey200"
+        shape="pill"
+        right={<Delete color={globalVars.color.grey200} />}
+      >
         {keyword}
       </Chip>
     </Fragment>
