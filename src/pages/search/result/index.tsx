@@ -51,10 +51,20 @@ export const SearchResultPage = () => {
             <ButtonText style={{ color: 'black' }}>
               관련성분 <ArrowDrop />
             </ButtonText>
-            <Chip color="default" shape="pill" state="default">
+            <Chip
+              shape="pill"
+              borderColor="grey100"
+              color="grey500"
+              typography="body_3_14_r"
+            >
               콜라겐
             </Chip>
-            <Chip color="default" shape="pill" state="default">
+            <Chip
+              shape="pill"
+              borderColor="grey100"
+              color="grey500"
+              typography="body_3_14_r"
+            >
               콜라겐
             </Chip>
           </div>

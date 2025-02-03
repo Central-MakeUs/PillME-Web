@@ -37,8 +37,8 @@ export const categoryGalleryContainer = style({
   gap: 8,
 });
 
-//TODO 타이포 추가 필요
 export const categoryGalleryTitle = style([
+  typography('head_1_18_sb'),
   {
     color: color('grey800'),
     padding: '5px 0',

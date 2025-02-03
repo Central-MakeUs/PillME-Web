@@ -13,7 +13,7 @@ import * as styles from './page.css';
 
 const MOCK_FILTER_LIST = Array.from({ length: 6 }, () => '빈혈');
 
-export const CategoryResultPage = () => {
+export const RecommendPage = () => {
   const navigate = useNavigate();
 
   const goBack = () => navigate(-1);
@@ -35,7 +35,9 @@ export const CategoryResultPage = () => {
               </IconButton>
             }
             variant="page"
-          />
+          >
+            추천 건강기능식품
+          </AppBar>
           <div className={styles.separator} />
         </div>
       }
@@ -44,25 +46,7 @@ export const CategoryResultPage = () => {
         <ProductFilterList
           label={
             <ProductFilterLabel Icon={<ArrowDrop />}>
-              카테고리
-            </ProductFilterLabel>
-          }
-        >
-          {MOCK_FILTER_LIST.map((filter, index) => (
-            <Chip
-              shape="rect"
-              color="grey500"
-              borderColor="grey200"
-              key={index}
-            >
-              {filter}
-            </Chip>
-          ))}
-        </ProductFilterList>
-        <ProductFilterList
-          label={
-            <ProductFilterLabel Icon={<ArrowDrop />}>
-              관련 성분
+              추천성분
             </ProductFilterLabel>
           }
         >

@@ -14,6 +14,8 @@ import { PillboxManagePage } from './pages/pillbox/manage';
 import { PillboxNewPage } from './pages/pillbox/new';
 import { ProductPage } from './pages/product';
 import { ProductIngredientPage } from './pages/product/ingredient';
+import { RankingPage } from './pages/ranking';
+import { RecommendPage } from './pages/recommend';
 import { RegisterPage } from './pages/register';
 import { SearchPage } from './pages/search';
 import { SearchResultPage } from './pages/search/result';
@@ -63,6 +65,9 @@ export const Router = () => {
           <Route index element={<CategoryPage />} />
           <Route path=":categoryName" element={<CategoryResultPage />} />
         </Route>
+
+        <Route path="ranking" element={<RankingPage />} />
+        <Route path="recommend" element={<RecommendPage />} />
       </Routes>
     </BrowserRouter>
   );

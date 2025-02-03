@@ -25,6 +25,22 @@ export const filterTitle = style([
   },
 ]);
 
+export const filterList = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
+  overflowX: 'scroll',
+  paddingRight: 20,
+  '::-webkit-scrollbar': {
+    display: 'none',
+  },
+});
+
+export const productFilterContainer = style({
+  display: 'flex',
+  alignItems: 'center',
+});
+
 export const subBanner = style([
   {
     display: 'flex',

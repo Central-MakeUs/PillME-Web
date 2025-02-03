@@ -13,7 +13,7 @@ import * as styles from './page.css';
 
 const MOCK_FILTER_LIST = Array.from({ length: 6 }, () => '빈혈');
 
-export const CategoryResultPage = () => {
+export const RankingPage = () => {
   const navigate = useNavigate();
 
   const goBack = () => navigate(-1);
@@ -35,7 +35,9 @@ export const CategoryResultPage = () => {
               </IconButton>
             }
             variant="page"
-          />
+          >
+            랭킹
+          </AppBar>
           <div className={styles.separator} />
         </div>
       }
@@ -83,10 +85,6 @@ export const CategoryResultPage = () => {
         <div className={styles.userFilterContainer}>
           <ButtonText>
             전체 연령대
-            <ArrowDrop />
-          </ButtonText>
-          <ButtonText>
-            연관도 순
             <ArrowDrop />
           </ButtonText>
         </div>
