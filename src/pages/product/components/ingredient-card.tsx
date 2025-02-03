@@ -1,4 +1,4 @@
-import { Fufill, Overflow, Shortage } from '@/assets';
+import { Fulfill, Overflow, Shortage } from '@/assets';
 import * as styles from './ingredient-card.css';
 
 export type StatusType = '충족' | '부족' | '과다';
@@ -7,7 +7,7 @@ const statusConfig: Record<
   StatusType,
   { text: string; Icon: React.ComponentType }
 > = {
-  충족: { text: '충족', Icon: Fufill },
+  충족: { text: '충족', Icon: Fulfill },
   부족: { text: '부족', Icon: Shortage },
   과다: { text: '과다', Icon: Overflow },
 };
