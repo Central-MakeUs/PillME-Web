@@ -43,28 +43,22 @@ export const CategoryResultPage = () => {
             <ArrowDrop />
           </div>
           <div className={styles.filterList}>
-            <Chip shape="rect" color="default" state="default">
+            <Chip shape="rect" color="grey500" borderColor="grey200">
               빈혈
             </Chip>
-            <Chip shape="rect" color="default" state="default">
+            <Chip shape="rect" color="grey500" borderColor="grey200">
               빈혈
             </Chip>
-            <Chip shape="rect" color="default" state="default">
+            <Chip shape="rect" color="grey500" borderColor="grey200">
               빈혈
             </Chip>
-            <Chip shape="rect" color="default" state="default">
+            <Chip shape="rect" color="grey500" borderColor="grey200">
               빈혈
             </Chip>
-            <Chip shape="rect" color="default" state="default">
+            <Chip shape="rect" color="grey500" borderColor="grey200">
               빈혈
             </Chip>
-            <Chip shape="rect" color="default" state="default">
-              빈혈
-            </Chip>
-            <Chip shape="rect" color="default" state="default">
-              빈혈
-            </Chip>
-            <Chip shape="rect" color="default" state="default">
+            <Chip shape="rect" color="grey500" borderColor="grey200">
               빈혈
             </Chip>
           </div>

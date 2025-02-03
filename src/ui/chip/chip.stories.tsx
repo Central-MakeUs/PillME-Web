@@ -8,20 +8,8 @@ const meta: Meta = {
     layout: 'centered',
   },
   argTypes: {
-    state: {
-      options: ['default', 'active', 'tag'],
-      control: {
-        type: 'radio',
-      },
-    },
     shape: {
-      options: ['pill', 'rect'],
-      control: {
-        type: 'radio',
-      },
-    },
-    color: {
-      options: ['default', 'grey', 'blue'],
+      options: ['pill', 'rect', 'tag'],
       control: {
         type: 'radio',
       },
@@ -33,62 +21,30 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const First: Story = {
   args: {
-    label: 'Chip (default, pill, default)',
-    state: 'default',
+    label: 'Chip (pill)',
     shape: 'pill',
-    color: 'default',
   },
   render: (args) => <Chip {...args}>chip</Chip>,
 };
 
 export const Second: Story = {
   args: {
-    label: 'Chip (active, pill, default)',
-    state: 'active',
-    shape: 'pill',
-    color: 'default',
+    label: 'Chip (rect)',
+    shape: 'rect',
   },
   render: (args) => <Chip {...args}>chip</Chip>,
 };
 
 export const Third: Story = {
   args: {
-    label: 'Chip (default, pill, default)',
-    state: 'default',
-    shape: 'rect',
-    color: 'default',
+    label: 'Chip (tag)',
+    shape: 'tag',
   },
-  render: (args) => <Chip {...args}>chip</Chip>,
-};
-
-export const Fourth: Story = {
-  args: {
-    label: 'Chip (default, pill, default)',
-    state: 'active',
-    shape: 'rect',
-    color: 'default',
-  },
-  render: (args) => <Chip {...args}>chip</Chip>,
-};
-
-export const Fifth: Story = {
-  args: {
-    label: 'Chip (default, pill, default)',
-    state: 'tag',
-    shape: 'pill',
-    color: 'grey',
-  },
-  render: (args) => <Chip {...args}>chip</Chip>,
-};
-
-export const Sixth: Story = {
-  args: {
-    label: 'Chip (default, pill, default)',
-    state: 'tag',
-    shape: 'pill',
-    color: 'blue',
-  },
-  render: (args) => <Chip {...args}>chip</Chip>,
+  render: (args) => (
+    <Chip {...args} backgroundColor="grey200" typography="body_4_12_b">
+      chip
+    </Chip>
+  ),
 };

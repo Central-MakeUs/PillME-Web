@@ -57,13 +57,31 @@ export const HomePage = () => {
             </p>
           </div>
           <div className={styles.recommendSearchKeywordContainer}>
-            <Chip state="default" shape="pill" color="default">
+            <Chip
+              shape="pill"
+              color="black"
+              backgroundColor="white"
+              typography="body_3_14_r"
+              borderColor="white"
+            >
               다이어트 하는 중에 탈모가 왔어요
             </Chip>
-            <Chip state="default" shape="pill" color="default">
+            <Chip
+              shape="pill"
+              color="black"
+              backgroundColor="white"
+              typography="body_3_14_r"
+              borderColor="white"
+            >
               야채 섭취가 부족해요
             </Chip>
-            <Chip state="default" shape="pill" color="default">
+            <Chip
+              shape="pill"
+              color="black"
+              backgroundColor="white"
+              typography="body_3_14_r"
+              borderColor="white"
+            >
               일어날 때 머리가 어지러워요
             </Chip>
           </div>
