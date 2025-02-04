@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router';
 import * as styles from './card.css';
 
 export type CardProps = {
+  id: number;
   imageUrl: string;
   company: string;
   name: string;
@@ -8,10 +10,16 @@ export type CardProps = {
 };
 
 export const Card = (props: CardProps) => {
-  const { imageUrl, company, name, price } = props;
+  const { id, imageUrl, company, name, price } = props;
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/product/${id}`);
+  };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={handleClick}>
       <img src={imageUrl} className={styles.image} alt="제품" />
       <div className={styles.textContainer}>
         <div className={styles.header}>

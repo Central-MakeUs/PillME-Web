@@ -78,3 +78,8 @@ export { default as MyPageActive } from './nav/mypage_active.svg?react';
 
 // Pillme 로고
 export { default as Logo } from './svg/img_logo.svg?react';
+
+// 상세페이지 카드
+export { default as Fulfill } from './svg/inmg_fulfill.svg?react';
+export { default as Overflow } from './svg/inmg_overflow.svg?react';
+export { default as Shortage } from './svg/img_shortage.svg?react';

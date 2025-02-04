@@ -94,7 +94,7 @@ export const SearchResultPage = () => {
         </div>
         <div className={styles.products}>
           {MOCK_PRODUCT_LIST.map((mockProduct) => (
-            <div key={mockProduct.name} className={styles.maxWidthBox}>
+            <div key={mockProduct.id} className={styles.maxWidthBox}>
               <Card {...mockProduct} />
             </div>
           ))}
