@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { ArrowLeft, Cart } from '@/assets';
+import { ArrowLeft, Cart, Check, Plus } from '@/assets';
 import { AppBar } from '@/ui/app-bar';
 import { Button } from '@/ui/button';
 import { ButtonText } from '@/ui/button-text';
 import { Chip } from '@/ui/chip';
+import { Dialog } from '@/ui/dialog';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
+import { CustomToastProvider, useShowCustomToast } from '@/ui/toast/toast';
 import { MOCK_PRODUCT_LIST } from '../home/mock-product';
 import { IngredientCard } from './components/ingredient-card';
 import { IngredientChart } from './components/ingredient-chart';
@@ -13,10 +16,21 @@ import * as styles from './style.css';
 
 export const ProductPage = () => {
   const navigate = useNavigate();
+  const showCustomToast = useShowCustomToast();
+  const [isAddedToPillbox, setIsAddedToPillbox] = useState(false);
   const { productId } = useParams();
   const product = MOCK_PRODUCT_LIST.find((p) => p.id === Number(productId));
 
   if (!product) return <p>상품을 찾을 수 없습니다.</p>; // not-found 페이지로 교체
+
+  const handlePillboxClick = () => {
+    setIsAddedToPillbox(true);
+    showCustomToast('내 약통에 추가 되었어요', 'success', '/pillbox/manage');
+  };
+  const handleRemoveFromPillbox = () => {
+    setIsAddedToPillbox(false);
+    showCustomToast('내 약통에서 삭제되었어요', 'remove', '/pillbox/manage');
+  };
 
   return (
     <PageLayout
@@ -53,10 +67,40 @@ export const ProductPage = () => {
             </Chip>
           </div>
         </div>
+        <CustomToastProvider />
         <div className={styles.pillButtonBox}>
-          <Button size="small" variant="third" className={styles.pillButton}>
-            내 약통
-          </Button>
+          {!isAddedToPillbox && (
+            <Button
+              size="small"
+              variant="third"
+              left={<Plus />}
+              className={styles.pillButton}
+              onClick={handlePillboxClick}
+            >
+              내 약통
+            </Button>
+          )}
+          {isAddedToPillbox && (
+            <Dialog
+              action="default"
+              title="내 약통에서 제거하시겠어요?"
+              description="제거하면 다시 추가해야 합니다."
+              leftButtonText="취소"
+              rightButtonText="제거"
+              onConfirm={handleRemoveFromPillbox}
+              trigger={
+                <Button
+                  size="small"
+                  variant="third"
+                  left={<Check />}
+                  className={styles.pillButton}
+                  onClick={handlePillboxClick}
+                >
+                  내 약통
+                </Button>
+              }
+            />
+          )}
         </div>
       </section>
       <Spacer size={10} className={styles.spaceColor} />

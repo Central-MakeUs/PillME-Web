@@ -110,7 +110,13 @@ export const ingredientCards = style({
 });
 
 export const buttonWrapper = style({
+  position: 'sticky',
+  bottom: 0,
+  width: '100%',
+  maxWidth: 440,
   display: 'flex',
   gap: 15,
-  padding: '14px 34px 20px ',
+  padding: '14px 34px 20px',
+  background: color('white'),
+  zIndex: 1000,
 });
