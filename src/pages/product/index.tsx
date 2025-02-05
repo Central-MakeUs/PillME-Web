@@ -8,7 +8,7 @@ import { Chip } from '@/ui/chip';
 import { Dialog } from '@/ui/dialog';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
-import { CustomToastProvider, useShowCustomToast } from '@/ui/toast/toast';
+import { useShowCustomToast } from '@/ui/toast/toast';
 import { MOCK_PRODUCT_LIST } from '../home/mock-product';
 import { IngredientCard } from './components/ingredient-card';
 import { IngredientChart } from './components/ingredient-chart';
@@ -67,7 +67,6 @@ export const ProductPage = () => {
             </Chip>
           </div>
         </div>
-        <CustomToastProvider />
         <div className={styles.pillButtonBox}>
           {!isAddedToPillbox && (
             <Button
