@@ -123,10 +123,12 @@ export const HomePage = () => {
           <RecommendProductGallery
             description="약통에 많이 담기고 있어요!"
             title="인기 건강 기능 식품"
+            onClickMoreButton={() => navigate('/ranking')}
           />
           <RecommendProductGallery
             description="20대 여성"
             title="추천 건강 식품"
+            onClickMoreButton={() => navigate('/recommend')}
           />
         </div>
       </div>

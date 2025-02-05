@@ -56,7 +56,8 @@ export const checkboxIndicator = recipe({
     alignItems: 'center',
     width: 18,
     height: 18,
-    border: '1px solid',
+    borderWidth: 1,
+    borderStyle: 'solid',
     borderRadius: 2,
   },
   variants: {

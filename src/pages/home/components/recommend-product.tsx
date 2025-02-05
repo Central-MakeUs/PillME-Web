@@ -6,13 +6,14 @@ import * as styles from './recommend-product.css';
 type RecommendProductGalleryProps = {
   description: string;
   title: string;
+  onClickMoreButton?: VoidFunction;
 };
 
 //TODO 추후 데이터 패칭 및 로딩 처리 필요
 export const RecommendProductGallery = (
   props: RecommendProductGalleryProps,
 ) => {
-  const { description, title } = props;
+  const { description, title, onClickMoreButton } = props;
 
   return (
     <section className={styles.container}>
@@ -20,7 +21,9 @@ export const RecommendProductGallery = (
         <p className={styles.description}>{description}</p>
         <div className={styles.headerTitleContainer}>
           <h4 className={styles.title}>{title}</h4>
-          <ButtonText icon>더보기</ButtonText>
+          <button onClick={onClickMoreButton}>
+            <ButtonText icon>더보기</ButtonText>
+          </button>
         </div>
       </header>
       <div className={styles.gallery}>
