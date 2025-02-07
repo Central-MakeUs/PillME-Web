@@ -48,6 +48,10 @@ export const CartPage = () => {
 
   const allChecked = productList.every(({ checked }) => Boolean(checked));
 
+  const checkedCount = productList.filter(({ checked }) =>
+    Boolean(checked),
+  ).length;
+
   return (
     <PageLayout
       header={
@@ -106,9 +110,11 @@ export const CartPage = () => {
           ))}
         </div>
       </div>
-      <div className={styles.buttonContainer}>
-        <Button size="large">총 4건 구매 링크 복사하기</Button>
-      </div>
+      {checkedCount !== 0 && (
+        <div className={styles.buttonContainer}>
+          <Button size="large">총 {checkedCount}건 구매 링크 복사하기</Button>
+        </div>
+      )}
     </PageLayout>
   );
 };
