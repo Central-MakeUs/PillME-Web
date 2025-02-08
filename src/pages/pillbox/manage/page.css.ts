@@ -52,3 +52,9 @@ export const checkbox = style({
 export const button = style({
   margin: '0 auto',
 });
+
+export const chipContainer = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 4,
+});

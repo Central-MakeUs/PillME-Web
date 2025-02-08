@@ -51,6 +51,13 @@ export const checkbox = style({
   left: 3,
 });
 
+export const price = style([
+  typography('head_3_16_r'),
+  { color: color('black') },
+]);
+
+export const priceNumber = style([typography('head_1_18_sb')]);
+
 export const buttonContainer = style({
   width: '100%',
   '@media': {

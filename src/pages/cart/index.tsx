@@ -13,11 +13,6 @@ import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
 import * as styles from './page.css';
 
-const MOCK_TAG_LIST = [
-  { name: '혈압', type: 'category' },
-  { name: '루테인', type: 'ingredient' },
-] satisfies Array<{ name: string; type: 'category' | 'ingredient' }>;
-
 export const CartPage = () => {
   const navigate = useNavigate();
 
@@ -93,6 +88,7 @@ export const CartPage = () => {
         </div>
         <Spacer size={18} />
         <div className={styles.list}>
+          {/* TODO 가격 UI 추가 필요  */}
           {productList.map(({ id, checked, ...rest }) => (
             <HorizontalCard
               {...rest}
@@ -105,8 +101,14 @@ export const CartPage = () => {
                   className={styles.checkbox}
                 />
               }
-              tagList={MOCK_TAG_LIST}
-            />
+            >
+              <p className={styles.price}>
+                <span className={styles.priceNumber}>
+                  {Number(10000).toLocaleString()}
+                </span>
+                원
+              </p>
+            </HorizontalCard>
           ))}
         </div>
       </div>

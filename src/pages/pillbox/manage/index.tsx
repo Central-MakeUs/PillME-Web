@@ -6,6 +6,7 @@ import { AppBar } from '@/ui/app-bar';
 import { Button } from '@/ui/button';
 import { ButtonText } from '@/ui/button-text';
 import { HorizontalCard } from '@/ui/card/horizontal-card';
+import { Chip } from '@/ui/chip';
 import { Dialog } from '@/ui/dialog';
 import { IconButton } from '@/ui/icon-button';
 import { PageLayout } from '@/ui/layout/page-layout';
@@ -101,8 +102,25 @@ export const PillboxManagePage = () => {
                   className={styles.checkbox}
                 />
               }
-              tagList={MOCK_TAG_LIST}
-            />
+            >
+              {MOCK_TAG_LIST && (
+                <div className={styles.chipContainer}>
+                  {MOCK_TAG_LIST.map(({ name, type }, index) => (
+                    <Chip
+                      shape="tag"
+                      backgroundColor={
+                        type === 'category' ? 'blue200' : 'grey200'
+                      }
+                      color={type === 'category' ? 'blue400' : 'grey500'}
+                      typography="body_4_12_b"
+                      key={index}
+                    >
+                      {name}
+                    </Chip>
+                  ))}
+                </div>
+              )}
+            </HorizontalCard>
           ))}
           <Button size="large" variant="third" className={styles.button}>
             복용 제품 추가
