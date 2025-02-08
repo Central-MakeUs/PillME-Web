@@ -83,3 +83,7 @@ export { default as Logo } from './svg/img_logo.svg?react';
 export { default as Fulfill } from './svg/inmg_fulfill.svg?react';
 export { default as Overflow } from './svg/inmg_overflow.svg?react';
 export { default as Shortage } from './svg/img_shortage.svg?react';
+
+// 성분 그래프 안내
+export { default as Notice } from './svg/notice.svg?react';
+export { default as Intake } from './svg/intake.svg?react';

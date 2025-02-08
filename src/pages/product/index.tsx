@@ -12,7 +12,7 @@ import { useShowCustomToast } from '@/ui/toast/toast';
 import { MOCK_PRODUCT_LIST } from '../home/mock-product';
 import { IngredientCard } from './components/ingredient-card';
 import { IngredientChart } from './components/ingredient-chart';
-import * as styles from './style.css';
+import * as styles from './page.css';
 
 export const ProductPage = () => {
   const navigate = useNavigate();
