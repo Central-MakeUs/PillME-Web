@@ -1,6 +1,5 @@
 import { ComponentProps, PropsWithChildren, ReactNode } from 'react';
 import { Delete } from '@/assets';
-import { Chip } from '../chip';
 import { IconButton } from '../icon-button';
 import { Spacer } from '../spacer/spacer';
 //TODO card css 재활용
