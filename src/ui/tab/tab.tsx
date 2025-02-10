@@ -11,6 +11,7 @@ interface TabsProps {
   customTabsListClass?: string;
   contentClassName?: string;
   children: React.ReactNode;
+  onValueChange?: (value: string) => void;
 }
 // customTabsListClass: label쪽 UI 가 달라서 props로 조절해야함
 
@@ -19,6 +20,7 @@ export const Tab = ({
   rootClassName,
   customTabsListClass,
   children,
+  onValueChange,
 }: TabsProps) => {
   const labels: React.ReactNode[] = [];
   const contents: React.ReactNode[] = [];
@@ -37,6 +39,7 @@ export const Tab = ({
     <Tabs.Root
       className={cx(styles.tabsRoot, rootClassName)}
       defaultValue={defaultValue}
+      onValueChange={onValueChange}
     >
       <Tabs.List
         className={cx(styles.tabsList, customTabsListClass)}
