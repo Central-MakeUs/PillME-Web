@@ -91,3 +91,6 @@ export { default as Intake } from './svg/intake.svg?react';
 // 상담신청 약사 프로필 기본 사진
 export { default as PharmacistBlue } from './svg/img_pharmacist_blue.svg?react';
 export { default as PharmacistPink } from './svg/img_pharmacist_pink.svg?react';
+
+// 상담신청 약사 프로필 기본 사진
+export { default as ConsultComplete } from './svg/consult_complete.svg?react';
