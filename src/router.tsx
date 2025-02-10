@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
+import { CartPage } from './pages/cart';
 import { CategoryPage } from './pages/category';
 import { CategoryResultPage } from './pages/category/result';
 import { ConsultationPage } from './pages/consultation';
@@ -68,6 +69,7 @@ export const Router = () => {
 
         <Route path="ranking" element={<RankingPage />} />
         <Route path="recommend" element={<RecommendPage />} />
+        <Route path="cart" element={<CartPage />} />
       </Routes>
     </BrowserRouter>
   );

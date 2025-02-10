@@ -9,19 +9,21 @@ export const separator = style({
 
 export const container = style({
   padding: '18px 20px',
+  paddingBottom: 102,
 });
 
-export const totalCount = style([
+export const pageSubTitle = style([
   {
-    color: color('black'),
+    color: color('grey800'),
   },
-  typography('body_3_14_r'),
+  typography('title_2_20_b'),
 ]);
 
 export const listHeader = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+  padding: '5px 0 8px 0',
 });
 
 export const listHeaderLeft = style({
@@ -49,12 +51,25 @@ export const checkbox = style({
   left: 3,
 });
 
-export const button = style({
-  margin: '0 auto',
-});
+export const price = style([
+  typography('head_3_16_r'),
+  { color: color('black') },
+]);
 
-export const chipContainer = style({
+export const priceNumber = style([typography('head_1_18_sb')]);
+
+export const buttonContainer = style({
+  width: '100%',
+  '@media': {
+    'screen and (min-width: 440px)': {
+      width: 440,
+    },
+  },
+  backgroundColor: color('white'),
+  position: 'fixed',
+  bottom: 0,
   display: 'flex',
+  justifyContent: 'center',
   alignItems: 'center',
-  gap: 4,
+  padding: '14px 20px',
 });
