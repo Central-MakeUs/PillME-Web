@@ -91,10 +91,10 @@ export const MyConsultation = () => {
           {selectedChip === 'completed' && (
             <Dialog
               action="default"
-              title="내 약통에서 제거하시겠어요?"
-              description="제거하면 다시 추가해야 합니다."
+              title="상담 내역을 삭제할까요?"
+              description="내역 삭제 시 상담 내용을 확인 할 수 없습니다"
               leftButtonText="취소"
-              rightButtonText="제거"
+              rightButtonText="삭제"
               onConfirm={() => {
                 console.log('내역 삭제');
                 showCustomToast('상담 내역이 삭제되었어요', 'remove');
