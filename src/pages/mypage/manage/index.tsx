@@ -13,6 +13,9 @@ import * as styles from './page.css';
 
 export const MyInfoManagePage = () => {
   const navigate = useNavigate();
+
+  const goBack = () => navigate(-1);
+
   const [{ isBirthModalOpen, isNicknameModalOpen }, dispatch] = useReducer(
     modalReducer,
     initialModalState,
@@ -54,7 +57,7 @@ export const MyInfoManagePage = () => {
   return (
     <PageLayout
       header={
-        <AppBar variant="page" left={<ArrowLeft />}>
+        <AppBar variant="page" left={<ArrowLeft onClick={goBack} />}>
           내 정보 관리
         </AppBar>
       }
