@@ -94,3 +94,6 @@ export { default as PharmacistPink } from './svg/img_pharmacist_pink.svg?react';
 
 // 상담신청 약사 프로필 기본 사진
 export { default as ConsultComplete } from './svg/consult_complete.svg?react';
+
+// 상담신청 상담내역 없음 사진
+export { default as ConsultationEmpty } from './svg/consultation.svg?react';
