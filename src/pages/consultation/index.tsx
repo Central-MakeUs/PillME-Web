@@ -4,10 +4,10 @@ import { AppBar } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Tab, TabContent, TabLabel } from '@/ui/tab';
 import { Apply } from './components/apply';
+import { MyConsultation } from './components/my-consultation';
 import * as styles from './page.css';
 
-// 여자, 남자 사진 랜덤
-// disabled 조건 필요
+// 상태 조건 필요
 
 export const ConsultationPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,7 +37,9 @@ export const ConsultationPage = () => {
         <TabContent value="apply" className={styles.height100}>
           <Apply />
         </TabContent>
-        <TabContent value="my-consultation">나의 상담</TabContent>
+        <TabContent value="my-consultation" className={styles.height100}>
+          <MyConsultation />
+        </TabContent>
       </Tab>
     </PageLayout>
   );
