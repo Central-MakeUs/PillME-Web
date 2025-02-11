@@ -9,6 +9,7 @@ import { ConsultationCompletePage } from './pages/consultation/new/complete';
 import { HomePage } from './pages/home';
 import { LoginPage } from './pages/login';
 import { MyPage } from './pages/mypage';
+import { MyInfoManagePage } from './pages/mypage/manage';
 import { OnboardingPage } from './pages/onboarding';
 import { PillboxPage } from './pages/pillbox';
 import { PillboxManagePage } from './pages/pillbox/manage';
@@ -70,6 +71,7 @@ export const Router = () => {
         <Route path="ranking" element={<RankingPage />} />
         <Route path="recommend" element={<RecommendPage />} />
         <Route path="cart" element={<CartPage />} />
+        <Route path="mypage/manage" element={<MyInfoManagePage />} />
       </Routes>
     </BrowserRouter>
   );
