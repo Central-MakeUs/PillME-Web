@@ -87,3 +87,13 @@ export { default as Shortage } from './svg/img_shortage.svg?react';
 // 성분 그래프 안내
 export { default as Notice } from './svg/notice.svg?react';
 export { default as Intake } from './svg/intake.svg?react';
+
+// 상담신청 약사 프로필 기본 사진
+export { default as PharmacistBlue } from './svg/img_pharmacist_blue.svg?react';
+export { default as PharmacistPink } from './svg/img_pharmacist_pink.svg?react';
+
+// 상담신청 약사 프로필 기본 사진
+export { default as ConsultComplete } from './svg/consult_complete.svg?react';
+
+// 상담신청 상담내역 없음 사진
+export { default as ConsultationEmpty } from './svg/consultation.svg?react';

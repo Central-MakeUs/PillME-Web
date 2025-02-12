@@ -7,15 +7,20 @@ import * as styles from './tab.styles.css';
 
 interface TabsProps {
   defaultValue?: string;
+  rootClassName?: string;
   customTabsListClass?: string;
+  contentClassName?: string;
   children: React.ReactNode;
+  onValueChange?: (value: string) => void;
 }
 // customTabsListClass: label쪽 UI 가 달라서 props로 조절해야함
 
 export const Tab = ({
   defaultValue,
+  rootClassName,
   customTabsListClass,
   children,
+  onValueChange,
 }: TabsProps) => {
   const labels: React.ReactNode[] = [];
   const contents: React.ReactNode[] = [];
@@ -31,7 +36,11 @@ export const Tab = ({
   });
 
   return (
-    <Tabs.Root className={styles.tabsRoot} defaultValue={defaultValue}>
+    <Tabs.Root
+      className={cx(styles.tabsRoot, rootClassName)}
+      defaultValue={defaultValue}
+      onValueChange={onValueChange}
+    >
       <Tabs.List
         className={cx(styles.tabsList, customTabsListClass)}
         aria-label="Dynamic Tabs"
