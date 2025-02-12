@@ -106,7 +106,7 @@ export const BirthStepFunnel = (props: BirthStepFunnelProps) => {
             name="birth"
             render={({ field }) => (
               <FormItem>
-                <FormLabel required>생년월일 (8자리)</FormLabel>
+                <FormLabel>생년월일 (8자리)</FormLabel>
                 <InputContainer>
                   <Input
                     {...field}
