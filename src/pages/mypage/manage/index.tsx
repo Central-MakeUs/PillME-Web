@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { ArrowLeft, ArrowRightr } from '@/assets';
 import { EmailIcon } from '@/pages/onboarding/assets/EmailIcon';
 import { AppBar } from '@/ui/app-bar';
+import { Dialog } from '@/ui/dialog';
 import { IconButton } from '@/ui/icon-button';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
@@ -84,6 +85,26 @@ export const MyInfoManagePage = () => {
               )}
             </div>
           ))}
+        </div>
+        <div className={styles.dialogTriggerContainer}>
+          <Dialog
+            trigger={<p className={styles.dialogTrigger}>로그아웃</p>}
+            title="로그아웃"
+            description="로그아웃 하시겠어요?"
+            leftButtonText="취소"
+            rightButtonText="확인"
+            action="default"
+          />
+
+          <span className={styles.dialogTrigger}>|</span>
+          <Dialog
+            trigger={<p className={styles.dialogTrigger}>회원 탈퇴</p>}
+            title="서비스 회원 탈퇴"
+            description={`탈퇴 시 계정 및 이용기록은 모두 삭제돼요${'\n'}삭제된 데이터는 복구가 불가능해요`}
+            leftButtonText="취소"
+            rightButtonText="탈퇴하기"
+            action="danger"
+          />
         </div>
       </div>
       <NickNameBottomSheet
