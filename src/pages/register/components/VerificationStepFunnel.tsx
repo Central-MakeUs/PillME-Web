@@ -70,7 +70,10 @@ export const VerificationStepFunnel = (props: VerificationStepProps) => {
       return;
     }
 
-    vertifyEmailMutate(code);
+    vertifyEmailMutate({
+      code,
+      email,
+    });
   };
 
   const onEnterKey: KeyboardEventHandler<HTMLInputElement> = async (event) => {

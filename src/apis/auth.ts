@@ -28,6 +28,7 @@ export const sendEmailCodeAPI = (
 
 export type SendVertifyEmailCodeAPIRequest = {
   email: string;
+  code: string;
 };
 
 export const sendVertifyEmailCodeAPI = (
