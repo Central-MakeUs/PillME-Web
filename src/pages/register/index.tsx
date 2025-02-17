@@ -90,6 +90,7 @@ export const RegisterPage = () => {
                     code,
                   })
                 }
+                email={context.email}
               />
             )}
             PasswordStep={() => <PasswordStepFunnel />}
