@@ -1,15 +1,19 @@
 import { KeyboardEventHandler, useEffect } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { useFormContext } from 'react-hook-form';
+import { checkDuplicatedEmailAPI, sendEmailCodeAPI } from '@/apis/auth';
 import { DeleteCir } from '@/assets';
 import { Button } from '@/ui/button';
 import { FormErrorMessage, FormField, FormItem, FormLabel } from '@/ui/form';
 import { Input, InputContainer, InputRightElement } from '@/ui/input';
+import { useShowCustomToast } from '@/ui/toast/toast';
 import * as styles from '../page.styles.css';
 
 type EnterStepProps = { onNext: (email: string) => void };
 
 export const EnterStepFunnel = (props: EnterStepProps) => {
   const { onNext } = props;
+  const toast = useShowCustomToast();
 
   const {
     setFocus,
@@ -17,37 +21,55 @@ export const EnterStepFunnel = (props: EnterStepProps) => {
     trigger,
     watch,
     control,
+    setError,
     formState: { errors },
   } = useFormContext();
 
   const email = watch('email', '');
 
-  const onClickNextButton = async () => {
+  const { mutate } = useMutation({
+    mutationFn: async (email: string) => {
+      await checkDuplicatedEmailAPI({ email });
+      await sendEmailCodeAPI({ email });
+    },
+    onSuccess: () => {
+      onNext(email);
+    },
+    onError: (error) => {
+      setFocus('email');
+
+      const isDuplicatedError = error.message.includes('check-duplicated');
+
+      if (isDuplicatedError) {
+        setError('email', {
+          type: 'manual',
+          message: '이미 사용 중인 이메일입니다.',
+        });
+        return;
+      }
+
+      toast('인증 코드 전송에 실패했어요.', 'error');
+    },
+  });
+
+  const handleNext = async () => {
     await trigger('email');
 
     if (errors.email) {
       return;
     }
 
-    // 이메일 중복 체크 API 추가
-    // setError('email', {
-    //   type: 'manual',
-    //   message: '이미 사용 중인 이메일입니다.',
-    // });
-
-    onNext(email);
+    mutate(email);
   };
 
   const onEnterKey: KeyboardEventHandler<HTMLInputElement> = async (event) => {
     const isNotEnterKey = event.key !== 'Enter';
 
-    if (isNotEnterKey) return;
+    if (isNotEnterKey) {
+      return;
+    }
 
-    await trigger('email');
-
-    if (errors.email) return;
-
-    onNext(email);
+    handleNext();
   };
 
   const disabled = email.trim().length === 0 || !!errors.email;
@@ -96,7 +118,7 @@ export const EnterStepFunnel = (props: EnterStepProps) => {
       </section>
       <Button
         type="button"
-        onClick={onClickNextButton}
+        onClick={handleNext}
         disabled={disabled}
         className={styles.FullWidth}
       >

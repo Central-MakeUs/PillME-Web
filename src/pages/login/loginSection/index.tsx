@@ -1,6 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import { z } from 'zod';
+import { loginAPI } from '@/apis/auth';
+import { LOCAL_STORAGE } from '@/constants';
+import { useShowCustomToast } from '@/ui/toast/toast';
 import { DeleteCir, ErrorCir } from '../../../assets';
 import { Button } from '../../../ui/button';
 import * as styles from './styles.css';
@@ -13,21 +18,38 @@ const loginSchema = z.object({
 type FormData = z.infer<typeof loginSchema>;
 
 export const LoginSection = () => {
+  const navigate = useNavigate();
+
+  const showCustomToast = useShowCustomToast();
+
   const {
     register,
     handleSubmit,
     watch,
     setValue,
     trigger,
+    setFocus,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(loginSchema),
     mode: 'onChange',
   });
 
+  const { mutate } = useMutation({
+    mutationFn: loginAPI,
+    onSuccess: ({ data: { accessToken } }) => {
+      window.localStorage.setItem(LOCAL_STORAGE.ACCESS_TOKEN, accessToken);
+      navigate('/home');
+    },
+    onError: (error) => {
+      console.error(error);
+      showCustomToast('로그인에 실패하셨어요', 'error');
+      setFocus('email');
+    },
+  });
+
   const onSubmit = (data: FormData) => {
-    console.log('로그인 정보:', data);
-    alert('로그인 성공!');
+    mutate(data);
   };
 
   const emailValue = watch('email', '');
