@@ -25,4 +25,16 @@ export const handlers = [
     await delay(200);
     return HttpResponse.json(null, { status: 200 });
   }),
+  http.post('/auth/join', async () => {
+    await delay(200);
+    return HttpResponse.json(
+      {
+        data: {
+          accessToken: 'accessToken',
+          refreshToken: 'refreshToken',
+        },
+      },
+      { status: 200 },
+    );
+  }),
 ];
