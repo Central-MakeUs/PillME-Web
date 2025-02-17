@@ -11,12 +11,19 @@ import * as agreementStyles from '../agreementBottomSheet.css';
 import * as styles from '../page.styles.css';
 import { AgreeMent } from './AgreeMent';
 
-export const PasswordStepFunnel = () => {
+type PasswordStepFunnelProps = {
+  onNext: (password: string) => void;
+};
+
+export const PasswordStepFunnel = (props: PasswordStepFunnelProps) => {
+  const { onNext } = props;
+
   const {
     setFocus,
     setValue,
     trigger,
     control,
+    getValues,
     formState: { errors },
   } = useFormContext();
 
@@ -64,6 +71,16 @@ export const PasswordStepFunnel = () => {
   };
 
   const allChecked = agreementList.every(({ checked }) => Boolean(checked));
+
+  const handleNext = async () => {
+    const isValid = await trigger(['password', 'confirmPassword']);
+
+    if (!isValid) {
+      return;
+    }
+
+    onNext(getValues('password'));
+  };
 
   useEffect(() => {
     setFocus('password');
@@ -177,7 +194,9 @@ export const PasswordStepFunnel = () => {
               ))}
             </div>
             <Spacer size={3} />
-            <Button disabled={!allChecked}>다음</Button>
+            <Button disabled={!allChecked} type="button" onClick={handleNext}>
+              다음
+            </Button>
             <Spacer size={7} />
           </section>
         </BottomSheet.Content>
