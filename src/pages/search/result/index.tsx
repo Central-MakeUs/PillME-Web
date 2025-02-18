@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 import { ArrowDrop, ArrowLeft, Cart, Check } from '@/assets';
-import { MOCK_PRODUCT_LIST } from '@/pages/home/mock-product';
+import { keywordSearchQueryOption } from '@/query/product';
 import { AppBar } from '@/ui/app-bar';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
 import { ButtonText } from '@/ui/button-text';
@@ -12,20 +13,14 @@ import { SearchField } from '@/ui/search-field';
 import * as bottomStyles from './bottomSheet.css';
 import * as styles from './style.css';
 
+//TODO 정렬 필터에 따라 조회 필요
 export const SearchResultPage = () => {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get('keyword') || '';
   const navigate = useNavigate();
   const { searchType } = useParams();
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  const [selectedFilter, setSelectedFilter] = useState<string>('인기순');
-  const filterOptions = ['인기순', '가격 낮은 순', '함량 순', '가격 높은 순'];
-  const handleSelectFilter = (option: string) => {
-    setSelectedFilter(option);
-  };
-
+  //TODO localErrorBoundary 추가 필요
   return (
     <PageLayout
       header={
@@ -44,9 +39,39 @@ export const SearchResultPage = () => {
         </AppBar>
       }
     >
+      <Suspense fallback={<></>}>
+        <SearchResultPageInner searchType={searchType} keyword={keyword} />
+      </Suspense>
+    </PageLayout>
+  );
+};
+
+type SearchResultPageInnerProps = {
+  searchType?: string;
+  keyword: string;
+};
+
+const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
+  const { searchType, keyword } = props;
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const filterOptions = ['인기순', '가격 낮은 순', '함량 순', '가격 높은 순'];
+  const [selectedFilter, setSelectedFilter] = useState<string>('인기순');
+
+  const handleSelectFilter = (option: string) => {
+    setSelectedFilter(option);
+  };
+
+  const {
+    data: { data },
+  } = useSuspenseQuery(keywordSearchQueryOption(keyword));
+
+  return (
+    <>
       {searchType === 'ai' && (
         <section className={styles.subContainer}>
-          <div className={styles.tabTitle}>피곤함에 좋은 제품 결과</div>
+          <div className={styles.tabTitle}>{keyword}에 좋은 제품 결과</div>
           <div className={styles.tabChip}>
             <ButtonText style={{ color: 'black' }}>
               관련성분 <ArrowDrop />
@@ -72,7 +97,7 @@ export const SearchResultPage = () => {
       )}
       <section className={styles.mainContainer}>
         <div className={styles.subBanner}>
-          <div>총 32개</div>
+          <div>총 {data.length}개</div>
           {searchType === 'default' && (
             <ButtonText>
               연관도 순
@@ -93,9 +118,15 @@ export const SearchResultPage = () => {
           )}
         </div>
         <div className={styles.products}>
-          {MOCK_PRODUCT_LIST.map((mockProduct) => (
-            <div key={mockProduct.id} className={styles.maxWidthBox}>
-              <Card {...mockProduct} />
+          {data.map(({ id, imageUrl, description, name, price }) => (
+            <div key={id} className={styles.maxWidthBox}>
+              <Card
+                id={id}
+                imageUrl={imageUrl}
+                company={description}
+                name={name}
+                price={price}
+              />
             </div>
           ))}
         </div>
@@ -129,6 +160,6 @@ export const SearchResultPage = () => {
           </section>
         </BottomSheet.Content>
       </BottomSheet.Root>
-    </PageLayout>
+    </>
   );
 };
