@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
+import { NotFoundPage } from '@/pages/not-found';
 import { CartPage } from './pages/cart';
 import { CategoryPage } from './pages/category';
 import { CategoryResultPage } from './pages/category/result';
@@ -28,7 +29,11 @@ export const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<OnboardingPage />} />
+        <Route
+          index
+          element={<OnboardingPage />}
+          errorElement={<NotFoundPage />}
+        />
         <Route element={<BottomNavigationLayout />}>
           <Route path="home" element={<HomePage />} />
           <Route path="pillbox" element={<PillboxPage />} />
@@ -72,6 +77,7 @@ export const Router = () => {
         <Route path="recommend" element={<RecommendPage />} />
         <Route path="cart" element={<CartPage />} />
         <Route path="mypage/manage" element={<MyInfoManagePage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
