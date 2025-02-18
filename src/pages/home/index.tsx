@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { EmblaOptionsType } from 'embla-carousel';
 import { useNavigate } from 'react-router';
 import { Cart, Logo } from '../../assets';
 import { AppBar } from '../../ui/app-bar';
@@ -8,17 +9,56 @@ import { PageLayout } from '../../ui/layout/page-layout';
 import { SearchField } from '../../ui/search-field';
 import { Spacer } from '../../ui/spacer/spacer';
 import { Switch } from '../../ui/switch';
-import { RecommendCategory } from './components/recommend-category';
+import { Carousel, CarouselProps } from './components/carousel';
 import { RecommendProductGallery } from './components/recommend-product';
-import { RECOMMEND_CATEGORY_LIST } from './recommend-category';
+import { CategorySlide } from './components/slides/category-slide';
+import {
+  firstCategortyList,
+  fourthCategoryList,
+  secondCategoryList,
+  thirdCategoryList,
+} from './recommend-category';
 import * as styles from './styles.css';
+
+const OPTIONS: EmblaOptionsType = { align: 'start', containScroll: false };
 
 export const HomePage = () => {
   const navigate = useNavigate();
 
-  const onClickCategoryResult = (category: string) => () => {
+  const onClickCategoryResult = (category: string) => {
     navigate(`/category/${category}`);
   };
+
+  const SLIDES: CarouselProps['slides'] = [
+    {
+      Component: CategorySlide,
+      props: {
+        categoryList: firstCategortyList,
+        onClickCategory: onClickCategoryResult,
+      },
+    },
+    {
+      Component: CategorySlide,
+      props: {
+        categoryList: secondCategoryList,
+        onClickCategory: onClickCategoryResult,
+      },
+    },
+    {
+      Component: CategorySlide,
+      props: {
+        categoryList: thirdCategoryList,
+        onClickCategory: onClickCategoryResult,
+      },
+    },
+    {
+      Component: CategorySlide,
+      props: {
+        categoryList: fourthCategoryList,
+        onClickCategory: onClickCategoryResult,
+      },
+    },
+  ];
 
   const onClickCategory = () => navigate('/category');
 
@@ -101,16 +141,7 @@ export const HomePage = () => {
             <h4 className={styles.recommendCategoryTitle}>
               추천 건강 고민 카테고리
             </h4>
-            <div className={styles.recommendCategoryGallery}>
-              {RECOMMEND_CATEGORY_LIST.map(({ icon, name, value }) => (
-                <RecommendCategory
-                  key={name}
-                  Icon={icon}
-                  name={name}
-                  onClick={onClickCategoryResult(value)}
-                />
-              ))}
-            </div>
+            <Carousel slides={SLIDES} options={OPTIONS} />
           </section>
         </div>
         <button className={styles.viewAllButton} onClick={onClickCategory}>
