@@ -1,6 +1,10 @@
+import { Suspense } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { Fragment } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router';
 import { ArrowRightr, Cart } from '@/assets';
+import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
+import { userQueryOption } from '@/query/user';
 import { AppBar, AppBarElement } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
@@ -27,19 +31,11 @@ export const MyPage = () => {
         </AppBar>
       }
     >
-      <header className={styles.header}>
-        <div>
-          <h2 className={styles.name}>김필미</h2>
-          <Spacer size={10} />
-          <div className={styles.emailContainer}>
-            <EmailIcon />
-            <p className={styles.email}>pillme1234@naver.com</p>
-          </div>
-        </div>
-        <button>
-          <ArrowRightr />
-        </button>
-      </header>
+      <LocalErrorBoundary>
+        <Suspense>
+          <MyPageInner />
+        </Suspense>
+      </LocalErrorBoundary>
       {CONTENT_LIST.map(({ title, listItemList }) => (
         <Fragment key={title}>
           <div className={styles.separator} />
@@ -60,6 +56,32 @@ export const MyPage = () => {
         </Fragment>
       ))}
     </PageLayout>
+  );
+};
+
+const MyPageInner = () => {
+  const {
+    data: {
+      data: { nickname, email },
+    },
+  } = useSuspenseQuery(userQueryOption());
+
+  return (
+    <>
+      <header className={styles.header}>
+        <div>
+          <h2 className={styles.name}>{nickname}</h2>
+          <Spacer size={10} />
+          <div className={styles.emailContainer}>
+            <EmailIcon />
+            <p className={styles.email}>{email}</p>
+          </div>
+        </div>
+        <button>
+          <ArrowRightr />
+        </button>
+      </header>
+    </>
   );
 };
 
