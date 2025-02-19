@@ -1,4 +1,3 @@
-import { LOCAL_STORAGE } from '@/constants';
 import { ResponseFormat, fetcher } from './fetcher';
 
 export type CheckDuplicatedEmailAPIRequest = {
