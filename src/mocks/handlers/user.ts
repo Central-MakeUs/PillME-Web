@@ -16,7 +16,7 @@ export const handlers = [
       { status: 200 },
     );
   }),
-  http.post('user/info', async () => {
+  http.post('user/update', async () => {
     await delay(200);
     return HttpResponse.json(
       {
