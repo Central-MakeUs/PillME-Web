@@ -1,5 +1,7 @@
 import { PropsWithChildren, useReducer } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
+import { deleteUserAPI, logout } from '@/apis/auth';
 import { ArrowLeft, ArrowRightr } from '@/assets';
 import { EmailIcon } from '@/pages/onboarding/assets/EmailIcon';
 import { AppBar } from '@/ui/app-bar';
@@ -7,12 +9,15 @@ import { Dialog } from '@/ui/dialog';
 import { IconButton } from '@/ui/icon-button';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
+import { useShowCustomToast } from '@/ui/toast/toast';
 import { initialModalState, modalReducer } from './bottomSheetReducer';
 import { BirthBottomSheet } from './components/birth-bottom-sheet';
 import { NickNameBottomSheet } from './components/nick-name-bottom-sheet';
 import * as styles from './page.css';
 
 export const MyInfoManagePage = () => {
+  const toast = useShowCustomToast();
+
   const navigate = useNavigate();
 
   const goBack = () => navigate(-1);
@@ -33,6 +38,13 @@ export const MyInfoManagePage = () => {
   const handleCloseAllModals = () => {
     dispatch({ type: 'CLOSE_ALL_MODALS' });
   };
+
+  const { mutate } = useMutation({
+    mutationFn: deleteUserAPI,
+    onSuccess: () => {
+      toast('회원탈퇴가 완료되었어요', 'remove', '', false);
+    },
+  });
 
   const MOCK_MY_INFO_LIST = [
     {
@@ -94,6 +106,11 @@ export const MyInfoManagePage = () => {
             leftButtonText="취소"
             rightButtonText="확인"
             action="default"
+            onConfirm={() => {
+              logout();
+              toast('로그아웃 되었어요', 'remove', '', false);
+              navigate('/');
+            }}
           />
 
           <span className={styles.dialogTrigger}>|</span>
@@ -104,6 +121,9 @@ export const MyInfoManagePage = () => {
             leftButtonText="취소"
             rightButtonText="탈퇴하기"
             action="danger"
+            onConfirm={() => {
+              mutate();
+            }}
           />
         </div>
       </div>

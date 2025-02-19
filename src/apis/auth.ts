@@ -1,3 +1,4 @@
+import { LOCAL_STORAGE } from '@/constants';
 import { ResponseFormat, fetcher } from './fetcher';
 
 export type CheckDuplicatedEmailAPIRequest = {
@@ -76,3 +77,8 @@ export const loginAPI = (LoginAPIRequest: LoginAPIRequest) =>
       ...LoginAPIRequest,
     },
   });
+
+export const logout = () =>
+  window.localStorage.removeItem(LOCAL_STORAGE.ACCESS_TOKEN);
+
+export const deleteUserAPI = () => fetcher.delete('user/delete');
