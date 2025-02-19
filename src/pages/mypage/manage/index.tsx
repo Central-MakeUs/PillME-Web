@@ -57,11 +57,11 @@ export const MyInfoManageInner = () => {
   const MOCK_MY_INFO_LIST = [
     {
       label: '아이디',
-      value: nickname,
+      value: email,
     },
     {
       label: '닉네임',
-      value: email,
+      value: nickname,
       onClick: handleOpenNicknameModal,
     },
     {
@@ -131,15 +131,17 @@ export const MyInfoManageInner = () => {
           />
         </div>
       </div>
+      (
       <NickNameBottomSheet
         open={isNicknameModalOpen}
         onOpenChange={handleCloseAllModals}
-        initialNickName="김필미1234"
+        initialNickName={nickname}
       />
+      )
       <BirthBottomSheet
         open={isBirthModalOpen}
         onOpenChange={handleCloseAllModals}
-        initialBirth="1998.11.18"
+        initialBirth={birthDate}
       />
     </PageLayout>
   );
