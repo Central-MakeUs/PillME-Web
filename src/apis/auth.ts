@@ -34,7 +34,7 @@ export type SendVertifyEmailCodeAPIRequest = {
 export const sendVertifyEmailCodeAPI = (
   sendVertifyEmailCodeAPIRequest: SendVertifyEmailCodeAPIRequest,
 ) =>
-  fetcher.post('auth/email/vertify-code', {
+  fetcher.post('auth/email/verify-code', {
     json: {
       ...sendVertifyEmailCodeAPIRequest,
     },
