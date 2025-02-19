@@ -1,57 +1,73 @@
-import { PropsWithChildren, useReducer } from 'react';
+import { PropsWithChildren, Suspense } from 'react';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
+import { deleteUserAPI, logout } from '@/apis/user';
 import { ArrowLeft, ArrowRightr } from '@/assets';
+import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { EmailIcon } from '@/pages/onboarding/assets/EmailIcon';
+import { userQueryOption } from '@/query/user';
 import { AppBar } from '@/ui/app-bar';
 import { Dialog } from '@/ui/dialog';
 import { IconButton } from '@/ui/icon-button';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
-import { initialModalState, modalReducer } from './bottomSheetReducer';
+import { useShowCustomToast } from '@/ui/toast/toast';
 import { BirthBottomSheet } from './components/birth-bottom-sheet';
 import { NickNameBottomSheet } from './components/nick-name-bottom-sheet';
+import { useBottomSheet } from './hooks/useBottomSheet';
 import * as styles from './page.css';
 
 export const MyInfoManagePage = () => {
-  const navigate = useNavigate();
+  return (
+    <LocalErrorBoundary>
+      <Suspense>
+        <MyInfoManageInner />
+      </Suspense>
+    </LocalErrorBoundary>
+  );
+};
 
+export const MyInfoManageInner = () => {
+  const navigate = useNavigate();
   const goBack = () => navigate(-1);
 
-  const [{ isBirthModalOpen, isNicknameModalOpen }, dispatch] = useReducer(
-    modalReducer,
-    initialModalState,
-  );
+  const {
+    isBirthModalOpen,
+    isNicknameModalOpen,
+    handleOpenNicknameModal,
+    handleOpenBirthModal,
+    handleCloseAllModals,
+  } = useBottomSheet();
 
-  const handleOpenNicknameModal = () => {
-    dispatch({ type: 'OPEN_NICKNAME_MODAL' });
-  };
+  const toast = useShowCustomToast();
 
-  const handleOpenBirthModal = () => {
-    dispatch({ type: 'OPEN_BIRTH_MODAL' });
-  };
+  const { mutate } = useMutation({
+    mutationFn: deleteUserAPI,
+    onSuccess: () => {
+      toast('회원탈퇴가 완료되었어요', 'remove', '', false);
+    },
+  });
 
-  const handleCloseAllModals = () => {
-    dispatch({ type: 'CLOSE_ALL_MODALS' });
-  };
+  const {
+    data: {
+      data: { nickname, email, birthDate },
+    },
+  } = useSuspenseQuery(userQueryOption());
 
   const MOCK_MY_INFO_LIST = [
     {
       label: '아이디',
-      value: 'pillme1234@naver.com',
+      value: email,
     },
     {
       label: '닉네임',
-      value: '김필미1234',
+      value: nickname,
       onClick: handleOpenNicknameModal,
     },
     {
       label: '생년월일',
-      value: '2000.04.29',
+      value: birthDate,
       onClick: handleOpenBirthModal,
-    },
-    {
-      label: '휴대폰 번호',
-      value: '010-1234-1234',
     },
   ];
 
@@ -94,6 +110,11 @@ export const MyInfoManagePage = () => {
             leftButtonText="취소"
             rightButtonText="확인"
             action="default"
+            onConfirm={() => {
+              logout();
+              toast('로그아웃 되었어요', 'remove', '', false);
+              navigate('/');
+            }}
           />
 
           <span className={styles.dialogTrigger}>|</span>
@@ -104,18 +125,23 @@ export const MyInfoManagePage = () => {
             leftButtonText="취소"
             rightButtonText="탈퇴하기"
             action="danger"
+            onConfirm={() => {
+              mutate();
+            }}
           />
         </div>
       </div>
+      (
       <NickNameBottomSheet
         open={isNicknameModalOpen}
         onOpenChange={handleCloseAllModals}
-        initialNickName="김필미1234"
+        initialNickName={nickname}
       />
+      )
       <BirthBottomSheet
         open={isBirthModalOpen}
         onOpenChange={handleCloseAllModals}
-        initialBirth="1998.11.18"
+        initialBirth={birthDate}
       />
     </PageLayout>
   );
