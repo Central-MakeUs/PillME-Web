@@ -12,8 +12,23 @@ import { EmailIcon } from '../onboarding/assets/EmailIcon';
 import * as styles from './page.css';
 
 export const MyPage = () => {
-  const navigate = useNavigate();
+  return (
+    <LocalErrorBoundary>
+      <Suspense>
+        <MyPageInner />
+      </Suspense>
+    </LocalErrorBoundary>
+  );
+};
 
+const MyPageInner = () => {
+  const {
+    data: {
+      data: { nickname, email },
+    },
+  } = useSuspenseQuery(userQueryOption());
+
+  const navigate = useNavigate();
   const goCartPage = () => navigate('/cart');
 
   return (
@@ -31,11 +46,19 @@ export const MyPage = () => {
         </AppBar>
       }
     >
-      <LocalErrorBoundary>
-        <Suspense>
-          <MyPageInner />
-        </Suspense>
-      </LocalErrorBoundary>
+      <header className={styles.header}>
+        <div>
+          <h2 className={styles.name}>{nickname}</h2>
+          <Spacer size={10} />
+          <div className={styles.emailContainer}>
+            <EmailIcon />
+            <p className={styles.email}>{email}</p>
+          </div>
+        </div>
+        <button>
+          <ArrowRightr />
+        </button>
+      </header>
       {CONTENT_LIST.map(({ title, listItemList }) => (
         <Fragment key={title}>
           <div className={styles.separator} />
@@ -56,32 +79,6 @@ export const MyPage = () => {
         </Fragment>
       ))}
     </PageLayout>
-  );
-};
-
-const MyPageInner = () => {
-  const {
-    data: {
-      data: { nickname, email },
-    },
-  } = useSuspenseQuery(userQueryOption());
-
-  return (
-    <>
-      <header className={styles.header}>
-        <div>
-          <h2 className={styles.name}>{nickname}</h2>
-          <Spacer size={10} />
-          <div className={styles.emailContainer}>
-            <EmailIcon />
-            <p className={styles.email}>{email}</p>
-          </div>
-        </div>
-        <button>
-          <ArrowRightr />
-        </button>
-      </header>
-    </>
   );
 };
 

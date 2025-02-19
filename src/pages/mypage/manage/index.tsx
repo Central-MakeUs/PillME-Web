@@ -1,9 +1,11 @@
-import { PropsWithChildren } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { PropsWithChildren, Suspense } from 'react';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import { deleteUserAPI, logout } from '@/apis/user';
 import { ArrowLeft, ArrowRightr } from '@/assets';
+import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { EmailIcon } from '@/pages/onboarding/assets/EmailIcon';
+import { userQueryOption } from '@/query/user';
 import { AppBar } from '@/ui/app-bar';
 import { Dialog } from '@/ui/dialog';
 import { IconButton } from '@/ui/icon-button';
@@ -16,6 +18,19 @@ import { useBottomSheet } from './hooks/useBottomSheet';
 import * as styles from './page.css';
 
 export const MyInfoManagePage = () => {
+  return (
+    <LocalErrorBoundary>
+      <Suspense>
+        <MyInfoManageInner />
+      </Suspense>
+    </LocalErrorBoundary>
+  );
+};
+
+export const MyInfoManageInner = () => {
+  const navigate = useNavigate();
+  const goBack = () => navigate(-1);
+
   const {
     isBirthModalOpen,
     isNicknameModalOpen,
@@ -26,9 +41,6 @@ export const MyInfoManagePage = () => {
 
   const toast = useShowCustomToast();
 
-  const navigate = useNavigate();
-  const goBack = () => navigate(-1);
-
   const { mutate } = useMutation({
     mutationFn: deleteUserAPI,
     onSuccess: () => {
@@ -36,24 +48,26 @@ export const MyInfoManagePage = () => {
     },
   });
 
+  const {
+    data: {
+      data: { nickname, email, birthDate },
+    },
+  } = useSuspenseQuery(userQueryOption());
+
   const MOCK_MY_INFO_LIST = [
     {
       label: '아이디',
-      value: 'pillme1234@naver.com',
+      value: nickname,
     },
     {
       label: '닉네임',
-      value: '김필미1234',
+      value: email,
       onClick: handleOpenNicknameModal,
     },
     {
       label: '생년월일',
-      value: '2000.04.29',
+      value: birthDate,
       onClick: handleOpenBirthModal,
-    },
-    {
-      label: '휴대폰 번호',
-      value: '010-1234-1234',
     },
   ];
 
