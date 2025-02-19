@@ -1,7 +1,7 @@
 import { PropsWithChildren, useReducer } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
-import { deleteUserAPI, logout } from '@/apis/auth';
+import { deleteUserAPI, logout } from '@/apis/user';
 import { ArrowLeft, ArrowRightr } from '@/assets';
 import { EmailIcon } from '@/pages/onboarding/assets/EmailIcon';
 import { AppBar } from '@/ui/app-bar';
