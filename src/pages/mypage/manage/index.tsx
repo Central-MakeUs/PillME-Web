@@ -1,4 +1,4 @@
-import { PropsWithChildren, useReducer } from 'react';
+import { PropsWithChildren } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import { deleteUserAPI, logout } from '@/apis/user';
@@ -10,34 +10,24 @@ import { IconButton } from '@/ui/icon-button';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
 import { useShowCustomToast } from '@/ui/toast/toast';
-import { initialModalState, modalReducer } from './bottomSheetReducer';
 import { BirthBottomSheet } from './components/birth-bottom-sheet';
 import { NickNameBottomSheet } from './components/nick-name-bottom-sheet';
+import { useBottomSheet } from './hooks/useBottomSheet';
 import * as styles from './page.css';
 
 export const MyInfoManagePage = () => {
+  const {
+    isBirthModalOpen,
+    isNicknameModalOpen,
+    handleOpenNicknameModal,
+    handleOpenBirthModal,
+    handleCloseAllModals,
+  } = useBottomSheet();
+
   const toast = useShowCustomToast();
 
   const navigate = useNavigate();
-
   const goBack = () => navigate(-1);
-
-  const [{ isBirthModalOpen, isNicknameModalOpen }, dispatch] = useReducer(
-    modalReducer,
-    initialModalState,
-  );
-
-  const handleOpenNicknameModal = () => {
-    dispatch({ type: 'OPEN_NICKNAME_MODAL' });
-  };
-
-  const handleOpenBirthModal = () => {
-    dispatch({ type: 'OPEN_BIRTH_MODAL' });
-  };
-
-  const handleCloseAllModals = () => {
-    dispatch({ type: 'CLOSE_ALL_MODALS' });
-  };
 
   const { mutate } = useMutation({
     mutationFn: deleteUserAPI,
