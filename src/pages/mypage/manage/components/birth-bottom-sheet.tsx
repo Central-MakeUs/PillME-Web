@@ -92,7 +92,13 @@ export const BirthBottomSheet = (props: BirthBottomSheetProps) => {
   const disabled = birth.length === 0;
 
   return (
-    <BottomSheet.Root open={open} onOpenChange={onOpenChange}>
+    <BottomSheet.Root
+      open={open}
+      onOpenChange={() => {
+        onOpenChange();
+        setValue('birth', initialBirth);
+      }}
+    >
       <BottomSheet.Overlay />
       <BottomSheet.Content className={styles.container}>
         <BottomSheet.Handle />

@@ -55,7 +55,13 @@ export const NickNameBottomSheet = (props: NickNameBottomSheetProps) => {
   const disabled = name.length === 0;
 
   return (
-    <BottomSheet.Root open={open} onOpenChange={onOpenChange}>
+    <BottomSheet.Root
+      open={open}
+      onOpenChange={() => {
+        onOpenChange();
+        setValue('name', initialNickName);
+      }}
+    >
       <BottomSheet.Overlay />
       <BottomSheet.Content className={styles.container}>
         <BottomSheet.Handle />
