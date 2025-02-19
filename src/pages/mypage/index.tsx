@@ -30,6 +30,7 @@ const MyPageInner = () => {
 
   const navigate = useNavigate();
   const goCartPage = () => navigate('/cart');
+  const goManagePage = () => navigate('manage');
 
   return (
     <PageLayout
@@ -55,7 +56,7 @@ const MyPageInner = () => {
             <p className={styles.email}>{email}</p>
           </div>
         </div>
-        <button>
+        <button onClick={goManagePage}>
           <ArrowRightr />
         </button>
       </header>
