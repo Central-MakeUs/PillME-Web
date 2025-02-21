@@ -26,16 +26,17 @@ type FilterBottomSheetProps = {
   }) => void;
   initialCategoryList?: Tag[];
   initialIngredientList?: Tag[];
+  initialTab: string;
 };
 
 export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
-  const { open, onOpenChange, onConfirm } = props;
+  const { open, onOpenChange, onConfirm, initialTab = 'category' } = props;
 
   const [selectedCategoryList, setSelectedCategoryList] = useState<Tag[]>([]);
   const [selectedIngredientList, setSelectedIngredientList] = useState<Tag[]>(
     [],
   );
-  const [currentTab, setCurrentTab] = useState('category');
+  const [currentTab, setCurrentTab] = useState(initialTab);
 
   const handleTabChange = (value: string) => {
     setCurrentTab(value);
