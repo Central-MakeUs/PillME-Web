@@ -2,6 +2,8 @@ import { ReactNode } from 'react';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
 import emptyImageUrl from '@/assets/img_empty.png';
+import { LOCAL_STORAGE } from '@/constants';
+import { NotFoundPage } from '@/pages/not-found';
 import { Button } from '@/ui/button';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
@@ -13,8 +15,13 @@ function RetryErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   const isAuthorizedError = status === 401;
   //   const isForbidden = status === 403;
 
+  // if (isAuthorizedError) {
+  //   throw error;
+  // }
+
   if (isAuthorizedError) {
-    throw error;
+    window.localStorage.removeItem(LOCAL_STORAGE.ACCESS_TOKEN);
+    return <NotFoundPage />;
   }
 
   return (

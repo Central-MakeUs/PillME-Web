@@ -1,6 +1,8 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isPast, isValid, parse } from 'date-fns';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
+import { updateUserInfoAPI } from '@/apis/user';
 import { DeleteCir } from '@/assets';
 import { birth } from '@/pages/userinfo/schema';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
@@ -14,6 +16,7 @@ import {
 } from '@/ui/form';
 import { Input, InputContainer, InputRightElement } from '@/ui/input';
 import { Spacer } from '@/ui/spacer/spacer';
+import { useShowCustomToast } from '@/ui/toast/toast';
 import * as styles from './bottom-sheet.css';
 
 const birthSchema = z.object({
@@ -30,6 +33,21 @@ type BirthBottomSheetProps = {
 
 export const BirthBottomSheet = (props: BirthBottomSheetProps) => {
   const { initialBirth, open, onOpenChange } = props;
+
+  const toast = useShowCustomToast();
+
+  const queryClient = useQueryClient();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: updateUserInfoAPI,
+    onSuccess: () => {
+      toast('생년월일 변경에 성공하였습니다', 'success');
+      queryClient.invalidateQueries({
+        queryKey: ['user'],
+      });
+      onOpenChange();
+    },
+  });
 
   const form = useForm<BirthSchema>({
     defaultValues: {
@@ -59,6 +77,10 @@ export const BirthBottomSheet = (props: BirthBottomSheetProps) => {
     if (errors.birth) {
       return;
     }
+
+    mutate({
+      birthDate: birth,
+    });
   };
 
   const checkDate = (date: string) => {
@@ -89,10 +111,16 @@ export const BirthBottomSheet = (props: BirthBottomSheetProps) => {
     }
   };
 
-  const disabled = birth.length === 0;
+  const disabled = birth.length === 0 || isPending;
 
   return (
-    <BottomSheet.Root open={open} onOpenChange={onOpenChange}>
+    <BottomSheet.Root
+      open={open}
+      onOpenChange={() => {
+        onOpenChange();
+        setValue('birth', initialBirth);
+      }}
+    >
       <BottomSheet.Overlay />
       <BottomSheet.Content className={styles.container}>
         <BottomSheet.Handle />

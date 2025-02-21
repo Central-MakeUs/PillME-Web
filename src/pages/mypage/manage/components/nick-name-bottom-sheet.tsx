@@ -1,5 +1,7 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
+import { updateUserInfoAPI } from '@/apis/user';
 import { DeleteCir } from '@/assets';
 import { name } from '@/pages/userinfo/schema';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
@@ -13,6 +15,7 @@ import {
 } from '@/ui/form';
 import { Input, InputContainer, InputRightElement } from '@/ui/input';
 import { Spacer } from '@/ui/spacer/spacer';
+import { useShowCustomToast } from '@/ui/toast/toast';
 import * as styles from './bottom-sheet.css';
 
 export const nameSchema = z.object({
@@ -29,6 +32,21 @@ type NickNameBottomSheetProps = {
 
 export const NickNameBottomSheet = (props: NickNameBottomSheetProps) => {
   const { initialNickName, open, onOpenChange } = props;
+
+  const toast = useShowCustomToast();
+
+  const queryClient = useQueryClient();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: updateUserInfoAPI,
+    onSuccess: () => {
+      toast('이름 변경에 성공하였습니다', 'success');
+      queryClient.invalidateQueries({
+        queryKey: ['user'],
+      });
+      onOpenChange();
+    },
+  });
 
   const form = useForm<NameSchema>({
     defaultValues: {
@@ -50,12 +68,21 @@ export const NickNameBottomSheet = (props: NickNameBottomSheetProps) => {
 
   const onSubmit: SubmitHandler<NameSchema> = (data) => {
     console.log(data);
+    mutate({
+      nickname: name,
+    });
   };
 
-  const disabled = name.length === 0;
+  const disabled = name.length === 0 || isPending;
 
   return (
-    <BottomSheet.Root open={open} onOpenChange={onOpenChange}>
+    <BottomSheet.Root
+      open={open}
+      onOpenChange={() => {
+        onOpenChange();
+        setValue('name', initialNickName);
+      }}
+    >
       <BottomSheet.Overlay />
       <BottomSheet.Content className={styles.container}>
         <BottomSheet.Handle />

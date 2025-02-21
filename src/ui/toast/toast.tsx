@@ -18,11 +18,12 @@ export const useShowCustomToast = () => {
     message: string,
     type: keyof typeof ICONS = 'remove',
     routePath?: string,
+    showIcon: boolean = true,
   ) => {
     toast.custom(
       (t) => (
         <div className={styles.toastContainer}>
-          {ICONS[type]}
+          {showIcon && ICONS[type]}
           <span className={styles.message}>{message}</span>
           {routePath && (
             <div

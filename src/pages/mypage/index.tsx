@@ -1,6 +1,10 @@
+import { Suspense } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { Fragment } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router';
 import { ArrowRightr, Cart } from '@/assets';
+import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
+import { userQueryOption } from '@/query/user';
 import { AppBar, AppBarElement } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
@@ -8,9 +12,25 @@ import { EmailIcon } from '../onboarding/assets/EmailIcon';
 import * as styles from './page.css';
 
 export const MyPage = () => {
-  const navigate = useNavigate();
+  return (
+    <LocalErrorBoundary>
+      <Suspense>
+        <MyPageInner />
+      </Suspense>
+    </LocalErrorBoundary>
+  );
+};
 
+const MyPageInner = () => {
+  const {
+    data: {
+      data: { nickname, email },
+    },
+  } = useSuspenseQuery(userQueryOption());
+
+  const navigate = useNavigate();
   const goCartPage = () => navigate('/cart');
+  const goManagePage = () => navigate('manage');
 
   return (
     <PageLayout
@@ -29,14 +49,14 @@ export const MyPage = () => {
     >
       <header className={styles.header}>
         <div>
-          <h2 className={styles.name}>김필미</h2>
+          <h2 className={styles.name}>{nickname}</h2>
           <Spacer size={10} />
           <div className={styles.emailContainer}>
             <EmailIcon />
-            <p className={styles.email}>pillme1234@naver.com</p>
+            <p className={styles.email}>{email}</p>
           </div>
         </div>
-        <button>
+        <button onClick={goManagePage}>
           <ArrowRightr />
         </button>
       </header>
