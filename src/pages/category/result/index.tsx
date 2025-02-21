@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ArrowDrop, ArrowLeft, Cart } from '@/assets';
+import { FilterBottonSheet } from '@/components/filter-bottom-sheet';
 import { MOCK_PRODUCT_LIST } from '@/pages/home/mock-product';
 import { AppBar } from '@/ui/app-bar';
 import { ButtonText } from '@/ui/button-text';
@@ -17,6 +19,8 @@ export const CategoryResultPage = () => {
   const navigate = useNavigate();
 
   const goBack = () => navigate(-1);
+
+  const [open, setOpen] = useState(true);
 
   return (
     <PageLayout
@@ -96,6 +100,7 @@ export const CategoryResultPage = () => {
           <Card key={mockProduct.name} {...mockProduct} />
         ))}
       </div>
+      <FilterBottonSheet open={open} onOpenChange={() => setOpen(false)} />
     </PageLayout>
   );
 };
