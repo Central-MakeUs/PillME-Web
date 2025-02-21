@@ -20,7 +20,7 @@ export const CategoryResultPage = () => {
 
   const goBack = () => navigate(-1);
 
-  const [initialTab, setInitialTab] = useState<string>('NONE');
+  const [initialTab, setInitialTab] = useState<string>('none');
 
   return (
     <PageLayout
