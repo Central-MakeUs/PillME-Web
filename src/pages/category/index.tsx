@@ -14,8 +14,8 @@ export const CategoryPage = () => {
 
   const goBack = () => navigate(-1);
 
-  const onClickCategory = (category: string) => () => {
-    navigate(category);
+  const onClickCategory = (category: number) => () => {
+    navigate(String(category));
   };
 
   return (

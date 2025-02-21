@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ArrowDrop, ArrowLeft, Cart } from '@/assets';
+import { FilterBottonSheet } from '@/components/filter-bottom-sheet';
 import { MOCK_PRODUCT_LIST } from '@/pages/home/mock-product';
 import { AppBar } from '@/ui/app-bar';
 import { ButtonText } from '@/ui/button-text';
@@ -17,6 +19,8 @@ export const CategoryResultPage = () => {
   const navigate = useNavigate();
 
   const goBack = () => navigate(-1);
+
+  const [initialTab, setInitialTab] = useState<string>('none');
 
   return (
     <PageLayout
@@ -43,7 +47,10 @@ export const CategoryResultPage = () => {
       <div className={styles.productFilterList}>
         <ProductFilterList
           label={
-            <ProductFilterLabel Icon={<ArrowDrop />}>
+            <ProductFilterLabel
+              Icon={<ArrowDrop />}
+              onClick={() => setInitialTab('category')}
+            >
               카테고리
             </ProductFilterLabel>
           }
@@ -61,7 +68,10 @@ export const CategoryResultPage = () => {
         </ProductFilterList>
         <ProductFilterList
           label={
-            <ProductFilterLabel Icon={<ArrowDrop />}>
+            <ProductFilterLabel
+              Icon={<ArrowDrop />}
+              onClick={() => setInitialTab('ingredient')}
+            >
               관련 성분
             </ProductFilterLabel>
           }
@@ -96,6 +106,14 @@ export const CategoryResultPage = () => {
           <Card key={mockProduct.name} {...mockProduct} />
         ))}
       </div>
+      {/* TODO initialCategory, initialIngredient 추가 필요 */}
+      {initialTab !== 'none' && (
+        <FilterBottonSheet
+          open={initialTab !== 'none'}
+          initialTab={initialTab}
+          onOpenChange={() => setInitialTab('none')}
+        />
+      )}
     </PageLayout>
   );
 };
