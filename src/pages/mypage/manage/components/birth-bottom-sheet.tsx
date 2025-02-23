@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isPast, isValid, parse } from 'date-fns';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
-import { updateUserInfoAPI } from '@/apis/user';
+import { updateUserInfoAPI } from '@/apis/mutation/user';
 import { DeleteCir } from '@/assets';
 import { birth } from '@/pages/userinfo/schema';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';

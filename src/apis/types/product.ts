@@ -1,4 +1,4 @@
-import { ResponseFormat } from '../fetcher';
+import { ResponseFormat } from './common';
 
 type Product = {
   id: number;

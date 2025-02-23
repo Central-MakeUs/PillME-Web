@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
-import { updateUserInfoAPI } from '@/apis/user';
+import { updateUserInfoAPI } from '@/apis/mutation/user';
 import { DeleteCir } from '@/assets';
 import { name } from '@/pages/userinfo/schema';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';

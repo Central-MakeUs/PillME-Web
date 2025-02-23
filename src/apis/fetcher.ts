@@ -55,9 +55,3 @@ export const fetcher = {
   delete: <T>(pathname: string, options?: Options) =>
     parseResponse<T>(instance.delete(pathname, options)),
 };
-
-export type ResponseFormat<T> = {
-  status: string;
-  data: T;
-  message: string;
-};

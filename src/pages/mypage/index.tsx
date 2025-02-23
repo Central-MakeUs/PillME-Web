@@ -2,9 +2,9 @@ import { Suspense } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Fragment } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router';
+import { userQueryOption } from '@/apis/query/user';
 import { ArrowRightr, Cart } from '@/assets';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
-import { userQueryOption } from '@/query/user';
 import { AppBar, AppBarElement } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
@@ -26,7 +26,7 @@ const MyPageInner = () => {
     data: {
       data: { nickname, email },
     },
-  } = useSuspenseQuery(userQueryOption());
+  } = useSuspenseQuery(userQueryOption.all());
 
   const navigate = useNavigate();
   const goCartPage = () => navigate('/cart');

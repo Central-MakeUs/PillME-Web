@@ -1,7 +1,10 @@
 import { KeyboardEventHandler, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useFormContext } from 'react-hook-form';
-import { checkDuplicatedEmailAPI, sendEmailCodeAPI } from '@/apis/auth';
+import {
+  checkDuplicatedEmailAPI,
+  sendEmailCodeAPI,
+} from '@/apis/mutation/auth';
 import { DeleteCir } from '@/assets';
 import { Button } from '@/ui/button';
 import { FormErrorMessage, FormField, FormItem, FormLabel } from '@/ui/form';
