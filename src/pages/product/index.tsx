@@ -1,9 +1,9 @@
 import { Suspense, useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate, useParams } from 'react-router';
 import { productQueryOption } from '@/apis/query/product';
 import { ArrowLeft, Cart, Check, Plus } from '@/assets';
+import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { AppBar } from '@/ui/app-bar';
 import { Button } from '@/ui/button';
 import { ButtonText } from '@/ui/button-text';
@@ -19,11 +19,11 @@ import * as styles from './page.css';
 export const ProductPage = () => {
   const { productId } = useParams();
   return (
-    <ErrorBoundary fallback={<>에러</>}>
+    <LocalErrorBoundary>
       <Suspense>
         <ProductPageInner productId={Number(productId)} />
       </Suspense>
-    </ErrorBoundary>
+    </LocalErrorBoundary>
   );
 };
 
