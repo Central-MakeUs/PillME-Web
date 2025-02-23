@@ -9,7 +9,7 @@ const defaultOption: Options = {
 
 const API_ENDPOINT = 'http://15.165.247.109:8080/api';
 // MSW 사용하기 위해선 아래 엔드 포인트 사용하거나 위의 msw endpoint를 msw path에 합치면 됨
-// const API_ENDPOINT = '';
+// const API_ENDPOINT = '/';
 
 export const instance = ky.create({
   prefixUrl: API_ENDPOINT,

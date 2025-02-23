@@ -1,8 +1,8 @@
 import { Suspense, useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
+import { productQueryOption } from '@/apis/query/product';
 import { ArrowDrop, ArrowLeft, Cart, Check } from '@/assets';
-import { keywordSearchQueryOption } from '@/query/product';
 import { AppBar } from '@/ui/app-bar';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
 import { ButtonText } from '@/ui/button-text';
@@ -65,7 +65,7 @@ const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
 
   const {
     data: { data },
-  } = useSuspenseQuery(keywordSearchQueryOption(keyword));
+  } = useSuspenseQuery(productQueryOption.list({ search: keyword }));
 
   return (
     <>
