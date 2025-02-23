@@ -2,7 +2,10 @@ import { KeyboardEventHandler, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useFormContext } from 'react-hook-form';
 import OtpInput from 'react-otp-input';
-import { sendEmailCodeAPI, sendVertifyEmailCodeAPI } from '@/apis/auth';
+import {
+  sendEmailCodeAPI,
+  sendVertifyEmailCodeAPI,
+} from '@/apis/mutation/auth';
 import { ErrorCir } from '@/assets';
 import { Button } from '@/ui/button';
 import { ButtonText } from '@/ui/button-text';

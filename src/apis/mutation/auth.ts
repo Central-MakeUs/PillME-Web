@@ -1,8 +1,13 @@
-import { ResponseFormat, fetcher } from './fetcher';
-
-export type CheckDuplicatedEmailAPIRequest = {
-  email: string;
-};
+import { fetcher } from '../fetcher';
+import {
+  CheckDuplicatedEmailAPIRequest,
+  JoinAPIRequest,
+  JoinAPIResponse,
+  LoginAPIRequest,
+  LoginAPIResponse,
+  SendEmailCodeAPIRequest,
+  SendVertifyEmailCodeAPIRequest,
+} from '../types/auth';
 
 export const checkDuplicatedEmailAPI = (
   checkDuplicatedEmailAPIRequest: CheckDuplicatedEmailAPIRequest,
@@ -13,10 +18,6 @@ export const checkDuplicatedEmailAPI = (
     },
   });
 
-export type SendEmailCodeAPIRequest = {
-  email: string;
-};
-
 export const sendEmailCodeAPI = (
   sendEmailCodeAPIRequest: SendEmailCodeAPIRequest,
 ) =>
@@ -25,11 +26,6 @@ export const sendEmailCodeAPI = (
       ...sendEmailCodeAPIRequest,
     },
   });
-
-export type SendVertifyEmailCodeAPIRequest = {
-  email: string;
-  code: string;
-};
 
 export const sendVertifyEmailCodeAPI = (
   sendVertifyEmailCodeAPIRequest: SendVertifyEmailCodeAPIRequest,
@@ -40,35 +36,12 @@ export const sendVertifyEmailCodeAPI = (
     },
   });
 
-export type JoinAPIRequest = {
-  email: string;
-  password: string;
-  nickname: string;
-  birthDate: string;
-  gender: string;
-};
-
-export type JoinAPIResponse = ResponseFormat<{
-  accessToken: string;
-  refreshToken: string;
-}>;
-
 export const joinAPI = (joinAPIRequest: JoinAPIRequest) =>
   fetcher.post<JoinAPIResponse>('auth/join', {
     json: {
       ...joinAPIRequest,
     },
   });
-
-export type LoginAPIRequest = {
-  email: string;
-  password: string;
-};
-
-export type LoginAPIResponse = ResponseFormat<{
-  accessToken: string;
-  refreshToken: string;
-}>;
 
 export const loginAPI = (LoginAPIRequest: LoginAPIRequest) =>
   fetcher.post<LoginAPIResponse>('auth/login', {

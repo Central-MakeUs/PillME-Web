@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { z } from 'zod';
-import { loginAPI } from '@/apis/auth';
+import { loginAPI } from '@/apis/mutation/auth';
 import { LOCAL_STORAGE } from '@/constants';
 import { useShowCustomToast } from '@/ui/toast/toast';
 import { DeleteCir, ErrorCir } from '../../../assets';

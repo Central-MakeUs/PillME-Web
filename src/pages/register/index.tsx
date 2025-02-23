@@ -4,7 +4,7 @@ import { useFunnel } from '@use-funnel/browser';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { z } from 'zod';
-import { joinAPI } from '@/apis/auth';
+import { joinAPI } from '@/apis/mutation/auth';
 import { ArrowLeft } from '@/assets';
 import { LOCAL_STORAGE } from '@/constants';
 import { AppBar } from '@/ui/app-bar';

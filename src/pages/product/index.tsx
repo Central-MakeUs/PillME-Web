@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router';
+import { productQueryOption } from '@/apis/query/product';
 import { ArrowLeft, Cart, Check, Plus } from '@/assets';
+import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { AppBar } from '@/ui/app-bar';
 import { Button } from '@/ui/button';
 import { ButtonText } from '@/ui/button-text';
@@ -9,19 +12,30 @@ import { Dialog } from '@/ui/dialog';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
 import { useShowCustomToast } from '@/ui/toast/toast';
-import { MOCK_PRODUCT_LIST } from '../home/mock-product';
 import { IngredientCard } from './components/ingredient-card';
 import { IngredientChart } from './components/ingredient-chart';
 import * as styles from './page.css';
 
 export const ProductPage = () => {
+  const { productId } = useParams();
+  return (
+    <LocalErrorBoundary>
+      <Suspense>
+        <ProductPageInner productId={Number(productId)} />
+      </Suspense>
+    </LocalErrorBoundary>
+  );
+};
+
+//TODO 데이터 시각화 관련 api 연동 필요
+export const ProductPageInner = ({ productId }: { productId: number }) => {
   const navigate = useNavigate();
   const showCustomToast = useShowCustomToast();
   const [isAddedToPillbox, setIsAddedToPillbox] = useState(false);
-  const { productId } = useParams();
-  const product = MOCK_PRODUCT_LIST.find((p) => p.id === Number(productId));
 
-  if (!product) return <p>상품을 찾을 수 없습니다.</p>; // not-found 페이지로 교체
+  const {
+    data: { data: product },
+  } = useSuspenseQuery(productQueryOption.detail({ productId }));
 
   const handlePillboxClick = () => {
     setIsAddedToPillbox(true);
@@ -48,23 +62,33 @@ export const ProductPage = () => {
       <section className={styles.productContainer}>
         <img src={product.imageUrl} className={styles.productImg} alt="제품" />
         <div className={styles.info}>
-          <div className={styles.subTitle}>웰릿</div>
-          <div className={styles.title}>
-            윌릿나토킨NATOKIN윌릿나토킨NATOKIN윌릿나토킨NATOKIN
-          </div>
+          <div className={styles.subTitle}>{product.description}</div>
+          <div className={styles.title}>{product.name}</div>
           <div className={styles.price}>
-            77,000 <span className={styles.won}>원</span>
+            {product.price.toLocaleString()}
+            <span className={styles.won}>원</span>
           </div>
           <div className={styles.tags}>
-            <Chip shape="pill" color="blue400" backgroundColor="blue200">
-              혈압
-            </Chip>
-            <Chip shape="pill" color="grey500" backgroundColor="grey200">
-              빈혈
-            </Chip>
-            <Chip shape="pill" color="grey500" backgroundColor="grey200">
-              루테인
-            </Chip>
+            {product.healthConcerns.map(({ id, name }) => (
+              <Chip
+                shape="pill"
+                color="blue400"
+                backgroundColor="blue200"
+                key={id}
+              >
+                {name}
+              </Chip>
+            ))}
+            {product.productIngredients.map(({ ingredientName }) => (
+              <Chip
+                shape="pill"
+                color="grey500"
+                backgroundColor="grey200"
+                key={ingredientName}
+              >
+                {ingredientName}
+              </Chip>
+            ))}
           </div>
         </div>
         <div className={styles.pillButtonBox}>

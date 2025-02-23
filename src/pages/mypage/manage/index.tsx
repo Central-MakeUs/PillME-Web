@@ -1,11 +1,11 @@
 import { PropsWithChildren, Suspense } from 'react';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
-import { deleteUserAPI, logout } from '@/apis/user';
+import { deleteUserAPI, logout } from '@/apis/mutation/user';
+import { userQueryOption } from '@/apis/query/user';
 import { ArrowLeft, ArrowRightr } from '@/assets';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { EmailIcon } from '@/pages/onboarding/assets/EmailIcon';
-import { userQueryOption } from '@/query/user';
 import { AppBar } from '@/ui/app-bar';
 import { Dialog } from '@/ui/dialog';
 import { IconButton } from '@/ui/icon-button';
@@ -52,7 +52,7 @@ export const MyInfoManageInner = () => {
     data: {
       data: { nickname, email, birthDate },
     },
-  } = useSuspenseQuery(userQueryOption());
+  } = useSuspenseQuery(userQueryOption.all());
 
   const MOCK_MY_INFO_LIST = [
     {

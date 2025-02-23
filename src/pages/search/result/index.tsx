@@ -1,8 +1,9 @@
 import { Suspense, useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
+import { productQueryOption } from '@/apis/query/product';
 import { ArrowDrop, ArrowLeft, Cart, Check } from '@/assets';
-import { keywordSearchQueryOption } from '@/query/product';
+import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { AppBar } from '@/ui/app-bar';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
 import { ButtonText } from '@/ui/button-text';
@@ -22,27 +23,29 @@ export const SearchResultPage = () => {
 
   //TODO localErrorBoundary 추가 필요
   return (
-    <PageLayout
-      header={
-        <AppBar
-          left={<ArrowLeft onClick={() => navigate(-1)} />}
-          right={<Cart />}
-          variant="page"
-        >
-          <div className={styles.searchContainer}>
-            <SearchField
-              hasResetButton
-              placeholder="건강 불편 증상을 검색해 보세요"
-              value={keyword}
-            />
-          </div>
-        </AppBar>
-      }
-    >
-      <Suspense fallback={<></>}>
-        <SearchResultPageInner searchType={searchType} keyword={keyword} />
-      </Suspense>
-    </PageLayout>
+    <LocalErrorBoundary>
+      <PageLayout
+        header={
+          <AppBar
+            left={<ArrowLeft onClick={() => navigate(-1)} />}
+            right={<Cart />}
+            variant="page"
+          >
+            <div className={styles.searchContainer}>
+              <SearchField
+                hasResetButton
+                placeholder="건강 불편 증상을 검색해 보세요"
+                value={keyword}
+              />
+            </div>
+          </AppBar>
+        }
+      >
+        <Suspense fallback={<></>}>
+          <SearchResultPageInner searchType={searchType} keyword={keyword} />
+        </Suspense>
+      </PageLayout>
+    </LocalErrorBoundary>
   );
 };
 
@@ -65,7 +68,7 @@ const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
 
   const {
     data: { data },
-  } = useSuspenseQuery(keywordSearchQueryOption(keyword));
+  } = useSuspenseQuery(productQueryOption.list({ search: keyword }));
 
   return (
     <>
