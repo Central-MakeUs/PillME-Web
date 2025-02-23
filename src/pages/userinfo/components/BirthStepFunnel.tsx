@@ -57,15 +57,15 @@ export const BirthStepFunnel = (props: BirthStepFunnelProps) => {
   };
 
   const checkDate = (date: string) => {
-    if (!/^\d{4}\.\d{2}\.\d{2}$/.test(date)) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
       setError('birth', {
         type: 'inValidDate',
-        message: 'YYYY.MM.DD 형식으로 입력해주세요.',
+        message: 'YYYY-MM-DD 형식으로 입력해주세요.',
       });
       return;
     }
 
-    const parsedDate = parse(date, 'yyyy.MM.dd', new Date());
+    const parsedDate = parse(date, 'yyyy-MM-dd', new Date());
 
     if (!isValid(parsedDate)) {
       setError('birth', {
@@ -88,7 +88,7 @@ export const BirthStepFunnel = (props: BirthStepFunnelProps) => {
 
   useEffect(() => {
     setFocus('birth');
-  }, []);
+  }, [setFocus]);
 
   return (
     <>
@@ -112,7 +112,7 @@ export const BirthStepFunnel = (props: BirthStepFunnelProps) => {
                     {...field}
                     variant={errors.birth ? 'error' : 'default'}
                     onKeyDown={onEnterKey}
-                    placeholder="YYYY.MM.DD"
+                    placeholder="YYYY-MM-DD"
                     onChange={({ target: { value } }) => {
                       const formattedDate = formatBirthDate(value);
                       field.onChange(formattedDate);
@@ -169,7 +169,7 @@ const formatBirthDate = (value: string) => {
 
   const format =
     numbers.length <= 6 ? /(\d{4})(\d{1,2})/ : /(\d{4})(\d{2})(\d{2})/;
-  const template = numbers.length <= 6 ? '$1.$2' : '$1.$2.$3';
+  const template = numbers.length <= 6 ? '$1-$2' : '$1-$2-$3';
 
   return numbers.replace(format, template);
 };

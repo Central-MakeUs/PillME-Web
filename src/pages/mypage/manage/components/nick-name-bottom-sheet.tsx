@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
@@ -58,6 +59,7 @@ export const NickNameBottomSheet = (props: NickNameBottomSheetProps) => {
     formState: { errors },
     setValue,
     handleSubmit,
+    setFocus,
   } = form;
 
   const name = useWatch({
@@ -74,6 +76,10 @@ export const NickNameBottomSheet = (props: NickNameBottomSheetProps) => {
   };
 
   const disabled = name.length === 0 || isPending;
+
+  useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
 
   return (
     <BottomSheet.Root

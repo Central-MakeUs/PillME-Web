@@ -53,7 +53,7 @@ export const NameStepFunnel = (props: NameStepFunnelProps) => {
 
   useEffect(() => {
     setFocus('name');
-  }, []);
+  }, [setFocus]);
 
   return (
     <>
