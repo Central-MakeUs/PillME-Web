@@ -2,7 +2,8 @@ import { Suspense, useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 import { productQueryOption } from '@/apis/query/product';
-import { ArrowDrop, ArrowLeft, Cart } from '@/assets';
+import { ArrowDrop, ArrowLeft } from '@/assets';
+import { CartButton } from '@/components/cart-botton';
 import { FilterBottonSheet } from '@/components/filter-bottom-sheet';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { CATEGORY_LIST, CategoryId } from '@/constants/category';
@@ -102,11 +103,7 @@ export const CategoryResultPageInner = (
               </IconButton>
             }
             // TODO 카트 페이지 라우팅 추가 필요
-            right={
-              <IconButton>
-                <Cart />
-              </IconButton>
-            }
+            right={<CartButton />}
             variant="page"
           />
           <div className={styles.separator} />
