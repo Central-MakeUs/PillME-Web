@@ -12,7 +12,7 @@ import {
 import { cx } from '../util';
 import * as styles from './bottom-navigation.css';
 
-export type MenuItem = 'home' | 'pill' | 'consultation' | 'mypage';
+export type MenuItem = 'home' | 'pillbox' | 'consultation' | 'mypage';
 
 interface BottomNavigationProps {
   selected?: MenuItem | null;
@@ -22,7 +22,7 @@ interface BottomNavigationProps {
 const renderIcon = (id: MenuItem, isActive: boolean) => {
   const icons = {
     home: isActive ? MyHomeActive : MyHome,
-    pill: isActive ? MyPillActive : MyPill,
+    pillbox: isActive ? MyPillActive : MyPill,
     consultation: isActive ? ChatActive : Chat,
     mypage: isActive ? MyPageActive : MyPage,
   };
@@ -41,7 +41,7 @@ export const BottomNavigation = ({
 
   const menuItems = [
     { id: 'home', label: '홈' },
-    { id: 'pill', label: '내약통' },
+    { id: 'pillbox', label: '내약통' },
     { id: 'consultation', label: '상담' },
     { id: 'mypage', label: '마이페이지' },
   ] as const;
