@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ArrowDrop, ArrowLeft, Cart } from '@/assets';
 import { FilterBottonSheet } from '@/components/filter-bottom-sheet';
+import { SearchFallback } from '@/components/search-fallback';
 import { MOCK_PRODUCT_LIST } from '@/pages/home/mock-product';
 import { AppBar } from '@/ui/app-bar';
 import { ButtonText } from '@/ui/button-text';
@@ -43,6 +44,7 @@ export const CategoryResultPage = () => {
           <div className={styles.separator} />
         </div>
       }
+      className={styles.centerStack}
     >
       <div className={styles.productFilterList}>
         <ProductFilterList
@@ -101,11 +103,16 @@ export const CategoryResultPage = () => {
           </ButtonText>
         </div>
       </div>
-      <div className={styles.gallery}>
-        {MOCK_PRODUCT_LIST.map((mockProduct) => (
-          <Card key={mockProduct.name} {...mockProduct} />
-        ))}
-      </div>
+      {MOCK_PRODUCT_LIST.length === 0 ? (
+        <SearchFallback />
+      ) : (
+        <div className={styles.gallery}>
+          {MOCK_PRODUCT_LIST.map((mockProduct) => (
+            <Card key={mockProduct.name} {...mockProduct} />
+          ))}
+        </div>
+      )}
+
       {/* TODO initialCategory, initialIngredient 추가 필요 */}
       {initialTab !== 'none' && (
         <FilterBottonSheet

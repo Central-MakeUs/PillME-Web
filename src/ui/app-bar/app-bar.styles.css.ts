@@ -7,7 +7,7 @@ export const appBar = recipe({
     display: 'flex',
     alignItems: 'center',
     maxWidth: 440,
-    // height: 44,
+    minHeight: 44,
   },
   variants: {
     variant: {
