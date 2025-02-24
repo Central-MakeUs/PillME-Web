@@ -21,7 +21,6 @@ export const SearchResultPage = () => {
   const navigate = useNavigate();
   const { searchType } = useParams();
 
-  //TODO localErrorBoundary 추가 필요
   return (
     <LocalErrorBoundary>
       <PageLayout
