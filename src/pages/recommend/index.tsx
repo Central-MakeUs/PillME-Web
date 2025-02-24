@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router';
-import { ArrowDrop, ArrowLeft, Cart } from '@/assets';
+import { ArrowDrop, ArrowLeft } from '@/assets';
+import { CartButton } from '@/components/cart-botton';
 import { MOCK_PRODUCT_LIST } from '@/pages/home/mock-product';
 import { AppBar } from '@/ui/app-bar';
 import { ButtonText } from '@/ui/button-text';
@@ -29,11 +30,7 @@ export const RecommendPage = () => {
               </IconButton>
             }
             // TODO 카트 페이지 라우팅 추가 필요
-            right={
-              <IconButton>
-                <Cart />
-              </IconButton>
-            }
+            right={<CartButton />}
             variant="page"
           >
             추천 건강기능식품

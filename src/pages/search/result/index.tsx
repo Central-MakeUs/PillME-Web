@@ -2,7 +2,8 @@ import { Suspense, useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 import { productQueryOption } from '@/apis/query/product';
-import { ArrowDrop, ArrowLeft, Cart, Check } from '@/assets';
+import { ArrowDrop, ArrowLeft, Check } from '@/assets';
+import { CartButton } from '@/components/cart-botton';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { AppBar } from '@/ui/app-bar';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
@@ -28,7 +29,7 @@ export const SearchResultPage = () => {
         header={
           <AppBar
             left={<ArrowLeft onClick={() => navigate(-1)} />}
-            right={<Cart />}
+            right={<CartButton />}
             variant="page"
           >
             <div className={styles.searchContainer}>
