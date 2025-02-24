@@ -5,6 +5,7 @@ import { productQueryOption } from '@/apis/query/product';
 import { ArrowDrop, ArrowLeft, Check } from '@/assets';
 import { CartButton } from '@/components/cart-botton';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
+import { SearchFallback } from '@/components/search-fallback';
 import { AppBar } from '@/ui/app-bar';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
 import { ButtonText } from '@/ui/button-text';
@@ -30,6 +31,7 @@ export const SearchResultPage = () => {
             left={<ArrowLeft onClick={() => navigate(-1)} />}
             right={<CartButton />}
             variant="page"
+            className={styles.header}
           >
             <div className={styles.searchContainer}>
               <SearchField
@@ -120,19 +122,23 @@ const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
             </div>
           )}
         </div>
-        <div className={styles.products}>
-          {data.map(({ id, imageUrl, description, name, price }) => (
-            <div key={id} className={styles.maxWidthBox}>
-              <Card
-                id={id}
-                imageUrl={imageUrl}
-                company={description}
-                name={name}
-                price={price}
-              />
-            </div>
-          ))}
-        </div>
+        {data.length === 0 ? (
+          <SearchFallback />
+        ) : (
+          <div className={styles.products}>
+            {data.map(({ id, imageUrl, description, name, price }) => (
+              <div key={id} className={styles.maxWidthBox}>
+                <Card
+                  id={id}
+                  imageUrl={imageUrl}
+                  company={description}
+                  name={name}
+                  price={price}
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </section>
       <BottomSheet.Root open={isOpen} onOpenChange={() => setIsOpen(false)}>
         <BottomSheet.Overlay />

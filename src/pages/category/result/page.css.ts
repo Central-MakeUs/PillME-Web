@@ -1,6 +1,11 @@
 import { style } from '@vanilla-extract/css';
 import { color, typography } from '@/ui';
 
+export const centerStack = style({
+  display: 'flex',
+  flexDirection: 'column',
+});
+
 export const separator = style({
   height: 2,
   backgroundColor: color('grey100'),
