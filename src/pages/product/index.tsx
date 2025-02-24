@@ -2,7 +2,8 @@ import { Suspense, useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router';
 import { productQueryOption } from '@/apis/query/product';
-import { ArrowLeft, Cart, Check, Plus } from '@/assets';
+import { ArrowLeft, Check, Plus } from '@/assets';
+import { CartButton } from '@/components/cart-botton';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { AppBar } from '@/ui/app-bar';
 import { Button } from '@/ui/button';
@@ -52,7 +53,7 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
         <div>
           <AppBar
             left={<ArrowLeft onClick={() => navigate(-1)} />}
-            right={<Cart />}
+            right={<CartButton />}
             variant="page"
           />
           <div className={styles.separator} />

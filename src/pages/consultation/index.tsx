@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router';
-import { Cart } from '@/assets';
+import { CartButton } from '@/components/cart-botton';
 import { AppBar } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Tab, TabContent, TabLabel } from '@/ui/tab';
@@ -22,7 +22,7 @@ export const ConsultationPage = () => {
       header={
         <div>
           <div className={styles.separator} />
-          <AppBar right={<Cart />}>상담</AppBar>
+          <AppBar right={<CartButton />}>상담</AppBar>
         </div>
       }
     >

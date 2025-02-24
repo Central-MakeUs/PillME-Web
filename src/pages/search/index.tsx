@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { ArrowLeft, Cart } from '@/assets';
+import { ArrowLeft } from '@/assets';
+import { CartButton } from '@/components/cart-botton';
 import useInput from '@/hooks/useInput';
 import { AppBar } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
@@ -73,7 +74,7 @@ export const SearchPage = () => {
       header={
         <AppBar
           left={<ArrowLeft onClick={() => navigate('/home')} />}
-          right={<Cart />}
+          right={<CartButton />}
           variant="page"
         >
           <Switch
