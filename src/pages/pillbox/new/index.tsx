@@ -1,22 +1,42 @@
-import { ChangeEventHandler, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { ChangeEventHandler, FormEventHandler, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router';
 import { ArrowLeft } from '@/assets';
 import { AppBar, AppBarElement } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { SearchField } from '@/ui/search-field';
-import { Spacer } from '@/ui/spacer/spacer';
-import { KeywordList } from './components/KeywordList';
+import { SearchingKeywordList } from './components/KeywordList';
 import { PillBoxCardList } from './components/PillBoxCardList';
 import * as styles from './page.css';
 
 export const PillboxNewPage = () => {
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchedKeyword = searchParams.get('keyword');
+
   const [keyword, setKeyword] = useState('');
 
   const onChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { value },
   }) => setKeyword(value);
+
+  const isSearching = searchedKeyword === null;
+
+  const onClickResetButton = () => {
+    if (!isSearching) {
+      return;
+    }
+
+    setKeyword('');
+  };
+
+  const onSubmit: FormEventHandler = (event) => {
+    event.preventDefault();
+    searchParams.set('keyword', keyword);
+    setSearchParams(searchParams);
+  };
 
   return (
     <PageLayout
@@ -34,27 +54,22 @@ export const PillboxNewPage = () => {
       }
     >
       <div className={styles.searchFieldContainer}>
-        <SearchField />
+        <form onSubmit={onSubmit}>
+          <SearchField
+            disabled={!isSearching}
+            inputMode="search"
+            value={keyword}
+            onChange={onChange}
+            hasResetButton={isSearching && keyword.length !== 0}
+            onClickResetButton={onClickResetButton}
+          />
+        </form>
       </div>
-      <PillBoxCardList />
-      {/* <KeywordList /> */}
-      {/* <SearchFallback /> */}
+      {isSearching ? (
+        <SearchingKeywordList keyword={keyword} />
+      ) : (
+        <PillBoxCardList />
+      )}
     </PageLayout>
-  );
-};
-
-const SearchFallback = () => {
-  return (
-    <div className={styles.centerStack}>
-      <Spacer size={30} />
-      <p className={styles.searchFallbackText}>
-        복용중인 약으로 추가할 제품을 찾기 위해
-      </p>
-      <p className={styles.searchFallbackText}>
-        정확한{' '}
-        <span className={styles.searchFallbackBoldText}>브랜드명 / 제품명</span>
-        으로 검색해주세요.
-      </p>
-    </div>
   );
 };

@@ -21,3 +21,17 @@ export const highlightKeyword = style([
   },
   typography('head_3_16_r'),
 ]);
+
+export const centerStack = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+});
+
+export const searchFallbackText = style({
+  color: color('grey500'),
+});
+
+export const searchFallbackBoldText = style({
+  fontWeight: 'bold',
+});

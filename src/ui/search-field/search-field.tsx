@@ -35,6 +35,7 @@ export const SearchField = (props: SearchFieldProps) => {
         <button
           className={styles.SearchFieldRightElement}
           onClick={onClickResetButton}
+          type="button"
         >
           <DeleteCir />
         </button>
