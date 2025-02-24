@@ -19,24 +19,18 @@ import { values } from '@/utils/values';
 import { INGREDIENT_MAP } from '../constants/ingredient';
 import * as styles from './filter-bottom-sheet.css';
 
-type Tag = {
-  id: number;
-  name: string;
-};
-
 type FilterBottomSheetProps = {
   open: boolean;
   onOpenChange: VoidFunction;
   onConfirm?: ({
-    selectedCategoryList,
+    selectedCategory,
     selectedIngredientList,
   }: {
-    selectedCategoryList: number[];
+    selectedCategory: number;
     selectedIngredientList: number[];
   }) => void;
-  initialCategory?: Tag;
-  initialIngredientList?: Tag[];
-  initialTab: string;
+  initialCategory?: number;
+  initialIngredientList?: number[];
 };
 
 const groupData = values(CATEGORY_LIST).reduce<
@@ -53,65 +47,84 @@ const groupData = values(CATEGORY_LIST).reduce<
 );
 
 export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
-  const { open, onOpenChange, onConfirm, initialTab = 'category' } = props;
+  const {
+    open,
+    onOpenChange,
+    onConfirm,
+    initialCategory = null,
+    initialIngredientList = [],
+  } = props;
 
-  const [selectedCategory, setSelectedCategory] = useState<Tag | null>();
-  const [selectedIngredientList, setSelectedIngredientList] = useState<Tag[]>(
-    [],
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
+    initialCategory,
   );
-  const [currentTab, setCurrentTab] = useState(initialTab);
+  const [selectedIngredientList, setSelectedIngredientList] = useState<
+    number[]
+  >(initialIngredientList);
+  const [currentTab, setCurrentTab] = useState('category');
 
   const handleTabChange = (value: string) => {
     setCurrentTab(value);
   };
 
-  const onClickCategory = (item: Tag) => () => {
-    if (selectedCategory?.id === item.id) {
-      setSelectedCategory(null);
+  const onClickCategory = (catogoryId: number) => () => {
+    if (isSelectedCategory(catogoryId)) {
+      setSelectedCategoryId(null);
+      setCurrentTab('category');
+      setSelectedIngredientList([]);
       return;
     }
 
-    setSelectedCategory(item);
+    setSelectedCategoryId(catogoryId);
   };
 
-  const onClickIngredient = (item: Tag) => () => {
-    if (
-      selectedIngredientList.find((ingredient) => ingredient.id === item.id)
-    ) {
+  const onClickIngredient = (ingredientId: number) => () => {
+    if (isSelectedIngredient(ingredientId)) {
+      const nextSelectedIngredientList = selectedIngredientList.filter(
+        (selectediIngredientId) => selectediIngredientId !== ingredientId,
+      );
+
       setSelectedIngredientList((prev) => [
-        ...prev.filter((ingredient) => ingredient.id !== item.id),
+        ...prev.filter(
+          (selectediIngredientId) => selectediIngredientId !== ingredientId,
+        ),
       ]);
+      if (nextSelectedIngredientList.length === 0) {
+        setCurrentTab('category');
+      }
       return;
     }
 
-    setSelectedIngredientList((prev) => [...prev, { ...item }]);
+    setSelectedIngredientList((prev) => [...prev, ingredientId]);
   };
 
-  const isSelectedCategory = (item: Tag) => selectedCategory?.id === item.id;
+  const isSelectedCategory = (categoryId: number) =>
+    selectedCategoryId === categoryId;
 
-  const isSelectedIngredient = (item: Tag) =>
-    selectedIngredientList.find((ingredient) => ingredient.id === item.id);
+  const isSelectedIngredient = (ingredientId: number) =>
+    selectedIngredientList.find(
+      (selectediIngredientId) => selectediIngredientId === ingredientId,
+    );
 
   const onClickResetButton = () => {
-    setSelectedCategory(null);
-    setSelectedIngredientList([]);
+    setSelectedCategoryId(initialCategory);
+    setSelectedIngredientList(initialIngredientList);
   };
 
   const onClickSaveButton = () => {
-    const categoryIdList = selectedCategory ? [selectedCategory.id] : [];
-    const ingredientIdList = selectedIngredientList.map(({ id }) => id);
-
-    console.log(categoryIdList, ingredientIdList);
+    if (!selectedCategoryId) {
+      return;
+    }
 
     onConfirm?.({
-      selectedCategoryList: categoryIdList,
-      selectedIngredientList: ingredientIdList,
+      selectedCategory: selectedCategoryId,
+      selectedIngredientList: selectedIngredientList,
     });
     onOpenChange();
   };
 
-  const ingredientList = selectedCategory
-    ? CATEGORY_LIST[selectedCategory.id as CategoryId].ingredentIdList
+  const ingredientList = selectedCategoryId
+    ? CATEGORY_LIST[selectedCategoryId as CategoryId].ingredentIdList
     : [];
 
   const showIngredientTab = ingredientList.length !== 0;
@@ -126,7 +139,7 @@ export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
           제품 필터
         </BottomSheet.Title>
         <Spacer size={20} />
-        <Tab defaultValue={currentTab} onValueChange={handleTabChange}>
+        <Tab value={currentTab} onValueChange={handleTabChange}>
           <TabLabel label="카테고리" value="category" />
           {showIngredientTab && (
             <TabLabel label="관련성분" value="ingredient" />
@@ -148,19 +161,15 @@ export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
                         shape="rect"
                         key={name}
                         borderColor={
-                          isSelectedCategory({ id, name })
-                            ? 'mainblue500'
-                            : 'grey200'
+                          isSelectedCategory(id) ? 'mainblue500' : 'grey200'
                         }
                         color={
-                          isSelectedCategory({ id, name })
-                            ? 'mainblue500'
-                            : 'grey500'
+                          isSelectedCategory(id) ? 'mainblue500' : 'grey500'
                         }
                         backgroundColor={
-                          isSelectedCategory({ id, name }) ? 'blue100' : 'white'
+                          isSelectedCategory(id) ? 'blue100' : 'white'
                         }
-                        onClick={onClickCategory({ id, name })}
+                        onClick={onClickCategory(id)}
                       >
                         {name}
                       </Chip>
@@ -178,39 +187,16 @@ export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
                     shape="pill"
                     key={id}
                     borderColor={
-                      isSelectedIngredient({
-                        id,
-                        name: INGREDIENT_MAP[id as CategoryId].name,
-                      })
-                        ? 'mainblue500'
-                        : 'grey200'
+                      isSelectedIngredient(id) ? 'mainblue500' : 'grey200'
                     }
-                    color={
-                      isSelectedIngredient({
-                        id,
-                        name: INGREDIENT_MAP[id as CategoryId].name,
-                      })
-                        ? 'mainblue500'
-                        : 'grey500'
-                    }
+                    color={isSelectedIngredient(id) ? 'mainblue500' : 'grey500'}
                     backgroundColor={
-                      isSelectedIngredient({
-                        id,
-                        name: INGREDIENT_MAP[id as CategoryId].name,
-                      })
-                        ? 'blue100'
-                        : 'white'
+                      isSelectedIngredient(id) ? 'blue100' : 'white'
                     }
-                    onClick={onClickIngredient({
-                      id,
-                      name: INGREDIENT_MAP[id as CategoryId].name,
-                    })}
+                    onClick={onClickIngredient(id)}
                   >
                     {INGREDIENT_MAP[id as CategoryId].name}
-                    {isSelectedIngredient({
-                      id,
-                      name: INGREDIENT_MAP[id as CategoryId].name,
-                    }) && <Delete />}
+                    {isSelectedIngredient(id) && <Delete />}
                   </Chip>
                 </div>
               ))}
@@ -219,15 +205,22 @@ export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
         </Tab>
         <div className={styles.fixedBottom}>
           <div className={styles.selectedTagContainer}>
-            {selectedCategory && (
-              <ButtonText className={styles.selectedTag}>
-                {selectedCategory.name}
+            {selectedCategoryId && (
+              <ButtonText
+                className={styles.selectedTag}
+                onClick={onClickCategory(selectedCategoryId)}
+              >
+                {CATEGORY_LIST[selectedCategoryId as CategoryId].name}
                 <Delete />
               </ButtonText>
             )}
             {selectedIngredientList.map((id) => (
-              <ButtonText className={styles.selectedTag} key={id.id}>
-                {INGREDIENT_MAP[id.id as CategoryId].name}
+              <ButtonText
+                className={styles.selectedTag}
+                key={id}
+                onClick={onClickIngredient(id)}
+              >
+                {INGREDIENT_MAP[id as CategoryId].name}
                 <Delete />
               </ButtonText>
             ))}
