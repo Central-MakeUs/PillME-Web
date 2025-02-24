@@ -3,9 +3,10 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { Fragment } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router';
 import { userQueryOption } from '@/apis/query/user';
-import { ArrowRightr, Cart } from '@/assets';
+import { ArrowRightr } from '@/assets';
+import { CartButton } from '@/components/cart-botton';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
-import { AppBar, AppBarElement } from '@/ui/app-bar';
+import { AppBar } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
 import { EmailIcon } from '../onboarding/assets/EmailIcon';
@@ -29,20 +30,12 @@ const MyPageInner = () => {
   } = useSuspenseQuery(userQueryOption.all());
 
   const navigate = useNavigate();
-  const goCartPage = () => navigate('/cart');
   const goManagePage = () => navigate('manage');
 
   return (
     <PageLayout
       header={
-        <AppBar
-          right={
-            <AppBarElement onClick={goCartPage}>
-              <Cart />
-            </AppBarElement>
-          }
-          className={styles.appBar}
-        >
+        <AppBar right={<CartButton />} className={styles.appBar}>
           마이페이지
         </AppBar>
       }

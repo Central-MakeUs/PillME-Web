@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { EmblaOptionsType } from 'embla-carousel';
 import { useNavigate } from 'react-router';
-import { Cart, Logo } from '../../assets';
+import { CartButton } from '@/components/cart-botton';
+import { Logo } from '../../assets';
 import { AppBar } from '../../ui/app-bar';
 import { ButtonText } from '../../ui/button-text';
 import { Chip } from '../../ui/chip';
@@ -73,7 +74,7 @@ export const HomePage = () => {
   return (
     <PageLayout
       header={
-        <AppBar right={<Cart />} className={styles.home}>
+        <AppBar right={<CartButton />} className={styles.home}>
           <Logo />
         </AppBar>
       }

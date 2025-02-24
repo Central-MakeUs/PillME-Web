@@ -7,6 +7,7 @@ import * as styles from './tab.styles.css';
 
 interface TabsProps {
   defaultValue?: string;
+  value?: string;
   rootClassName?: string;
   customTabsListClass?: string;
   contentClassName?: string;
@@ -17,6 +18,7 @@ interface TabsProps {
 
 export const Tab = ({
   defaultValue,
+  value,
   rootClassName,
   customTabsListClass,
   children,
@@ -38,7 +40,8 @@ export const Tab = ({
   return (
     <Tabs.Root
       className={cx(styles.tabsRoot, rootClassName)}
-      defaultValue={defaultValue}
+      defaultValue={value ? undefined : defaultValue}
+      value={value}
       onValueChange={onValueChange}
     >
       <Tabs.List

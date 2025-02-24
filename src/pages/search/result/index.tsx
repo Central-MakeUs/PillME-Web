@@ -2,7 +2,8 @@ import { Suspense, useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 import { productQueryOption } from '@/apis/query/product';
-import { ArrowDrop, ArrowLeft, Cart, Check } from '@/assets';
+import { ArrowDrop, ArrowLeft, Check } from '@/assets';
+import { CartButton } from '@/components/cart-botton';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { SearchFallback } from '@/components/search-fallback';
 import { AppBar } from '@/ui/app-bar';
@@ -22,14 +23,13 @@ export const SearchResultPage = () => {
   const navigate = useNavigate();
   const { searchType } = useParams();
 
-  //TODO localErrorBoundary 추가 필요
   return (
     <LocalErrorBoundary>
       <PageLayout
         header={
           <AppBar
             left={<ArrowLeft onClick={() => navigate(-1)} />}
-            right={<Cart />}
+            right={<CartButton />}
             variant="page"
             className={styles.header}
           >

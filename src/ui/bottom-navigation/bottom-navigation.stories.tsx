@@ -11,7 +11,7 @@ const meta: Meta<typeof BottomNavigation> = {
   argTypes: {
     selected: {
       control: 'select',
-      options: ['home', 'pill', 'consultation', 'mypage', null],
+      options: ['home', 'pillbox', 'consultation', 'mypage', null],
     },
   },
   tags: ['autodocs'],
