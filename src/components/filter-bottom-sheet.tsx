@@ -1,16 +1,26 @@
 import { useState } from 'react';
 import { Delete } from '@/assets';
 import { ResetIcon } from '@/assets/ResetIcon';
-import { CATEGORY_LIST } from '@/pages/category/category';
+import {
+  CATEGORY_TITLE_MAP,
+  CATEGORY_TYPE,
+  Category,
+  CategoryId,
+  NEW_CATEGORY_LIST,
+} from '@/constants/category';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
 import { Button } from '@/ui/button';
 import { ButtonText } from '@/ui/button-text';
 import { Chip } from '@/ui/chip';
 import { Spacer } from '@/ui/spacer/spacer';
 import { Tab, TabContent, TabLabel } from '@/ui/tab';
+import { entries } from '@/utils/entries';
+import { values } from '@/utils/values';
+import { INGREDIENT_MAP } from '../constants/ingredient';
 import * as styles from './filter-bottom-sheet.css';
+
 type Tag = {
-  id: string;
+  id: number;
   name: string;
 };
 
@@ -21,18 +31,31 @@ type FilterBottomSheetProps = {
     selectedCategoryList,
     selectedIngredientList,
   }: {
-    selectedCategoryList: string[];
-    selectedIngredientList: string[];
+    selectedCategoryList: number[];
+    selectedIngredientList: number[];
   }) => void;
-  initialCategoryList?: Tag[];
+  initialCategory?: Tag;
   initialIngredientList?: Tag[];
   initialTab: string;
 };
 
+const groupData = values(NEW_CATEGORY_LIST).reduce<
+  Record<CATEGORY_TYPE, Category[]>
+>(
+  (result, item) => {
+    const { type } = item;
+    return {
+      ...result,
+      [type]: [...(result[type] || []), item],
+    };
+  },
+  {} as Record<CATEGORY_TYPE, Category[]>,
+);
+
 export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
   const { open, onOpenChange, onConfirm, initialTab = 'category' } = props;
 
-  const [selectedCategoryList, setSelectedCategoryList] = useState<Tag[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<Tag | null>();
   const [selectedIngredientList, setSelectedIngredientList] = useState<Tag[]>(
     [],
   );
@@ -42,17 +65,13 @@ export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
     setCurrentTab(value);
   };
 
-  const showIngredientTab = selectedCategoryList.length !== 0;
-
   const onClickCategory = (item: Tag) => () => {
-    if (selectedCategoryList.find((category) => category.id === item.id)) {
-      setSelectedCategoryList((prev) => [
-        ...prev.filter((category) => category.id !== item.id),
-      ]);
+    if (selectedCategory?.id === item.id) {
+      setSelectedCategory(null);
       return;
     }
 
-    setSelectedCategoryList((prev) => [...prev, { ...item }]);
+    setSelectedCategory(item);
   };
 
   const onClickIngredient = (item: Tag) => () => {
@@ -68,19 +87,18 @@ export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
     setSelectedIngredientList((prev) => [...prev, { ...item }]);
   };
 
-  const isSelectedCategory = (item: Tag) =>
-    selectedCategoryList.find((category) => category.id === item.id);
+  const isSelectedCategory = (item: Tag) => selectedCategory?.id === item.id;
 
   const isSelectedIngredient = (item: Tag) =>
     selectedIngredientList.find((ingredient) => ingredient.id === item.id);
 
   const onClickResetButton = () => {
-    setSelectedCategoryList([]);
+    setSelectedCategory(null);
     setSelectedIngredientList([]);
   };
 
   const onClickSaveButton = () => {
-    const categoryIdList = selectedCategoryList.map(({ id }) => id);
+    const categoryIdList = selectedCategory ? [selectedCategory.id] : [];
     const ingredientIdList = selectedIngredientList.map(({ id }) => id);
 
     console.log(categoryIdList, ingredientIdList);
@@ -91,6 +109,12 @@ export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
     });
     onOpenChange();
   };
+
+  const ingredientList = selectedCategory
+    ? NEW_CATEGORY_LIST[selectedCategory.id as CategoryId].ingredentIdList
+    : [];
+
+  const showIngredientTab = ingredientList.length !== 0;
 
   return (
     <BottomSheet.Root open={open} onOpenChange={onOpenChange}>
@@ -110,30 +134,33 @@ export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
           <Spacer size={16} />
           <TabContent value="category" className={styles.TabContent}>
             <div className={styles.categoryContainer}>
-              {CATEGORY_LIST.map(({ title, subCategoryList }) => (
-                <div className={styles.categoryListContainer} key={title}>
-                  <h6 className={styles.categoryListTitle}>{title}</h6>
+              {entries(groupData).map(([categoryType, categortList]) => (
+                <div
+                  className={styles.categoryListContainer}
+                  key={categoryType}
+                >
+                  <h6 className={styles.categoryListTitle}>
+                    {CATEGORY_TITLE_MAP[categoryType]}
+                  </h6>
                   <div className={styles.categoryList}>
-                    {subCategoryList.map(({ name, value }) => (
+                    {categortList.map(({ name, id }) => (
                       <Chip
                         shape="rect"
                         key={name}
                         borderColor={
-                          isSelectedCategory({ id: String(value), name })
+                          isSelectedCategory({ id, name })
                             ? 'mainblue500'
                             : 'grey200'
                         }
                         color={
-                          isSelectedCategory({ id: String(value), name })
+                          isSelectedCategory({ id, name })
                             ? 'mainblue500'
                             : 'grey500'
                         }
                         backgroundColor={
-                          isSelectedCategory({ id: String(value), name })
-                            ? 'blue100'
-                            : 'white'
+                          isSelectedCategory({ id, name }) ? 'blue100' : 'white'
                         }
-                        onClick={onClickCategory({ id: String(value), name })}
+                        onClick={onClickCategory({ id, name })}
                       >
                         {name}
                       </Chip>
@@ -145,35 +172,46 @@ export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
           </TabContent>
           <TabContent value="ingredient">
             <div className={styles.categoryContainer}>
-              {CATEGORY_LIST.map(({ title, subCategoryList }) => (
-                <div className={styles.categoryList} key={title}>
-                  {subCategoryList.map(({ name, value }) => (
-                    <Chip
-                      shape="pill"
-                      key={name}
-                      borderColor={
-                        isSelectedIngredient({ id: String(value), name })
-                          ? 'mainblue500'
-                          : 'grey200'
-                      }
-                      color={
-                        isSelectedIngredient({ id: String(value), name })
-                          ? 'mainblue500'
-                          : 'grey500'
-                      }
-                      backgroundColor={
-                        isSelectedIngredient({ id: String(value), name })
-                          ? 'blue100'
-                          : 'white'
-                      }
-                      onClick={onClickIngredient({ id: String(value), name })}
-                    >
-                      {name}
-                      {isSelectedIngredient({ id: String(value), name }) && (
-                        <Delete />
-                      )}
-                    </Chip>
-                  ))}
+              {ingredientList.map((id) => (
+                <div className={styles.categoryList} key={id}>
+                  <Chip
+                    shape="pill"
+                    key={id}
+                    borderColor={
+                      isSelectedIngredient({
+                        id,
+                        name: INGREDIENT_MAP[id as CategoryId].name,
+                      })
+                        ? 'mainblue500'
+                        : 'grey200'
+                    }
+                    color={
+                      isSelectedIngredient({
+                        id,
+                        name: INGREDIENT_MAP[id as CategoryId].name,
+                      })
+                        ? 'mainblue500'
+                        : 'grey500'
+                    }
+                    backgroundColor={
+                      isSelectedIngredient({
+                        id,
+                        name: INGREDIENT_MAP[id as CategoryId].name,
+                      })
+                        ? 'blue100'
+                        : 'white'
+                    }
+                    onClick={onClickIngredient({
+                      id,
+                      name: INGREDIENT_MAP[id as CategoryId].name,
+                    })}
+                  >
+                    {INGREDIENT_MAP[id as CategoryId].name}
+                    {isSelectedIngredient({
+                      id,
+                      name: INGREDIENT_MAP[id as CategoryId].name,
+                    }) && <Delete />}
+                  </Chip>
                 </div>
               ))}
             </div>
@@ -181,9 +219,15 @@ export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
         </Tab>
         <div className={styles.fixedBottom}>
           <div className={styles.selectedTagContainer}>
-            {selectedCategoryList.map(({ id, name }) => (
-              <ButtonText key={id} className={styles.selectedTag}>
-                {name}
+            {selectedCategory && (
+              <ButtonText className={styles.selectedTag}>
+                {selectedCategory.name}
+                <Delete />
+              </ButtonText>
+            )}
+            {selectedIngredientList.map((id) => (
+              <ButtonText className={styles.selectedTag} key={id.id}>
+                {INGREDIENT_MAP[id.id as CategoryId].name}
                 <Delete />
               </ButtonText>
             ))}
