@@ -11,7 +11,13 @@ export type SearchFieldProps = ComponentProps<'input'> &
   }>;
 
 export const SearchField = (props: SearchFieldProps) => {
-  const { className, variant, hasResetButton, ...restProps } = props;
+  const {
+    className,
+    variant,
+    hasResetButton,
+    onClickResetButton,
+    ...restProps
+  } = props;
 
   return (
     <div className={styles.searchFieldContainer}>
@@ -26,7 +32,10 @@ export const SearchField = (props: SearchFieldProps) => {
         )}
       />
       {hasResetButton && (
-        <button className={styles.SearchFieldRightElement}>
+        <button
+          className={styles.SearchFieldRightElement}
+          onClick={onClickResetButton}
+        >
           <DeleteCir />
         </button>
       )}
