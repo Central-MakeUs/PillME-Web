@@ -5,8 +5,8 @@ import { productQueryOption } from '@/apis/query/product';
 import { ArrowDrop, ArrowLeft } from '@/assets';
 import { CartButton } from '@/components/cart-botton';
 import { FilterBottonSheet } from '@/components/filter-bottom-sheet';
-import { SearchFallback } from '@/components/search-fallback';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
+import { SearchFallback } from '@/components/search-fallback';
 import { CATEGORY_LIST, CategoryId } from '@/constants/category';
 import { INGREDIENT_MAP } from '@/constants/ingredient';
 import { AppBar } from '@/ui/app-bar';
@@ -206,18 +206,19 @@ export const CategoryResultPageInner = (
       {productList.length === 0 ? (
         <SearchFallback />
       ) : (
-      <div className={styles.gallery}>
-        {productList.map(({ id, name, description, imageUrl, price }) => (
-          <Card
-            key={id}
-            id={id}
-            name={name}
-            company={description}
-            imageUrl={imageUrl}
-            price={price}
-          />
-        ))}
-      </div>
+        <div className={styles.gallery}>
+          {productList.map(({ id, name, description, imageUrl, price }) => (
+            <Card
+              key={id}
+              id={id}
+              name={name}
+              company={description}
+              imageUrl={imageUrl}
+              price={price}
+            />
+          ))}
+        </div>
+      )}
       {open && (
         <FilterBottonSheet
           open={open}
