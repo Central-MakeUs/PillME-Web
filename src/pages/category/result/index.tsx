@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
+import { productQueryOption } from '@/apis/query/product';
 import { ArrowDrop, ArrowLeft, Cart } from '@/assets';
 import { FilterBottonSheet } from '@/components/filter-bottom-sheet';
+import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { CATEGORY_LIST, CategoryId } from '@/constants/category';
 import { INGREDIENT_MAP } from '@/constants/ingredient';
-import { MOCK_PRODUCT_LIST } from '@/pages/home/mock-product';
 import { AppBar } from '@/ui/app-bar';
 import { ButtonText } from '@/ui/button-text';
 import { Card } from '@/ui/card/card';
@@ -16,19 +18,50 @@ import { ProductFilterList } from '@/ui/product-filter-list/product-filter-list'
 import { values } from '@/utils/values';
 import * as styles from './page.css';
 
-const MOCK_FILTER_LIST = Array.from({ length: 6 }, () => '빈혈');
-
+//TODO 검색 결과 없을 시 Fallback 추가 필요
 export const CategoryResultPage = () => {
+  const { categoryId = '' } = useParams();
+
+  if (!categoryId) {
+    throw new Error('잘못된 카테고리 아이디 입니다');
+  }
+
+  return (
+    <LocalErrorBoundary>
+      <Suspense>
+        <CategoryResultPageInner categoryId={categoryId} />
+      </Suspense>
+    </LocalErrorBoundary>
+  );
+};
+
+type CategoryResultPageInnerProps = {
+  categoryId: string;
+};
+
+export const CategoryResultPageInner = (
+  props: CategoryResultPageInnerProps,
+) => {
+  const { categoryId } = props;
+
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
 
-  const { categoryId = '' } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const ingredientIdList = searchParams.getAll('ingredient');
 
   const onClickCategory = (id: number) => () => {
     navigate(`/category/${id}`);
   };
+
+  const {
+    data: { data: productList },
+  } = useSuspenseQuery(
+    productQueryOption.list({
+      categoryIds: [Number(categoryId)],
+      ingredientIds: ingredientIdList.map(Number),
+    }),
+  );
 
   const onClickIngredient = (id: number) => () => {
     const newSearchParams = new URLSearchParams(searchParams);
@@ -156,20 +189,10 @@ export const CategoryResultPage = () => {
                 }
               </Chip>
             ))}
-          {MOCK_FILTER_LIST.map((filter, index) => (
-            <Chip
-              shape="pill"
-              color="grey500"
-              borderColor="grey200"
-              key={index}
-            >
-              {filter}
-            </Chip>
-          ))}
         </ProductFilterList>
       </div>
       <div className={styles.subBanner}>
-        <div>총 32개</div>
+        <div>총 {productList.length}개</div>
         <div className={styles.userFilterContainer}>
           <ButtonText>
             전체 연령대
@@ -182,8 +205,15 @@ export const CategoryResultPage = () => {
         </div>
       </div>
       <div className={styles.gallery}>
-        {MOCK_PRODUCT_LIST.map((mockProduct) => (
-          <Card key={mockProduct.name} {...mockProduct} />
+        {productList.map(({ id, name, description, imageUrl, price }) => (
+          <Card
+            key={id}
+            id={id}
+            name={name}
+            company={description}
+            imageUrl={imageUrl}
+            price={price}
+          />
         ))}
       </div>
       {open && (
