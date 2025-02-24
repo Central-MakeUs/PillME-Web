@@ -5,12 +5,17 @@ export const searchContainer = style({
   width: '75%',
 });
 
+export const header = style({
+  paddingBottom: 10,
+  borderBottom: `1px solid ${color('grey100')}`,
+});
+
 export const mainContainer = style({
   padding: '0 20px',
   paddingTop: '20px',
-  marginTop: '10px',
-  borderTop: '1px solid',
-  borderTopColor: color('grey100'),
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
 });
 
 export const subBanner = style([
