@@ -1,11 +1,31 @@
 import { useNavigate } from 'react-router';
 import { ArrowLeft } from '@/assets';
+import {
+  CATEGORY_LIST,
+  CATEGORY_TITLE_MAP,
+  CATEGORY_TYPE,
+  Category,
+} from '@/constants/category';
 import { AppBar } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
-import { CATEGORY_LIST } from './category';
+import { values } from '@/utils/values';
+import { entries } from '../../utils/entries';
 import { useScrollTop } from './hooks/useScrollTop';
 import * as styles from './page.css';
+
+const groupData = values(CATEGORY_LIST).reduce<
+  Record<CATEGORY_TYPE, Category[]>
+>(
+  (result, item) => {
+    const { type } = item;
+    return {
+      ...result,
+      [type]: [...(result[type] || []), item],
+    };
+  },
+  {} as Record<CATEGORY_TYPE, Category[]>,
+);
 
 export const CategoryPage = () => {
   const { isTop, observerRef } = useScrollTop();
@@ -37,18 +57,18 @@ export const CategoryPage = () => {
           카테고리를 선택해보세요
         </h2>
         <Spacer size={30} />
-        {/* category container */}
         <div className={styles.categoryContainer}>
-          {/* category gallery container */}
-          {CATEGORY_LIST.map(({ title, subCategoryList }) => (
-            <div className={styles.categoryGalleryContainer} key={title}>
-              <h6 className={styles.categoryGalleryTitle}>{title}</h6>
+          {entries(groupData).map(([categoryType, categortList]) => (
+            <div className={styles.categoryGalleryContainer} key={categoryType}>
+              <h6 className={styles.categoryGalleryTitle}>
+                {CATEGORY_TITLE_MAP[categoryType]}
+              </h6>
               <div className={styles.categoryGallery}>
-                {subCategoryList.map(({ icon: Icon, name, value }) => (
+                {categortList.map(({ icon: Icon, name, id }) => (
                   <div
                     key={name}
                     className={styles.categoryCard}
-                    onClick={onClickCategory(value)}
+                    onClick={onClickCategory(id)}
                   >
                     <Icon />
                     <p className={styles.categoryLabel}>{name}</p>

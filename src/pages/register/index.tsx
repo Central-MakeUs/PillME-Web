@@ -92,6 +92,8 @@ export const RegisterPage = () => {
   const goBack = () => {
     if (currentStep !== 'EnterStep') {
       funnel.history.back();
+    } else {
+      navigate(-1);
     }
   };
 
