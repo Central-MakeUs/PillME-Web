@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Delete } from '@/assets';
 import { ResetIcon } from '@/assets/ResetIcon';
 import {
+  CATEGORY_LIST,
   CATEGORY_TITLE_MAP,
   CATEGORY_TYPE,
   Category,
   CategoryId,
-  NEW_CATEGORY_LIST,
 } from '@/constants/category';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
 import { Button } from '@/ui/button';
@@ -39,7 +39,7 @@ type FilterBottomSheetProps = {
   initialTab: string;
 };
 
-const groupData = values(NEW_CATEGORY_LIST).reduce<
+const groupData = values(CATEGORY_LIST).reduce<
   Record<CATEGORY_TYPE, Category[]>
 >(
   (result, item) => {
@@ -111,7 +111,7 @@ export const FilterBottonSheet = (props: FilterBottomSheetProps) => {
   };
 
   const ingredientList = selectedCategory
-    ? NEW_CATEGORY_LIST[selectedCategory.id as CategoryId].ingredentIdList
+    ? CATEGORY_LIST[selectedCategory.id as CategoryId].ingredentIdList
     : [];
 
   const showIngredientTab = ingredientList.length !== 0;

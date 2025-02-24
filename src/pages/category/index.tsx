@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router';
 import { ArrowLeft } from '@/assets';
 import {
+  CATEGORY_LIST,
   CATEGORY_TITLE_MAP,
   CATEGORY_TYPE,
   Category,
-  NEW_CATEGORY_LIST,
 } from '@/constants/category';
 import { AppBar } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
@@ -14,7 +14,7 @@ import { entries } from '../../utils/entries';
 import { useScrollTop } from './hooks/useScrollTop';
 import * as styles from './page.css';
 
-const groupData = values(NEW_CATEGORY_LIST).reduce<
+const groupData = values(CATEGORY_LIST).reduce<
   Record<CATEGORY_TYPE, Category[]>
 >(
   (result, item) => {

@@ -52,9 +52,9 @@ export type Category = {
   ingredentIdList: number[];
 };
 
-export type CategoryId = keyof typeof NEW_CATEGORY_LIST;
+export type CategoryId = keyof typeof CATEGORY_LIST;
 
-export const NEW_CATEGORY_LIST = {
+export const CATEGORY_LIST = {
   1: {
     icon: IcImmunity_L,
     name: '면역 기능',
