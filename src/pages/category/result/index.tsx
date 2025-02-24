@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { ArrowDrop, ArrowLeft, Cart } from '@/assets';
 import { FilterBottonSheet } from '@/components/filter-bottom-sheet';
+import { CATEGORY_LIST } from '@/constants/category';
 import { MOCK_PRODUCT_LIST } from '@/pages/home/mock-product';
 import { AppBar } from '@/ui/app-bar';
 import { ButtonText } from '@/ui/button-text';
@@ -11,6 +12,7 @@ import { IconButton } from '@/ui/icon-button';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { ProductFilterLabel } from '@/ui/product-filter-list/product-filter-label';
 import { ProductFilterList } from '@/ui/product-filter-list/product-filter-list';
+import { values } from '@/utils/values';
 import * as styles from './page.css';
 
 const MOCK_FILTER_LIST = Array.from({ length: 6 }, () => '빈혈');
@@ -21,6 +23,16 @@ export const CategoryResultPage = () => {
   const goBack = () => navigate(-1);
 
   const [initialTab, setInitialTab] = useState<string>('none');
+
+  const { categoryId = '' } = useParams();
+
+  if (!categoryId) {
+    throw new Error('잘못된 카테고리 아이디 입니다');
+  }
+
+  const onClickCategory = (id: number) => () => {
+    navigate(`/category/${id}`);
+  };
 
   return (
     <PageLayout
@@ -55,16 +67,26 @@ export const CategoryResultPage = () => {
             </ProductFilterLabel>
           }
         >
-          {MOCK_FILTER_LIST.map((filter, index) => (
-            <Chip
-              shape="rect"
-              color="grey500"
-              borderColor="grey200"
-              key={index}
-            >
-              {filter}
-            </Chip>
-          ))}
+          {values(CATEGORY_LIST)
+            .sort((a, b) => {
+              // categoryId와 일치하는 항목이 앞으로 오도록
+              if (a.id === Number(categoryId)) return -1;
+              if (b.id === Number(categoryId)) return 1;
+              return 0;
+            })
+            .map(({ id, name }) => (
+              <Chip
+                shape="rect"
+                color={id === Number(categoryId) ? 'mainblue500' : 'grey500'}
+                borderColor={
+                  id === Number(categoryId) ? 'mainblue500' : `grey200`
+                }
+                key={id}
+                onClick={onClickCategory(id)}
+              >
+                {name}
+              </Chip>
+            ))}
         </ProductFilterList>
         <ProductFilterList
           label={

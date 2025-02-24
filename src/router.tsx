@@ -70,7 +70,7 @@ export const Router = () => {
 
         <Route path="category">
           <Route index element={<CategoryPage />} />
-          <Route path=":categoryName" element={<CategoryResultPage />} />
+          <Route path=":categoryId" element={<CategoryResultPage />} />
         </Route>
 
         <Route path="ranking" element={<RankingPage />} />
