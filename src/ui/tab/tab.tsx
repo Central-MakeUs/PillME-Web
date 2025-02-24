@@ -32,6 +32,8 @@ export const Tab = ({
       labels.push(child);
     } else if (child.type === TabContent) {
       contents.push(child);
+    } else {
+      contents.push(child);
     }
   });
 
