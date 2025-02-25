@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'motion/react';
 import { useNavigate, useParams } from 'react-router';
 import { ArrowLeft } from '@/assets';
 import { CartButton } from '@/components/cart-botton';
@@ -72,46 +73,60 @@ export const SearchPage = () => {
   return (
     <PageLayout
       header={
-        <AppBar
-          left={<ArrowLeft onClick={() => navigate('/home')} />}
-          right={<CartButton />}
-          variant="page"
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25, ease: 'easeInOut' }}
+          exit={{ opacity: 0, y: 50 }}
         >
-          <Switch
-            left="증상 AI 검색"
-            right="제품 검색"
-            value={searchMode}
-            onValueChange={handleModeChange}
-          />
-        </AppBar>
+          <AppBar
+            left={<ArrowLeft onClick={() => navigate('/home')} />}
+            right={<CartButton />}
+            variant="page"
+          >
+            <Switch
+              left="증상 AI 검색"
+              right="제품 검색"
+              value={searchMode}
+              onValueChange={handleModeChange}
+            />
+          </AppBar>
+        </motion.div>
       }
     >
-      <Spacer size={18} />
-      <div
-        className={styles.searchContainer}
-        onKeyUp={({ key, target }) => {
-          if (key === 'Enter') {
-            handleSearch((target as HTMLInputElement).value);
-          }
-        }}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25, ease: 'easeInOut' }}
+        exit={{ opacity: 0, y: 50 }}
       >
-        <SearchField
-          hasResetButton
-          placeholder="건강 불편 증상을 검색해 보세요"
-          value={searchValue.value}
-          onChange={searchValue.onChange}
-        />
-      </div>
-      <section className={styles.mainContainer}>
-        {searchList.length > 0 && (
-          <RecentKeyword
-            list={searchList}
-            handleDelete={handleDeleteSearchList}
+        <Spacer size={18} />
+        <div
+          className={styles.searchContainer}
+          onKeyUp={({ key, target }) => {
+            if (key === 'Enter') {
+              handleSearch((target as HTMLInputElement).value);
+            }
+          }}
+        >
+          <SearchField
+            hasResetButton
+            placeholder="건강 불편 증상을 검색해 보세요"
+            value={searchValue.value}
+            onChange={searchValue.onChange}
           />
-        )}
-        <Recommendkeyword />
-        <PopularKeyword />
-      </section>
+        </div>
+        <section className={styles.mainContainer}>
+          {searchList.length > 0 && (
+            <RecentKeyword
+              list={searchList}
+              handleDelete={handleDeleteSearchList}
+            />
+          )}
+          <Recommendkeyword />
+          <PopularKeyword />
+        </section>
+      </motion.div>
     </PageLayout>
   );
 };
