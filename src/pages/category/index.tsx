@@ -1,3 +1,4 @@
+import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { ArrowLeft } from '@/assets';
 import {
@@ -41,48 +42,61 @@ export const CategoryPage = () => {
   return (
     <PageLayout
       header={
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <AppBar variant="page" left={<ArrowLeft onClick={goBack} />}>
             {!isTop && <h1 className={styles.pageTitle}>건강 고민 선택</h1>}
           </AppBar>
           <div className={styles.separator} />
-        </div>
+        </motion.div>
       }
     >
-      <section className={styles.container}>
-        <div ref={observerRef} />
-        <h2 className={styles.pageDescription}>
-          건강 고민에 해당되는
-          <br />
-          카테고리를 선택해보세요
-        </h2>
-        <Spacer size={30} />
-        <div className={styles.categoryContainer}>
-          {entries(groupData).map(([categoryType, categortList]) => (
-            <div className={styles.categoryGalleryContainer} key={categoryType}>
-              <h6 className={styles.categoryGalleryTitle}>
-                {CATEGORY_TITLE_MAP[categoryType]}
-              </h6>
-              <div className={styles.categoryGallery}>
-                {categortList.map(({ icon: Icon, name, id }) => (
-                  <div
-                    key={name}
-                    className={styles.categoryCard}
-                    onClick={onClickCategory(id)}
-                  >
-                    <Icon />
-                    <p className={styles.categoryLabel}>{name}</p>
-                  </div>
-                ))}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <section className={styles.container}>
+          <div ref={observerRef} />
+          <h2 className={styles.pageDescription}>
+            건강 고민에 해당되는
+            <br />
+            카테고리를 선택해보세요
+          </h2>
+          <Spacer size={30} />
+          <div className={styles.categoryContainer}>
+            {entries(groupData).map(([categoryType, categortList]) => (
+              <div
+                className={styles.categoryGalleryContainer}
+                key={categoryType}
+              >
+                <h6 className={styles.categoryGalleryTitle}>
+                  {CATEGORY_TITLE_MAP[categoryType]}
+                </h6>
+                <div className={styles.categoryGallery}>
+                  {categortList.map(({ icon: Icon, name, id }) => (
+                    <div
+                      key={name}
+                      className={styles.categoryCard}
+                      onClick={onClickCategory(id)}
+                    >
+                      <Icon />
+                      <p className={styles.categoryLabel}>{name}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
+            ))}
+            <div className={styles.categoryGalleryContainer}>
+              <h6 className={styles.categoryGalleryTitle}></h6>
+              <div className={styles.categoryGallery}> </div>
             </div>
-          ))}
-          <div className={styles.categoryGalleryContainer}>
-            <h6 className={styles.categoryGalleryTitle}></h6>
-            <div className={styles.categoryGallery}> </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </motion.div>
     </PageLayout>
   );
 };
