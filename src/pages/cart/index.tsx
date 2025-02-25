@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { ArrowLeft } from '@/assets';
 import { MOCK_PRODUCT_LIST } from '@/pages/home/mock-product';
