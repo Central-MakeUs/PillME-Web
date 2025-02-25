@@ -76,60 +76,59 @@ export const CartPage = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.25, ease: 'easeInOut' }}
         exit={{ opacity: 0, x: 50 }}
+        className={styles.container}
       >
-        <div className={styles.container}>
-          <div className={styles.listHeader}>
-            <h3 className={styles.pageSubTitle}>영양제 선택</h3>
-            <Dialog
-              trigger={
-                <button>
-                  <ButtonText>선택 삭제</ButtonText>
-                </button>
-              }
-              title="제품을 내 약통에서 삭제할까요?"
-              description="제품을 삭제할 시 복용 약 성분 분석에 반영돼요"
-              action="default"
-              leftButtonText="취소"
-              rightButtonText="삭제"
-            />
-          </div>
-          <Spacer size={18} />
-          <div className={styles.listHeaderLeft}>
-            <Checkbox checked={allChecked} id="all" onChange={toggleAllCheck} />
-            <label className={styles.deleteAllLabel}>전체 선택</label>
-          </div>
-          <Spacer size={18} />
-          <div className={styles.list}>
-            {/* TODO 가격 UI 추가 필요  */}
-            {productList.map(({ id, checked, ...rest }) => (
-              <HorizontalCard
-                {...rest}
-                key={id}
-                label={
-                  <Checkbox
-                    id={String(id)}
-                    checked={checked}
-                    onChange={toggleCheck}
-                    className={styles.checkbox}
-                  />
-                }
-              >
-                <p className={styles.price}>
-                  <span className={styles.priceNumber}>
-                    {Number(10000).toLocaleString()}
-                  </span>
-                  원
-                </p>
-              </HorizontalCard>
-            ))}
-          </div>
+        <div className={styles.listHeader}>
+          <h3 className={styles.pageSubTitle}>영양제 선택</h3>
+          <Dialog
+            trigger={
+              <button>
+                <ButtonText>선택 삭제</ButtonText>
+              </button>
+            }
+            title="제품을 내 약통에서 삭제할까요?"
+            description="제품을 삭제할 시 복용 약 성분 분석에 반영돼요"
+            action="default"
+            leftButtonText="취소"
+            rightButtonText="삭제"
+          />
         </div>
-        {checkedCount !== 0 && (
-          <div className={styles.buttonContainer}>
-            <Button size="large">총 {checkedCount}건 구매 링크 복사하기</Button>
-          </div>
-        )}
+        <Spacer size={18} />
+        <div className={styles.listHeaderLeft}>
+          <Checkbox checked={allChecked} id="all" onChange={toggleAllCheck} />
+          <label className={styles.deleteAllLabel}>전체 선택</label>
+        </div>
+        <Spacer size={18} />
+        <div className={styles.list}>
+          {/* TODO 가격 UI 추가 필요  */}
+          {productList.map(({ id, checked, ...rest }) => (
+            <HorizontalCard
+              {...rest}
+              key={id}
+              label={
+                <Checkbox
+                  id={String(id)}
+                  checked={checked}
+                  onChange={toggleCheck}
+                  className={styles.checkbox}
+                />
+              }
+            >
+              <p className={styles.price}>
+                <span className={styles.priceNumber}>
+                  {Number(10000).toLocaleString()}
+                </span>
+                원
+              </p>
+            </HorizontalCard>
+          ))}
+        </div>
       </motion.div>
+      {checkedCount !== 0 && (
+        <div className={styles.buttonContainer}>
+          <Button size="large">총 {checkedCount}건 구매 링크 복사하기</Button>
+        </div>
+      )}
     </PageLayout>
   );
 };

@@ -54,49 +54,45 @@ export const CategoryPage = () => {
         </motion.div>
       }
     >
-      <motion.div
+      <motion.section
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
+        className={styles.container}
       >
-        <section className={styles.container}>
-          <div ref={observerRef} />
-          <h2 className={styles.pageDescription}>
-            건강 고민에 해당되는
-            <br />
-            카테고리를 선택해보세요
-          </h2>
-          <Spacer size={30} />
-          <div className={styles.categoryContainer}>
-            {entries(groupData).map(([categoryType, categortList]) => (
-              <div
-                className={styles.categoryGalleryContainer}
-                key={categoryType}
-              >
-                <h6 className={styles.categoryGalleryTitle}>
-                  {CATEGORY_TITLE_MAP[categoryType]}
-                </h6>
-                <div className={styles.categoryGallery}>
-                  {categortList.map(({ icon: Icon, name, id }) => (
-                    <div
-                      key={name}
-                      className={styles.categoryCard}
-                      onClick={onClickCategory(id)}
-                    >
-                      <Icon />
-                      <p className={styles.categoryLabel}>{name}</p>
-                    </div>
-                  ))}
-                </div>
+        <div ref={observerRef} />
+        <h2 className={styles.pageDescription}>
+          건강 고민에 해당되는
+          <br />
+          카테고리를 선택해보세요
+        </h2>
+        <Spacer size={30} />
+        <div className={styles.categoryContainer}>
+          {entries(groupData).map(([categoryType, categortList]) => (
+            <div className={styles.categoryGalleryContainer} key={categoryType}>
+              <h6 className={styles.categoryGalleryTitle}>
+                {CATEGORY_TITLE_MAP[categoryType]}
+              </h6>
+              <div className={styles.categoryGallery}>
+                {categortList.map(({ icon: Icon, name, id }) => (
+                  <div
+                    key={name}
+                    className={styles.categoryCard}
+                    onClick={onClickCategory(id)}
+                  >
+                    <Icon />
+                    <p className={styles.categoryLabel}>{name}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-            <div className={styles.categoryGalleryContainer}>
-              <h6 className={styles.categoryGalleryTitle}></h6>
-              <div className={styles.categoryGallery}> </div>
             </div>
+          ))}
+          <div className={styles.categoryGalleryContainer}>
+            <h6 className={styles.categoryGalleryTitle}></h6>
+            <div className={styles.categoryGallery}> </div>
           </div>
-        </section>
-      </motion.div>
+        </div>
+      </motion.section>
     </PageLayout>
   );
 };

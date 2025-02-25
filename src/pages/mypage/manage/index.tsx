@@ -92,70 +92,69 @@ export const MyInfoManageInner = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.25, ease: 'easeInOut' }}
         exit={{ opacity: 0, x: 50 }}
+        className={styles.container}
       >
-        <div className={styles.container}>
-          <div className={styles.list}>
-            {MOCK_MY_INFO_LIST.map(({ label, value, onClick }) => (
-              <div className={styles.item} key={label}>
-                <div>
-                  <h4 className={styles.label}>{label}</h4>
-                  <Spacer size={10} />
-                  {label === '아이디' ? (
-                    <EmailContainer>
-                      <p className={styles.value}>{value}</p>
-                    </EmailContainer>
-                  ) : (
+        <div className={styles.list}>
+          {MOCK_MY_INFO_LIST.map(({ label, value, onClick }) => (
+            <div className={styles.item} key={label}>
+              <div>
+                <h4 className={styles.label}>{label}</h4>
+                <Spacer size={10} />
+                {label === '아이디' ? (
+                  <EmailContainer>
                     <p className={styles.value}>{value}</p>
-                  )}
-                </div>
-                {onClick && (
-                  <IconButton onClick={onClick}>
-                    <ArrowRightr />
-                  </IconButton>
+                  </EmailContainer>
+                ) : (
+                  <p className={styles.value}>{value}</p>
                 )}
               </div>
-            ))}
-          </div>
-          <div className={styles.dialogTriggerContainer}>
-            <Dialog
-              trigger={<p className={styles.dialogTrigger}>로그아웃</p>}
-              title="로그아웃"
-              description="로그아웃 하시겠어요?"
-              leftButtonText="취소"
-              rightButtonText="확인"
-              action="default"
-              onConfirm={() => {
-                logout();
-                toast('로그아웃 되었어요', 'remove', '', false);
-                navigate('/');
-              }}
-            />
-
-            <span className={styles.dialogTrigger}>|</span>
-            <Dialog
-              trigger={<p className={styles.dialogTrigger}>회원 탈퇴</p>}
-              title="서비스 회원 탈퇴"
-              description={`탈퇴 시 계정 및 이용기록은 모두 삭제돼요${'\n'}삭제된 데이터는 복구가 불가능해요`}
-              leftButtonText="취소"
-              rightButtonText="탈퇴하기"
-              action="danger"
-              onConfirm={() => {
-                mutate();
-              }}
-            />
-          </div>
+              {onClick && (
+                <IconButton onClick={onClick}>
+                  <ArrowRightr />
+                </IconButton>
+              )}
+            </div>
+          ))}
         </div>
-        <NickNameBottomSheet
-          open={isNicknameModalOpen}
-          onOpenChange={handleCloseAllModals}
-          initialNickName={nickname}
-        />
-        <BirthBottomSheet
-          open={isBirthModalOpen}
-          onOpenChange={handleCloseAllModals}
-          initialBirth={birthDate}
-        />
+        <div className={styles.dialogTriggerContainer}>
+          <Dialog
+            trigger={<p className={styles.dialogTrigger}>로그아웃</p>}
+            title="로그아웃"
+            description="로그아웃 하시겠어요?"
+            leftButtonText="취소"
+            rightButtonText="확인"
+            action="default"
+            onConfirm={() => {
+              logout();
+              toast('로그아웃 되었어요', 'remove', '', false);
+              navigate('/');
+            }}
+          />
+
+          <span className={styles.dialogTrigger}>|</span>
+          <Dialog
+            trigger={<p className={styles.dialogTrigger}>회원 탈퇴</p>}
+            title="서비스 회원 탈퇴"
+            description={`탈퇴 시 계정 및 이용기록은 모두 삭제돼요${'\n'}삭제된 데이터는 복구가 불가능해요`}
+            leftButtonText="취소"
+            rightButtonText="탈퇴하기"
+            action="danger"
+            onConfirm={() => {
+              mutate();
+            }}
+          />
+        </div>
       </motion.div>
+      <NickNameBottomSheet
+        open={isNicknameModalOpen}
+        onOpenChange={handleCloseAllModals}
+        initialNickName={nickname}
+      />
+      <BirthBottomSheet
+        open={isBirthModalOpen}
+        onOpenChange={handleCloseAllModals}
+        initialBirth={birthDate}
+      />
     </PageLayout>
   );
 };
