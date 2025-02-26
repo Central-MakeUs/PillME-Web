@@ -37,3 +37,18 @@ export type GetProductDetailAPIReqeust = {
 };
 
 export type getProductDetailAPIResponse = ResponseFormat<Product>;
+
+export type GetProductDistributionAPIRequest = {
+  productId: number;
+};
+
+export type ProductDistribution = {
+  ingredientName: string;
+  correctionAmount: number;
+  fullMark: number;
+  unit: string;
+};
+
+export type GetProductDistributionAPIResponse = ResponseFormat<
+  ProductDistribution[]
+>;

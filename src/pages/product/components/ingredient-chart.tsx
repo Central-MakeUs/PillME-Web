@@ -1,3 +1,4 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import {
   PolarAngleAxis,
   PolarGrid,
@@ -5,24 +6,22 @@ import {
   RadarChart,
   ResponsiveContainer,
 } from 'recharts';
+import { productQueryOption } from '@/apis/query/product';
 
-export const IngredientChart = () => {
-  // 최대 5개
-  const rawData = [
-    { subject: '오메가3', ingredient: 120, fullMark: 150 },
-    { subject: '비타민비타민', ingredient: 98, fullMark: 150 },
-    { subject: '유산균', ingredient: 86, fullMark: 150 },
-  ];
+export const IngredientChart = ({ productId }: { productId: number }) => {
+  const {
+    data: { data: distribution },
+  } = useSuspenseQuery(productQueryOption.distribution({ productId }));
 
-  const formatData = (rawData: any) => {
-    const missingCount = 5 - rawData.length; // 부족한 개수 계산
+  const createdChartData = (distribution: any) => {
+    const missingCount = 5 - distribution.length; // 부족한 개수 계산
     const extraSpaces = Array.from({ length: missingCount }, (_, i) => ({
-      subject: ' '.repeat(i + 1), // 공백 개수 차이로 구분
-      ingredient: 0,
+      ingredientName: ' '.repeat(i + 1), // 공백 개수 차이로 구분
+      correctionAmount: 0,
       fullMark: 150,
     }));
 
-    return [...rawData, ...extraSpaces];
+    return [...distribution, ...extraSpaces];
   };
 
   return (
@@ -31,7 +30,7 @@ export const IngredientChart = () => {
         cx="50%"
         cy="50%"
         outerRadius="80%"
-        data={formatData(rawData)}
+        data={createdChartData(distribution)}
       >
         <defs>
           <linearGradient id="gradientFill" x1="0" y1="0" x2="0" y2="1">
@@ -43,7 +42,7 @@ export const IngredientChart = () => {
         </defs>
         <PolarGrid />
         <PolarAngleAxis
-          dataKey="subject"
+          dataKey="ingredientName"
           tick={{
             fill: '#3366FF',
             fontFamily: 'Pretendard',
@@ -52,7 +51,7 @@ export const IngredientChart = () => {
           }}
         />
         <Radar
-          dataKey="ingredient"
+          dataKey="correctionAmount"
           stroke="#6666FF"
           fill="url(#gradientFill)"
           fillOpacity={0.6}
