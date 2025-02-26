@@ -10,7 +10,7 @@ export const deleteUserAPI = () => fetcher.delete('user/delete');
 export const updateUserInfoAPI = (
   updateUserInfoRequest: UpdateUserInfoRequest,
 ) =>
-  fetcher.post<UserInfoResponse>('user/update', {
+  fetcher.put<UserInfoResponse>('user/update', {
     json: {
       ...updateUserInfoRequest,
     },
