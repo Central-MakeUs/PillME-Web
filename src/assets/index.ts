@@ -65,6 +65,7 @@ export { default as Search } from './icon/name=search.svg?react';
 export { default as Trash } from './icon/name=trash.svg?react';
 export { default as Up } from './icon/name=up.svg?react';
 export { default as WarningCir } from './icon/name=warning_cir.svg?react';
+export { default as PlusBlue } from './icon/PlusBlue.svg?react';
 
 // nav bottom
 export { default as MyHome } from './nav/home.svg?react';
@@ -97,3 +98,6 @@ export { default as ConsultComplete } from './svg/consult_complete.svg?react';
 
 // 상담신청 상담내역 없음 사진
 export { default as ConsultationEmpty } from './svg/consultation.svg?react';
+
+//
+export { default as PillBox } from './svg/pillBoxIcon.svg?react';
