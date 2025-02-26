@@ -14,6 +14,6 @@ export const birth = z.string();
 
 export type Birth = z.infer<typeof birth>;
 
-export const gender = z.enum(['MALE', 'FEMALE', 'NONE']);
+export const gender = z.enum(['M', 'F', 'NONE']);
 
 export type Gender = z.infer<typeof gender>;

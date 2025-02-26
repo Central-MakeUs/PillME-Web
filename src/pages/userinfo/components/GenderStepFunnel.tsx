@@ -60,10 +60,10 @@ export const GenderStepFunnel = () => {
                     >
                       <DropdownMenu.RadioItem
                         className={styles.dropdownMenuItem}
-                        value="FEMALE"
+                        value="F"
                       >
                         여성
-                        {field.value === 'FEMALE' && (
+                        {field.value === 'F' && (
                           <DropdownMenu.DropdownMenuItemIndicator
                             className={styles.dropdownMenuItemIndicator}
                           >
@@ -73,10 +73,10 @@ export const GenderStepFunnel = () => {
                       </DropdownMenu.RadioItem>
                       <DropdownMenu.RadioItem
                         className={styles.dropdownMenuItem}
-                        value="MALE"
+                        value="M"
                       >
                         남성
-                        {field.value === 'MALE' && (
+                        {field.value === 'M' && (
                           <DropdownMenu.DropdownMenuItemIndicator
                             className={styles.dropdownMenuItemIndicator}
                           >
@@ -131,8 +131,8 @@ export const GenderStepFunnel = () => {
 
 const formatGenderValueToText = (value: UserInfoSchema['gender']) => {
   const genderValueMap = {
-    FEMALE: '여성',
-    MALE: '남성',
+    F: '여성',
+    M: '남성',
     NONE: '선택',
   };
 

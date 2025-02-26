@@ -3,7 +3,7 @@ import { createFunnelSteps } from '@use-funnel/browser';
 export type UserInfoOptionalState = {
   name?: string;
   birth?: string;
-  gender?: 'MALE' | 'FEMALE' | 'NONE';
+  gender?: 'M' | 'F' | 'NONE';
 };
 
 export const userInfoSteps = createFunnelSteps<UserInfoOptionalState>()

@@ -7,7 +7,7 @@ export type registerOptionalState = {
   confirmPassword?: string;
   name?: string;
   birth?: string;
-  gender?: 'MALE' | 'FEMALE' | 'NONE';
+  gender?: 'M' | 'F' | 'NONE';
 };
 
 export const registerSteps = createFunnelSteps<registerOptionalState>()
