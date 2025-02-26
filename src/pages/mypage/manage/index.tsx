@@ -1,5 +1,6 @@
 import { PropsWithChildren, Suspense } from 'react';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { deleteUserAPI, logout } from '@/apis/mutation/user';
 import { userQueryOption } from '@/apis/query/user';
@@ -74,12 +75,25 @@ export const MyInfoManageInner = () => {
   return (
     <PageLayout
       header={
-        <AppBar variant="page" left={<ArrowLeft onClick={goBack} />}>
-          내 정보 관리
-        </AppBar>
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.25, ease: 'easeInOut' }}
+          exit={{ opacity: 0, x: 50 }}
+        >
+          <AppBar variant="page" left={<ArrowLeft onClick={goBack} />}>
+            내 정보 관리
+          </AppBar>
+        </motion.div>
       }
     >
-      <div className={styles.container}>
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.25, ease: 'easeInOut' }}
+        exit={{ opacity: 0, x: 50 }}
+        className={styles.container}
+      >
         <div className={styles.list}>
           {MOCK_MY_INFO_LIST.map(({ label, value, onClick }) => (
             <div className={styles.item} key={label}>
@@ -130,14 +144,12 @@ export const MyInfoManageInner = () => {
             }}
           />
         </div>
-      </div>
-      (
+      </motion.div>
       <NickNameBottomSheet
         open={isNicknameModalOpen}
         onOpenChange={handleCloseAllModals}
         initialNickName={nickname}
       />
-      )
       <BirthBottomSheet
         open={isBirthModalOpen}
         onOpenChange={handleCloseAllModals}

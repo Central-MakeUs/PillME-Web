@@ -1,4 +1,5 @@
 import { EmblaOptionsType } from 'embla-carousel';
+import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { Button } from '@/ui/button';
 import { PageLayout } from '@/ui/layout/page-layout';
@@ -49,21 +50,27 @@ export const OnboardingPage = () => {
 
   return (
     <PageLayout className={styles.onboarding}>
-      <Carousel slides={SLIDES} options={OPTIONS} />
-      <div className={styles.linkContainer}>
-        <Button
-          variant="third"
-          size="large"
-          left={<EmailIcon />}
-          onClick={goLogin}
-        >
-          이메일로 로그인
-        </Button>
-        <Spacer size={25} />
-        <button className={styles.text} onClick={goHome}>
-          먼저 둘러보기
-        </button>
-      </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2 }}
+      >
+        <Carousel slides={SLIDES} options={OPTIONS} />
+        <div className={styles.linkContainer}>
+          <Button
+            variant="third"
+            size="large"
+            left={<EmailIcon />}
+            onClick={goLogin}
+          >
+            이메일로 로그인
+          </Button>
+          <Spacer size={25} />
+          <button className={styles.text} onClick={goHome}>
+            먼저 둘러보기
+          </button>
+        </div>
+      </motion.div>
     </PageLayout>
   );
 };

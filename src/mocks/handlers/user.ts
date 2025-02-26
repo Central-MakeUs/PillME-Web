@@ -1,7 +1,7 @@
 import { HttpResponse, delay, http } from 'msw';
 
 export const handlers = [
-  http.get('user/info', async () => {
+  http.get('/user/info', async () => {
     await delay(200);
     return HttpResponse.json(
       {
@@ -16,7 +16,7 @@ export const handlers = [
       { status: 200 },
     );
   }),
-  http.post('user/update', async () => {
+  http.post('/user/update', async () => {
     await delay(200);
     return HttpResponse.json(
       {

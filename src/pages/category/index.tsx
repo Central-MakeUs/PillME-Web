@@ -1,3 +1,4 @@
+import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { ArrowLeft } from '@/assets';
 import {
@@ -41,15 +42,24 @@ export const CategoryPage = () => {
   return (
     <PageLayout
       header={
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <AppBar variant="page" left={<ArrowLeft onClick={goBack} />}>
             {!isTop && <h1 className={styles.pageTitle}>건강 고민 선택</h1>}
           </AppBar>
           <div className={styles.separator} />
-        </div>
+        </motion.div>
       }
     >
-      <section className={styles.container}>
+      <motion.section
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={styles.container}
+      >
         <div ref={observerRef} />
         <h2 className={styles.pageDescription}>
           건강 고민에 해당되는
@@ -82,7 +92,7 @@ export const CategoryPage = () => {
             <div className={styles.categoryGallery}> </div>
           </div>
         </div>
-      </section>
+      </motion.section>
     </PageLayout>
   );
 };

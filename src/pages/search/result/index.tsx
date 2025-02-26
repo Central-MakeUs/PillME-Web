@@ -1,5 +1,6 @@
 import { Suspense, useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { motion } from 'motion/react';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 import { productQueryOption } from '@/apis/query/product';
 import { ArrowDrop, ArrowLeft, Check } from '@/assets';
@@ -24,9 +25,14 @@ export const SearchResultPage = () => {
   const { searchType } = useParams();
 
   return (
-    <LocalErrorBoundary>
-      <PageLayout
-        header={
+    <PageLayout
+      header={
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25, ease: 'easeInOut' }}
+          exit={{ opacity: 0, y: 20 }}
+        >
           <AppBar
             left={<ArrowLeft onClick={() => navigate(-1)} />}
             right={<CartButton />}
@@ -41,13 +47,23 @@ export const SearchResultPage = () => {
               />
             </div>
           </AppBar>
-        }
+        </motion.div>
+      }
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25, ease: 'easeInOut', delay: 0.2 }}
+        exit={{ opacity: 0, y: 20 }}
+        className={styles.mainContainer}
       >
-        <Suspense fallback={<></>}>
-          <SearchResultPageInner searchType={searchType} keyword={keyword} />
-        </Suspense>
-      </PageLayout>
-    </LocalErrorBoundary>
+        <LocalErrorBoundary>
+          <Suspense fallback={<></>}>
+            <SearchResultPageInner searchType={searchType} keyword={keyword} />
+          </Suspense>
+        </LocalErrorBoundary>
+      </motion.div>
+    </PageLayout>
   );
 };
 

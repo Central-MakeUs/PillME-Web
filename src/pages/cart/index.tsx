@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { ArrowLeft } from '@/assets';
 import { MOCK_PRODUCT_LIST } from '@/pages/home/mock-product';
@@ -50,7 +51,12 @@ export const CartPage = () => {
   return (
     <PageLayout
       header={
-        <div>
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.25, ease: 'easeInOut' }}
+          exit={{ opacity: 0, x: 50 }}
+        >
           <AppBar
             left={
               <IconButton onClick={goBack}>
@@ -62,10 +68,16 @@ export const CartPage = () => {
             장바구니
           </AppBar>
           <div className={styles.separator} />
-        </div>
+        </motion.div>
       }
     >
-      <div className={styles.container}>
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.25, ease: 'easeInOut' }}
+        exit={{ opacity: 0, x: 50 }}
+        className={styles.container}
+      >
         <div className={styles.listHeader}>
           <h3 className={styles.pageSubTitle}>영양제 선택</h3>
           <Dialog
@@ -111,7 +123,7 @@ export const CartPage = () => {
             </HorizontalCard>
           ))}
         </div>
-      </div>
+      </motion.div>
       {checkedCount !== 0 && (
         <div className={styles.buttonContainer}>
           <Button size="large">총 {checkedCount}건 구매 링크 복사하기</Button>
