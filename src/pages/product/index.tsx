@@ -1,7 +1,11 @@
 import { Suspense, useState } from 'react';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { motion } from 'motion/react';
 import { useNavigate, useParams } from 'react-router';
+import {
+  addMyMedicineAPI,
+  deleteMyMedicineAPI,
+} from '@/apis/mutation/myMedicine';
 import { productQueryOption } from '@/apis/query/product';
 import { ArrowLeft, Check, Plus } from '@/assets';
 import { CartButton } from '@/components/cart-botton';
@@ -39,13 +43,27 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
     data: { data: product },
   } = useSuspenseQuery(productQueryOption.detail({ productId }));
 
+  const { mutate: addaddMyMedicineMutate } = useMutation({
+    mutationFn: addMyMedicineAPI,
+    onSuccess: () => {
+      showCustomToast('내 약통에 추가 되었어요', 'success', '/pillbox/manage');
+      setIsAddedToPillbox(true);
+    },
+  });
+
+  const { mutate: deleteMyMedicineMutate } = useMutation({
+    mutationFn: deleteMyMedicineAPI,
+    onSuccess: () => {
+      showCustomToast('내 약통에서 삭제되었어요', 'remove', '/pillbox/manage');
+      setIsAddedToPillbox(false);
+    },
+  });
+
   const handlePillboxClick = () => {
-    setIsAddedToPillbox(true);
-    showCustomToast('내 약통에 추가 되었어요', 'success', '/pillbox/manage');
+    addaddMyMedicineMutate({ productId: product.id });
   };
   const handleRemoveFromPillbox = () => {
-    setIsAddedToPillbox(false);
-    showCustomToast('내 약통에서 삭제되었어요', 'remove', '/pillbox/manage');
+    deleteMyMedicineMutate({ myMedicineId: product.id });
   };
 
   return (
@@ -134,7 +152,7 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
                     variant="third"
                     left={<Check />}
                     className={styles.pillButton}
-                    onClick={handlePillboxClick}
+                    onClick={handleRemoveFromPillbox}
                   >
                     내 약통
                   </Button>
