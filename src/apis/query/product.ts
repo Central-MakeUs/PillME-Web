@@ -2,6 +2,8 @@ import { queryOptions } from '@tanstack/react-query';
 import { fetcher } from '../fetcher';
 import {
   GetProductDetailAPIReqeust,
+  GetProductDistributionAPIRequest,
+  GetProductDistributionAPIResponse,
   GetProductListAPIRequest,
   GetProductListAPIResponse,
   getProductDetailAPIResponse,
@@ -11,6 +13,7 @@ export const productQueryKeys = {
   all: () => ['product'],
   lists: () => [...productQueryKeys.all(), 'list'],
   details: () => [...productQueryKeys.all(), 'detail'],
+  distributions: () => [...productQueryKeys.all(), 'distribution'],
 };
 
 export const productQueryOption = {
@@ -23,6 +26,11 @@ export const productQueryOption = {
     queryOptions({
       queryKey: [...productQueryKeys.details(), productId],
       queryFn: () => getProductDetailAPI({ productId }),
+    }),
+  distribution: ({ productId }: GetProductDistributionAPIRequest) =>
+    queryOptions({
+      queryKey: [...productQueryKeys.distributions(), productId],
+      queryFn: () => getProductDistributionAPI({ productId }),
     }),
 };
 
@@ -52,3 +60,10 @@ const getProductListAPI = ({
 
 const getProductDetailAPI = ({ productId }: GetProductDetailAPIReqeust) =>
   fetcher.get<getProductDetailAPIResponse>(`product/${productId}`);
+
+const getProductDistributionAPI = ({
+  productId,
+}: GetProductDistributionAPIRequest) =>
+  fetcher.get<GetProductDistributionAPIResponse>(
+    `product/distribution/${productId}`,
+  );

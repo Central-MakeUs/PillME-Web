@@ -53,6 +53,7 @@ export const won = style([
 export const tags = style([
   {
     display: 'flex',
+    flexWrap: 'wrap',
     gap: 4,
   },
 ]);

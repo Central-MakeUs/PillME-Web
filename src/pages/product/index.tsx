@@ -155,7 +155,7 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
             </ButtonText>
           </div>
           <div className={styles.chartBox}>
-            <IngredientChart />
+            <IngredientChart productId={productId} />
           </div>
         </section>
         <Spacer size={10} className={styles.spaceColor} />
