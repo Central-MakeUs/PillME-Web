@@ -57,4 +57,5 @@ export const chipContainer = style({
   display: 'flex',
   alignItems: 'center',
   gap: 4,
+  flexWrap: 'wrap',
 });
