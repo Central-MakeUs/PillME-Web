@@ -1,7 +1,9 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, Suspense, useState } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
+import { myMedicneQueryOption } from '@/apis/query/myMedicine';
 import { ArrowLeft } from '@/assets';
-import { MOCK_PRODUCT_LIST } from '@/pages/home/mock-product';
+import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { AppBar } from '@/ui/app-bar';
 import { Button } from '@/ui/button';
 import { ButtonText } from '@/ui/button-text';
@@ -14,22 +16,31 @@ import { Spacer } from '@/ui/spacer/spacer';
 import { Checkbox } from '../../../ui/check-box/check-box';
 import * as styles from './page.css';
 
-const MOCK_TAG_LIST = [
-  { name: '혈압', type: 'category' },
-  { name: '루테인', type: 'ingredient' },
-] satisfies Array<{ name: string; type: 'category' | 'ingredient' }>;
-
 export const PillboxManagePage = () => {
-  const navigate = useNavigate();
-
-  const goBack = () => navigate(-1);
-
-  const [productList, setProductList] = useState(
-    MOCK_PRODUCT_LIST.map((product) => ({
-      ...product,
-      checked: true,
-    })),
+  return (
+    <LocalErrorBoundary>
+      <Suspense>
+        <PillboxManagePageInner />
+      </Suspense>
+    </LocalErrorBoundary>
   );
+};
+
+const PillboxManagePageInner = () => {
+  const navigate = useNavigate();
+  const goBack = () => navigate(-1);
+  const goAddPillboxPage = () => navigate('/pillbox/new');
+
+  const {
+    data: { data: medicneList },
+  } = useSuspenseQuery(myMedicneQueryOption.list());
+
+  const initialProductList = medicneList.map(({ product }) => ({
+    ...product,
+    checked: true,
+  }));
+
+  const [productList, setProductList] = useState(initialProductList);
 
   const toggleCheck = ({ target: { id } }: ChangeEvent) => {
     const updatedProductList = productList.map((product) =>
@@ -90,39 +101,66 @@ export const PillboxManagePage = () => {
         </div>
         <Spacer size={30} />
         <div className={styles.list}>
-          {productList.map(({ id, checked, ...rest }) => (
-            <HorizontalCard
-              {...rest}
-              key={id}
-              label={
-                <Checkbox
-                  id={String(id)}
-                  checked={checked}
-                  onChange={toggleCheck}
-                  className={styles.checkbox}
-                />
-              }
-            >
-              {MOCK_TAG_LIST && (
-                <div className={styles.chipContainer}>
-                  {MOCK_TAG_LIST.map(({ name, type }, index) => (
-                    <Chip
-                      shape="tag"
-                      backgroundColor={
-                        type === 'category' ? 'blue200' : 'grey200'
-                      }
-                      color={type === 'category' ? 'blue400' : 'grey500'}
-                      typography="body_4_12_b"
-                      key={index}
-                    >
-                      {name}
-                    </Chip>
-                  ))}
-                </div>
-              )}
-            </HorizontalCard>
-          ))}
-          <Button size="large" variant="third" className={styles.button}>
+          {productList.map(
+            ({
+              id,
+              checked,
+              imageUrl,
+              description,
+              name,
+              healthConcerns,
+              productIngredients,
+            }) => (
+              <HorizontalCard
+                key={id}
+                imageUrl={imageUrl}
+                company={description}
+                name={name}
+                label={
+                  <Checkbox
+                    id={String(id)}
+                    checked={checked}
+                    onChange={toggleCheck}
+                    className={styles.checkbox}
+                  />
+                }
+              >
+                {(healthConcerns.length !== 0 ||
+                  productIngredients.length !== 0) && (
+                  <div className={styles.chipContainer}>
+                    {healthConcerns.map(({ id, name }) => (
+                      <Chip
+                        shape="tag"
+                        backgroundColor="blue200"
+                        color="blue400"
+                        typography="body_4_12_b"
+                        key={id}
+                      >
+                        {name}
+                      </Chip>
+                    ))}
+                    {productIngredients.map(({ ingredientName }) => (
+                      <Chip
+                        shape="tag"
+                        backgroundColor="grey200"
+                        color="grey500"
+                        typography="body_4_12_b"
+                        key={ingredientName}
+                      >
+                        {ingredientName}
+                      </Chip>
+                    ))}
+                  </div>
+                )}
+              </HorizontalCard>
+            ),
+          )}
+          <Button
+            size="large"
+            variant="third"
+            className={styles.button}
+            onClick={goAddPillboxPage}
+          >
             복용 제품 추가
           </Button>
         </div>

@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { myMedicneQueryOption } from '@/apis/query/myMedicine';
 import { Cart, Intake, Notice, PillBox, PlusBlue } from '@/assets';
+import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import * as bottomStyles from '@/pages/product/ingredient/bottomSheet.css';
 import { AppBar } from '@/ui/app-bar';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
@@ -10,8 +13,22 @@ import { IngredientGraph } from '../product/components/ingredient-graph';
 import * as styles from './page.css';
 
 export const PillboxPage = () => {
+  return (
+    <LocalErrorBoundary>
+      <Suspense>
+        <PillboxPageInner />
+      </Suspense>
+    </LocalErrorBoundary>
+  );
+};
+
+const PillboxPageInner = () => {
   const pillData = [];
   const [isOpen, setIsOpen] = useState(false);
+
+  const {
+    data: { data: medicineList },
+  } = useSuspenseQuery(myMedicneQueryOption.list());
 
   return (
     <PageLayout
@@ -24,7 +41,7 @@ export const PillboxPage = () => {
       <Spacer size={37} />
       <section className={styles.boxContainer}>
         <div className={styles.boxTitle}>필미님의 약통</div>
-        {pillData.length === 0 ? (
+        {medicineList.length === 0 ? (
           <div className={styles.myPillBox}>
             <PlusBlue />
             <span className={styles.boxDesc}>
@@ -33,6 +50,7 @@ export const PillboxPage = () => {
             <PillBox className={styles.boxIcon} />
           </div>
         ) : (
+          //TODO ui 추가 필요
           <div>약</div>
         )}
       </section>

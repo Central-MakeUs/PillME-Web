@@ -25,45 +25,45 @@ export const SearchResultPage = () => {
   const { searchType } = useParams();
 
   return (
-    <PageLayout
-      header={
+    <LocalErrorBoundary>
+      <PageLayout
+        header={
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            exit={{ opacity: 0, y: 20 }}
+          >
+            <AppBar
+              left={<ArrowLeft onClick={() => navigate(-1)} />}
+              right={<CartButton />}
+              variant="page"
+              className={styles.header}
+            >
+              <div className={styles.searchContainer}>
+                <SearchField
+                  hasResetButton
+                  placeholder="건강 불편 증상을 검색해 보세요"
+                  value={keyword}
+                />
+              </div>
+            </AppBar>
+          </motion.div>
+        }
+      >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.25, ease: 'easeInOut' }}
+          transition={{ duration: 0.25, ease: 'easeInOut', delay: 0.2 }}
           exit={{ opacity: 0, y: 20 }}
+          className={styles.mainContainer}
         >
-          <AppBar
-            left={<ArrowLeft onClick={() => navigate(-1)} />}
-            right={<CartButton />}
-            variant="page"
-            className={styles.header}
-          >
-            <div className={styles.searchContainer}>
-              <SearchField
-                hasResetButton
-                placeholder="건강 불편 증상을 검색해 보세요"
-                value={keyword}
-              />
-            </div>
-          </AppBar>
-        </motion.div>
-      }
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.25, ease: 'easeInOut', delay: 0.2 }}
-        exit={{ opacity: 0, y: 20 }}
-        className={styles.mainContainer}
-      >
-        <LocalErrorBoundary>
           <Suspense fallback={<></>}>
             <SearchResultPageInner searchType={searchType} keyword={keyword} />
           </Suspense>
-        </LocalErrorBoundary>
-      </motion.div>
-    </PageLayout>
+        </motion.div>
+      </PageLayout>
+    </LocalErrorBoundary>
   );
 };
 

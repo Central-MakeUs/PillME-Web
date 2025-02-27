@@ -1,6 +1,12 @@
-import { ChangeEventHandler, FormEventHandler, useState } from 'react';
+import {
+  ChangeEventHandler,
+  FormEventHandler,
+  Suspense,
+  useState,
+} from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { ArrowLeft } from '@/assets';
+import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { AppBar, AppBarElement } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { SearchField } from '@/ui/search-field';
@@ -39,37 +45,42 @@ export const PillboxNewPage = () => {
   };
 
   return (
-    <PageLayout
-      header={
-        <AppBar
-          left={
-            <AppBarElement onClick={goBack}>
-              <ArrowLeft />
-            </AppBarElement>
-          }
-          variant="page"
-        >
-          복용 제품 추가
-        </AppBar>
-      }
-    >
-      <div className={styles.searchFieldContainer}>
-        <form onSubmit={onSubmit}>
-          <SearchField
-            disabled={!isSearching}
-            inputMode="search"
-            value={keyword}
-            onChange={onChange}
-            hasResetButton={isSearching && keyword.length !== 0}
-            onClickResetButton={onClickResetButton}
-          />
-        </form>
-      </div>
-      {isSearching ? (
-        <SearchingKeywordList keyword={keyword} />
-      ) : (
-        <PillBoxCardList />
-      )}
-    </PageLayout>
+    <LocalErrorBoundary>
+      <PageLayout
+        header={
+          <AppBar
+            left={
+              <AppBarElement onClick={goBack}>
+                <ArrowLeft />
+              </AppBarElement>
+            }
+            variant="page"
+          >
+            복용 제품 추가
+          </AppBar>
+        }
+      >
+        <div className={styles.searchFieldContainer}>
+          <form onSubmit={onSubmit}>
+            <SearchField
+              disabled={!isSearching}
+              inputMode="search"
+              value={searchedKeyword ?? keyword}
+              onChange={onChange}
+              hasResetButton={isSearching && keyword.length !== 0}
+              onClickResetButton={onClickResetButton}
+            />
+          </form>
+        </div>
+
+        {isSearching ? (
+          <SearchingKeywordList keyword={keyword} />
+        ) : (
+          <Suspense>
+            <PillBoxCardList keyword={searchedKeyword} />
+          </Suspense>
+        )}
+      </PageLayout>
+    </LocalErrorBoundary>
   );
 };
