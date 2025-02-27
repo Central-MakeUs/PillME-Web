@@ -9,7 +9,7 @@ export type AddMyMedicineAPIRequest = {
   productId: number;
 };
 
-export type AddMyMedicineAPIResponse = ResponseFormat<Product>;
+export type AddMyMedicineAPIResponse = ResponseFormat<{ product: Product }>;
 
 export type DeleteMyMedicineAPIRequest = {
   myMedicineId: number;

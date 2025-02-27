@@ -2,7 +2,7 @@ import { queryOptions } from '@tanstack/react-query';
 import { fetcher } from '../fetcher';
 import { GetMyMedicineAPIResponse } from '../types/myMedicine';
 
-const myMedicineQueryKeys = {
+export const myMedicineQueryKeys = {
   all: () => ['myMedicine'],
   lists: () => [...myMedicineQueryKeys.all(), 'list'],
 };
