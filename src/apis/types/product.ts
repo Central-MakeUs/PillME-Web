@@ -7,21 +7,17 @@ export type Product = {
   imageUrl: string;
   purchaseLink: string;
   description: string;
-  healthConcerns: [
-    {
-      id: number;
-      name: string;
-      description: string;
-      imageUrl: string;
-    },
-  ];
-  productIngredients: [
-    {
-      ingredientName: string;
-      amount: number;
-      unit: string;
-    },
-  ];
+  healthConcerns: Array<{
+    id: number;
+    name: string;
+    description: string;
+    imageUrl: string;
+  }>;
+  productIngredients: Array<{
+    ingredientName: string;
+    amount: number;
+    unit: string;
+  }>;
 };
 
 export type GetProductListAPIRequest = {

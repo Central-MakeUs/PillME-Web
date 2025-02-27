@@ -16,4 +16,4 @@ export const myMedicneQueryOption = {
 };
 
 const getUserInfoAPI = () =>
-  fetcher.get<GetMyMedicineAPIResponse>('myMedicine');
+  fetcher.get<GetMyMedicineAPIResponse>('my-medicine');
