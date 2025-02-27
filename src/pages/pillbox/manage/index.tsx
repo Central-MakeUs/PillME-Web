@@ -17,38 +17,18 @@ import { Checkbox } from '../../../ui/check-box/check-box';
 import * as styles from './page.css';
 
 export const PillboxManagePage = () => {
-  const navigate = useNavigate();
-  const goBack = () => navigate(-1);
-
   return (
-    <PageLayout
-      header={
-        <div>
-          <AppBar
-            left={
-              <IconButton onClick={goBack}>
-                <ArrowLeft />
-              </IconButton>
-            }
-            variant="page"
-          >
-            내 약통 관리
-          </AppBar>
-          <div className={styles.separator} />
-        </div>
-      }
-    >
-      <LocalErrorBoundary>
-        <Suspense>
-          <PillboxManagePageInner />
-        </Suspense>
-      </LocalErrorBoundary>
-    </PageLayout>
+    <LocalErrorBoundary>
+      <Suspense>
+        <PillboxManagePageInner />
+      </Suspense>
+    </LocalErrorBoundary>
   );
 };
 
 const PillboxManagePageInner = () => {
   const navigate = useNavigate();
+  const goBack = () => navigate(-1);
   const goAddPillboxPage = () => navigate('/pillbox/new');
 
   const {
@@ -81,7 +61,23 @@ const PillboxManagePageInner = () => {
   const allChecked = productList.every(({ checked }) => Boolean(checked));
 
   return (
-    <>
+    <PageLayout
+      header={
+        <div>
+          <AppBar
+            left={
+              <IconButton onClick={goBack}>
+                <ArrowLeft />
+              </IconButton>
+            }
+            variant="page"
+          >
+            내 약통 관리
+          </AppBar>
+          <div className={styles.separator} />
+        </div>
+      }
+    >
       <div className={styles.container}>
         <p className={styles.totalCount}>총 2개</p>
         <Spacer size={20} />
@@ -169,6 +165,6 @@ const PillboxManagePageInner = () => {
           </Button>
         </div>
       </div>
-    </>
+    </PageLayout>
   );
 };

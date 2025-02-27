@@ -45,33 +45,34 @@ export const PillboxNewPage = () => {
   };
 
   return (
-    <PageLayout
-      header={
-        <AppBar
-          left={
-            <AppBarElement onClick={goBack}>
-              <ArrowLeft />
-            </AppBarElement>
-          }
-          variant="page"
-        >
-          복용 제품 추가
-        </AppBar>
-      }
-    >
-      <div className={styles.searchFieldContainer}>
-        <form onSubmit={onSubmit}>
-          <SearchField
-            disabled={!isSearching}
-            inputMode="search"
-            value={searchedKeyword ?? keyword}
-            onChange={onChange}
-            hasResetButton={isSearching && keyword.length !== 0}
-            onClickResetButton={onClickResetButton}
-          />
-        </form>
-      </div>
-      <LocalErrorBoundary>
+    <LocalErrorBoundary>
+      <PageLayout
+        header={
+          <AppBar
+            left={
+              <AppBarElement onClick={goBack}>
+                <ArrowLeft />
+              </AppBarElement>
+            }
+            variant="page"
+          >
+            복용 제품 추가
+          </AppBar>
+        }
+      >
+        <div className={styles.searchFieldContainer}>
+          <form onSubmit={onSubmit}>
+            <SearchField
+              disabled={!isSearching}
+              inputMode="search"
+              value={searchedKeyword ?? keyword}
+              onChange={onChange}
+              hasResetButton={isSearching && keyword.length !== 0}
+              onClickResetButton={onClickResetButton}
+            />
+          </form>
+        </div>
+
         {isSearching ? (
           <SearchingKeywordList keyword={keyword} />
         ) : (
@@ -79,7 +80,7 @@ export const PillboxNewPage = () => {
             <PillBoxCardList keyword={searchedKeyword} />
           </Suspense>
         )}
-      </LocalErrorBoundary>
-    </PageLayout>
+      </PageLayout>
+    </LocalErrorBoundary>
   );
 };

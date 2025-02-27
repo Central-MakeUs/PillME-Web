@@ -14,19 +14,11 @@ import * as styles from './page.css';
 
 export const PillboxPage = () => {
   return (
-    <PageLayout
-      header={
-        <AppBar right={<Cart />} variant="default">
-          내 약통
-        </AppBar>
-      }
-    >
-      <LocalErrorBoundary>
-        <Suspense>
-          <PillboxPageInner />
-        </Suspense>
-      </LocalErrorBoundary>
-    </PageLayout>
+    <LocalErrorBoundary>
+      <Suspense>
+        <PillboxPageInner />
+      </Suspense>
+    </LocalErrorBoundary>
   );
 };
 
@@ -39,7 +31,13 @@ const PillboxPageInner = () => {
   } = useSuspenseQuery(myMedicneQueryOption.list());
 
   return (
-    <>
+    <PageLayout
+      header={
+        <AppBar right={<Cart />} variant="default">
+          내 약통
+        </AppBar>
+      }
+    >
       <Spacer size={37} />
       <section className={styles.boxContainer}>
         <div className={styles.boxTitle}>필미님의 약통</div>
@@ -144,6 +142,6 @@ const PillboxPageInner = () => {
           </section>
         </BottomSheet.Content>
       </BottomSheet.Root>
-    </>
+    </PageLayout>
   );
 };
