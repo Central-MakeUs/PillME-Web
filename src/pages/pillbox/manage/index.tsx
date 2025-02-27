@@ -139,7 +139,7 @@ const PillboxManagePageInner = () => {
                         {name}
                       </Chip>
                     ))}
-                    {productIngredients.map(({ ingredientName }, index) => (
+                    {productIngredients.map(({ ingredientName }) => (
                       <Chip
                         shape="tag"
                         backgroundColor="grey200"

@@ -18,7 +18,7 @@ export const GenderStepFunnel = () => {
 
   useEffect(() => {
     setFocus('gender');
-  }, []);
+  }, [setFocus]);
 
   return (
     <>
