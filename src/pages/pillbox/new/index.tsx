@@ -1,6 +1,12 @@
-import { ChangeEventHandler, FormEventHandler, useState } from 'react';
+import {
+  ChangeEventHandler,
+  FormEventHandler,
+  Suspense,
+  useState,
+} from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { ArrowLeft } from '@/assets';
+import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { AppBar, AppBarElement } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { SearchField } from '@/ui/search-field';
@@ -58,18 +64,22 @@ export const PillboxNewPage = () => {
           <SearchField
             disabled={!isSearching}
             inputMode="search"
-            value={keyword}
+            value={searchedKeyword ?? keyword}
             onChange={onChange}
             hasResetButton={isSearching && keyword.length !== 0}
             onClickResetButton={onClickResetButton}
           />
         </form>
       </div>
-      {isSearching ? (
-        <SearchingKeywordList keyword={keyword} />
-      ) : (
-        <PillBoxCardList />
-      )}
+      <LocalErrorBoundary>
+        {isSearching ? (
+          <SearchingKeywordList keyword={keyword} />
+        ) : (
+          <Suspense>
+            <PillBoxCardList keyword={searchedKeyword} />
+          </Suspense>
+        )}
+      </LocalErrorBoundary>
     </PageLayout>
   );
 };
