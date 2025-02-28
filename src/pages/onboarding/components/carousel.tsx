@@ -3,7 +3,7 @@ import { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import useEmblaCarousel from 'embla-carousel-react';
 import { cx } from '@/ui/util';
-import graphic from '../assets/graphic.png';
+import graphic from '../assets/graphic.webp';
 import { DotButton, useDotButton } from './carousel-dot-button';
 import * as styles from './embla.css';
 
