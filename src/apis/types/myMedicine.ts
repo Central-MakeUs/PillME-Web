@@ -12,5 +12,5 @@ export type AddMyMedicineAPIRequest = {
 export type AddMyMedicineAPIResponse = ResponseFormat<{ product: Product }>;
 
 export type DeleteMyMedicineAPIRequest = {
-  myMedicineId: number;
+  myMedicineIds: number[];
 };
