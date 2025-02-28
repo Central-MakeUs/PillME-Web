@@ -40,10 +40,10 @@ export const firstCategortyList = [
   { icon: IcBloodcirculation_S, name: '혈액 순환', value: '5' },
   { icon: IcAnemia_S, name: '빈혈', value: '6' },
   { icon: IcBone_S, name: '뼈 건강', value: '7' },
+  { icon: IcTooth_S, name: '치아&잇몸', value: '8' },
 ];
 
 export const secondCategoryList = [
-  { icon: IcTooth_S, name: '치아&잇몸', value: '8' },
   { icon: IcSkin_S, name: '피부 건강', value: '9' },
   { icon: IcLosshair_S, name: '탈모&손톱', value: '10' },
   { icon: IcAging_S, name: '노화', value: '11' },
@@ -51,10 +51,10 @@ export const secondCategoryList = [
   { icon: IcBodyfat_S, name: '체지방', value: '13' },
   { icon: IcLiver_S, name: '간 건강', value: '14' },
   { icon: IcOrgan_S, name: '장 건강', value: '15' },
+  { icon: IcThyroid_S, name: '갑상선', value: '16' },
 ];
 
 export const thirdCategoryList = [
-  { icon: IcThyroid_S, name: '갑상선', value: '16' },
   { icon: IcBrain_S, name: '두뇌', value: '17' },
   { icon: IcStress_S, name: '스트레스', value: '18' },
   { icon: IcTired_S, name: '피로감', value: '19' },
@@ -62,8 +62,5 @@ export const thirdCategoryList = [
   { icon: IcFemale_S, name: '여성 건강', value: '21' },
   { icon: IcMale_S, name: '남성 건강', value: '22' },
   { icon: IcRespiratory_S, name: '호흡기', value: '23' },
-];
-
-export const fourthCategoryList: HomeRecommendCategory[] = [
   { icon: IcPregnancy_S, name: '임신', value: '24' },
 ];
