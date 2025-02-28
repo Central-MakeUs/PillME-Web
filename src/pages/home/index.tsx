@@ -16,7 +16,6 @@ import { RecommendProductGallery } from './components/recommend-product';
 import { CategorySlide } from './components/slides/category-slide';
 import {
   firstCategortyList,
-  fourthCategoryList,
   secondCategoryList,
   thirdCategoryList,
 } from './recommend-category';
@@ -50,13 +49,6 @@ export const HomePage = () => {
       Component: CategorySlide,
       props: {
         categoryList: thirdCategoryList,
-        onClickCategory: onClickCategoryResult,
-      },
-    },
-    {
-      Component: CategorySlide,
-      props: {
-        categoryList: fourthCategoryList,
         onClickCategory: onClickCategoryResult,
       },
     },
