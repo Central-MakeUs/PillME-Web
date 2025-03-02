@@ -12,7 +12,7 @@ import { SearchField } from '../../ui/search-field';
 import { Spacer } from '../../ui/spacer/spacer';
 import { Switch } from '../../ui/switch';
 import { Carousel, CarouselProps } from './components/carousel';
-import { RecommendProductGallery } from './components/recommend-product';
+// import { RecommendProductGallery } from './components/recommend-product';
 import { CategorySlide } from './components/slides/category-slide';
 import {
   firstCategortyList,
@@ -77,6 +77,7 @@ export const HomePage = () => {
         initial={{ opacity: 1, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25 }}
+        className={styles.motionDiv}
       >
         <div className={styles.mainContainer}>
           <div className={styles.mainSearchContainer}>
@@ -145,10 +146,10 @@ export const HomePage = () => {
           <button className={styles.viewAllButton} onClick={onClickCategory}>
             <ButtonText icon>건강 고민 전체 보기</ButtonText>
           </button>
-          <div className={styles.separator} />
+          {/* <div className={styles.separator} /> */}
 
+          {/* 
           <div className={styles.recommendProductContainer}>
-            {/* TODO 추후 배열로 렌더링할 예정 */}
             <RecommendProductGallery
               description="약통에 많이 담기고 있어요!"
               title="인기 건강 기능 식품"
@@ -159,7 +160,8 @@ export const HomePage = () => {
               title="추천 건강 식품"
               onClickMoreButton={() => navigate('/recommend')}
             />
-          </div>
+          </div>  
+          */}
         </div>
       </motion.div>
     </PageLayout>

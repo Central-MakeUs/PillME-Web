@@ -3,8 +3,15 @@ import { color, typography } from '../../ui';
 
 export const home = style({ backgroundColor: color('blue100') });
 
+export const motionDiv = style({
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+});
+
 export const mainContainer = style({
   padding: '60px 20px 86px 20px',
+  flexGrow: 1,
 });
 
 export const contentContainer = style({
@@ -91,7 +98,7 @@ export const recommendCategoryTitle = style([
 export const recommendCategoryGallery = style({
   display: 'grid',
   gridTemplateColumns: 'repeat(4, 1fr)',
-  gap: '18px 32px',
+  gap: '18px 0',
 });
 
 export const recommendProductContainer = style({
