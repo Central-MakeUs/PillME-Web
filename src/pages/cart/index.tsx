@@ -1,8 +1,14 @@
 import { ChangeEvent, Suspense, useState } from 'react';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
-import { cartQueryOption } from '@/apis/query/cart';
+import { deleteCartAPI } from '@/apis/mutation/cart';
+import { cartQueryKeys, cartQueryOption } from '@/apis/query/cart';
+import { GetCartAPIResponse } from '@/apis/types/cart';
 import { ArrowLeft } from '@/assets';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { AppBar } from '@/ui/app-bar';
@@ -14,6 +20,7 @@ import { Dialog } from '@/ui/dialog';
 import { IconButton } from '@/ui/icon-button';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
+import { useShowCustomToast } from '@/ui/toast/toast';
 import * as styles from './page.css';
 
 export const CartPage = () => {
@@ -31,6 +38,8 @@ const CartPageInner = () => {
 
   const goBack = () => navigate(-1);
 
+  const showCustomToast = useShowCustomToast();
+
   const {
     data: { data: cartList },
   } = useSuspenseQuery(cartQueryOption.list());
@@ -42,6 +51,43 @@ const CartPageInner = () => {
   }));
 
   const [productList, setProductList] = useState(initialProductList);
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: deleteCartAPI,
+    onSuccess: async () => {
+      showCustomToast('장바구니에서 삭제되었어요', 'remove');
+      await queryClient.invalidateQueries({
+        queryKey: [...cartQueryKeys.lists()],
+      });
+
+      const checkedStateMap = new Map(
+        productList.map((item) => [item.cartId, item.checked]),
+      );
+
+      const queryData = queryClient.getQueryData<GetCartAPIResponse>([
+        ...cartQueryKeys.lists(),
+      ]);
+
+      if (!queryData?.data) {
+        return;
+      }
+      // 최신 데이터로 productList 상태 업데이트 (체크 상태 유지)
+      const updatedProductList = queryData.data.map(({ product, cartId }) => {
+        // 기존 체크 상태가 있으면 유지, 없으면 기본값 true
+        const isChecked = checkedStateMap.get(cartId) ?? true;
+
+        return {
+          cartId,
+          ...product,
+          checked: isChecked,
+        };
+      });
+
+      setProductList(updatedProductList);
+    },
+  });
 
   const toggleCheck = ({ target: { id } }: ChangeEvent) => {
     const updatedProductList = productList.map((product) =>
@@ -64,6 +110,17 @@ const CartPageInner = () => {
   const checkedCount = productList.filter(({ checked }) =>
     Boolean(checked),
   ).length;
+
+  const deleteSelectedItemList = () => {
+    const selectedItemIdList = productList
+      .filter(({ checked }) => checked)
+      .map(({ cartId }) => cartId);
+
+    //FIX 장바구니에 같은 상품들이 있을 경우를 대비해서 중복 제거 처리, 추후 제거 필요
+    mutate({ myMedicineIds: Array.from(new Set(selectedItemIdList)) });
+  };
+
+  const deleteItem = (id: number) => () => mutate({ myMedicineIds: [id] });
 
   return (
     <PageLayout
@@ -103,11 +160,20 @@ const CartPageInner = () => {
                 <ButtonText>선택 삭제</ButtonText>
               </button>
             }
-            title="제품을 내 약통에서 삭제할까요?"
-            description="제품을 삭제할 시 복용 약 성분 분석에 반영돼요"
-            action="default"
+            title={
+              checkedCount === 0
+                ? '선택된 제품이 없어요'
+                : '제품을 장바구니에서 삭제할까요?'
+            }
+            description={
+              checkedCount === 0
+                ? '삭제할 제품을 선택해주세요'
+                : '제품을 삭제할 시 복용 약 성분 분석에 반영돼요'
+            }
+            action={checkedCount === 0 ? 'single' : 'default'}
             leftButtonText="취소"
             rightButtonText="삭제"
+            onConfirm={checkedCount === 0 ? undefined : deleteSelectedItemList}
           />
         </div>
         <Spacer size={18} />
@@ -133,6 +199,7 @@ const CartPageInner = () => {
                 company={description}
                 imageUrl={imageUrl}
                 name={name}
+                onClickDeletebutton={deleteItem(cartId)}
               >
                 <p className={styles.price}>
                   <span className={styles.priceNumber}>

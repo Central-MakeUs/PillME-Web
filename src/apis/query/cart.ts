@@ -10,7 +10,7 @@ export const cartQueryKeys = {
 export const cartQueryOption = {
   list: () =>
     queryOptions({
-      queryKey: [...cartQueryKeys.all()],
+      queryKey: [...cartQueryKeys.lists()],
       queryFn: getCartAPI,
     }),
 };
