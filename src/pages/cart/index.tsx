@@ -21,6 +21,7 @@ import { IconButton } from '@/ui/icon-button';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
 import { useShowCustomToast } from '@/ui/toast/toast';
+import { Fallback } from './components/Fallback';
 import * as styles from './page.css';
 
 export const CartPage = () => {
@@ -144,6 +145,7 @@ const CartPageInner = () => {
           <div className={styles.separator} />
         </motion.div>
       }
+      className={styles.pageContainer}
     >
       <motion.div
         initial={{ opacity: 0, x: 50 }}
@@ -152,65 +154,77 @@ const CartPageInner = () => {
         exit={{ opacity: 0, x: 50 }}
         className={styles.container}
       >
-        <div className={styles.listHeader}>
-          <h3 className={styles.pageSubTitle}>영양제 선택</h3>
-          <Dialog
-            trigger={
-              <button>
-                <ButtonText>선택 삭제</ButtonText>
-              </button>
-            }
-            title={
-              checkedCount === 0
-                ? '선택된 제품이 없어요'
-                : '제품을 장바구니에서 삭제할까요?'
-            }
-            description={
-              checkedCount === 0
-                ? '삭제할 제품을 선택해주세요'
-                : '제품을 삭제할 시 복용 약 성분 분석에 반영돼요'
-            }
-            action={checkedCount === 0 ? 'single' : 'default'}
-            leftButtonText="취소"
-            rightButtonText="삭제"
-            onConfirm={checkedCount === 0 ? undefined : deleteSelectedItemList}
-          />
-        </div>
-        <Spacer size={18} />
-        <div className={styles.listHeaderLeft}>
-          <Checkbox checked={allChecked} id="all" onChange={toggleAllCheck} />
-          <label className={styles.deleteAllLabel}>전체 선택</label>
-        </div>
-        <Spacer size={18} />
-        <div className={styles.list}>
-          {/* TODO x 버튼 핸들러는 추후 추가 예정 */}
-          {productList.map(
-            ({ checked, cartId, description, imageUrl, price, name }) => (
-              <HorizontalCard
-                key={cartId}
-                label={
-                  <Checkbox
-                    id={String(cartId)}
-                    checked={checked}
-                    onChange={toggleCheck}
-                    className={styles.checkbox}
-                  />
+        {checkedCount === 0 ? (
+          <Fallback />
+        ) : (
+          <>
+            <div className={styles.listHeader}>
+              <h3 className={styles.pageSubTitle}>영양제 선택</h3>
+              <Dialog
+                trigger={
+                  <button>
+                    <ButtonText>선택 삭제</ButtonText>
+                  </button>
                 }
-                company={description}
-                imageUrl={imageUrl}
-                name={name}
-                onClickDeletebutton={deleteItem(cartId)}
-              >
-                <p className={styles.price}>
-                  <span className={styles.priceNumber}>
-                    {Number(price).toLocaleString()}
-                  </span>
-                  원
-                </p>
-              </HorizontalCard>
-            ),
-          )}
-        </div>
+                title={
+                  checkedCount === 0
+                    ? '선택된 제품이 없어요'
+                    : '제품을 장바구니에서 삭제할까요?'
+                }
+                description={
+                  checkedCount === 0
+                    ? '삭제할 제품을 선택해주세요'
+                    : '제품을 삭제할 시 복용 약 성분 분석에 반영돼요'
+                }
+                action={checkedCount === 0 ? 'single' : 'default'}
+                leftButtonText="취소"
+                rightButtonText="삭제"
+                onConfirm={
+                  checkedCount === 0 ? undefined : deleteSelectedItemList
+                }
+              />
+            </div>
+            <Spacer size={18} />
+            <div className={styles.listHeaderLeft}>
+              <Checkbox
+                checked={allChecked}
+                id="all"
+                onChange={toggleAllCheck}
+              />
+              <label className={styles.deleteAllLabel}>전체 선택</label>
+            </div>
+            <Spacer size={18} />
+            <div className={styles.list}>
+              {/* TODO x 버튼 핸들러는 추후 추가 예정 */}
+              {productList.map(
+                ({ checked, cartId, description, imageUrl, price, name }) => (
+                  <HorizontalCard
+                    key={cartId}
+                    label={
+                      <Checkbox
+                        id={String(cartId)}
+                        checked={checked}
+                        onChange={toggleCheck}
+                        className={styles.checkbox}
+                      />
+                    }
+                    company={description}
+                    imageUrl={imageUrl}
+                    name={name}
+                    onClickDeletebutton={deleteItem(cartId)}
+                  >
+                    <p className={styles.price}>
+                      <span className={styles.priceNumber}>
+                        {Number(price).toLocaleString()}
+                      </span>
+                      원
+                    </p>
+                  </HorizontalCard>
+                ),
+              )}
+            </div>
+          </>
+        )}
       </motion.div>
       {checkedCount !== 0 && (
         <div className={styles.buttonContainer}>

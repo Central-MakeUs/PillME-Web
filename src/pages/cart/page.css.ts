@@ -1,6 +1,11 @@
 import { style } from '@vanilla-extract/css';
 import { color, typography } from '@/ui';
 
+export const pageContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+});
+
 export const separator = style({
   height: 2,
   backgroundColor: color('grey100'),
@@ -10,6 +15,9 @@ export const separator = style({
 export const container = style({
   padding: '18px 20px',
   paddingBottom: 102,
+  flexGrow: 1,
+  display: 'flex',
+  flexDirection: 'column',
 });
 
 export const pageSubTitle = style([
