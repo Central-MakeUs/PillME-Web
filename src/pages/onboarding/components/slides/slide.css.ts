@@ -43,6 +43,5 @@ export const imageContainer = style({
 });
 
 export const image = style({
-  width: 250,
   height: 292,
 });
