@@ -44,7 +44,7 @@ export const PillBoxCardList = ({ keyword }: { keyword: string }) => {
           checked: id === product.id,
         })),
       );
-      queryClient.invalidateQueries({
+      queryClient.resetQueries({
         queryKey: [...myMedicineQueryKeys.lists()],
       });
     },

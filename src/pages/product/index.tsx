@@ -1,11 +1,18 @@
 import { Suspense, useState } from 'react';
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 import { motion } from 'motion/react';
 import { useNavigate, useParams } from 'react-router';
+import { addCartAPI } from '@/apis/mutation/cart';
 import {
   addMyMedicineAPI,
   deleteMyMedicineAPI,
 } from '@/apis/mutation/myMedicine';
+import { cartQueryKeys } from '@/apis/query/cart';
+import { myMedicineQueryKeys } from '@/apis/query/myMedicine';
 import { productQueryOption } from '@/apis/query/product';
 import { ArrowLeft, Check, Plus } from '@/assets';
 import { CartButton } from '@/components/cart-botton';
@@ -38,6 +45,7 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
   const navigate = useNavigate();
   const showCustomToast = useShowCustomToast();
   const [isAddedToPillbox, setIsAddedToPillbox] = useState(false);
+  const queryClient = useQueryClient();
 
   const {
     data: { data: product },
@@ -45,17 +53,33 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
 
   const { mutate: addaddMyMedicineMutate } = useMutation({
     mutationFn: addMyMedicineAPI,
-    onSuccess: () => {
-      showCustomToast('내 약통에 추가 되었어요', 'success', '/pillbox/manage');
+    onSuccess: async () => {
+      await queryClient.resetQueries({
+        queryKey: [...myMedicineQueryKeys.lists()],
+      });
       setIsAddedToPillbox(true);
+      showCustomToast('내 약통에 추가 되었어요', 'success', '/pillbox/manage');
     },
   });
 
   const { mutate: deleteMyMedicineMutate } = useMutation({
     mutationFn: deleteMyMedicineAPI,
-    onSuccess: () => {
-      showCustomToast('내 약통에서 삭제되었어요', 'remove', '/pillbox/manage');
+    onSuccess: async () => {
+      await queryClient.resetQueries({
+        queryKey: [...myMedicineQueryKeys.lists()],
+      });
       setIsAddedToPillbox(false);
+      showCustomToast('내 약통에서 삭제되었어요', 'remove', '/pillbox/manage');
+    },
+  });
+
+  const { mutate: addCartMutate } = useMutation({
+    mutationFn: addCartAPI,
+    onSuccess: async () => {
+      await queryClient.resetQueries({
+        queryKey: [...cartQueryKeys.lists()],
+      });
+      showCustomToast('장바구니에 추가되었어요', 'success', '/cart');
     },
   });
 
@@ -65,6 +89,9 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
   const handleRemoveFromPillbox = () => {
     deleteMyMedicineMutate({ myMedicineIds: [product.id] });
   };
+
+  const onClickAddCartButton = (productId: number) => () =>
+    addCartMutate({ productId });
 
   return (
     <PageLayout
@@ -183,18 +210,22 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
             필미님은 4개를 충족해요
           </div>
           <div className={styles.ingredientCards}>
-            {/* number props 추가 */}
+            {/* TODO number props 추가 */}
             <IngredientCard status="충족" />
             <IngredientCard status="부족" />
             <IngredientCard status="과다" />
           </div>
         </section>
         <div className={styles.buttonWrapper}>
+          {/* TODO 구매하러 가기 기능 추가 */}
           <Button size="large" variant="secondary">
             구매하러 가기
           </Button>
-          {/* 토스트 알럿 추가 */}
-          <Button size="large" variant="primary">
+          <Button
+            size="large"
+            variant="primary"
+            onClick={onClickAddCartButton(product.id)}
+          >
             장바구니 담기
           </Button>
         </div>
