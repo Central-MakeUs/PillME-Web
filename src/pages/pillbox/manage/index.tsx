@@ -1,7 +1,16 @@
 import { ChangeEvent, Suspense, useState } from 'react';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
-import { myMedicneQueryOption } from '@/apis/query/myMedicine';
+import { deleteMyMedicineAPI } from '@/apis/mutation/myMedicine';
+import {
+  myMedicineQueryKeys,
+  myMedicneQueryOption,
+} from '@/apis/query/myMedicine';
+import { GetMyMedicineAPIResponse } from '@/apis/types/myMedicine';
 import { ArrowLeft } from '@/assets';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { AppBar } from '@/ui/app-bar';
@@ -13,6 +22,7 @@ import { Dialog } from '@/ui/dialog';
 import { IconButton } from '@/ui/icon-button';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
+import { useShowCustomToast } from '@/ui/toast/toast';
 import { Checkbox } from '../../../ui/check-box/check-box';
 import * as styles from './page.css';
 
@@ -31,20 +41,65 @@ const PillboxManagePageInner = () => {
   const goBack = () => navigate(-1);
   const goAddPillboxPage = () => navigate('/pillbox/new');
 
+  const showCustomToast = useShowCustomToast();
+
   const {
     data: { data: medicneList },
   } = useSuspenseQuery(myMedicneQueryOption.list());
 
-  const initialProductList = medicneList.map(({ product }) => ({
+  const initialProductList = medicneList.map(({ product, myMedicineId }) => ({
+    myMedicineId,
     ...product,
     checked: true,
   }));
 
   const [productList, setProductList] = useState(initialProductList);
 
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: deleteMyMedicineAPI,
+    onSuccess: async () => {
+      showCustomToast('내 약통에서 삭제되었어요', 'remove');
+      await queryClient.invalidateQueries({
+        queryKey: [...myMedicineQueryKeys.lists()],
+      });
+
+      const checkedStateMap = new Map();
+      productList.forEach((item) => {
+        checkedStateMap.set(item.myMedicineId, item.checked);
+      });
+
+      const queryData = queryClient.getQueryData<GetMyMedicineAPIResponse>([
+        ...myMedicineQueryKeys.lists(),
+      ]);
+
+      if (!queryData?.data) {
+        return;
+      }
+      // 최신 데이터로 productList 상태 업데이트 (체크 상태 유지)
+      const updatedProductList = queryData.data.map(
+        ({ product, myMedicineId }) => {
+          // 기존 체크 상태가 있으면 유지, 없으면 기본값 true
+          const isChecked = checkedStateMap.has(myMedicineId)
+            ? checkedStateMap.get(myMedicineId)
+            : true;
+
+          return {
+            myMedicineId,
+            ...product,
+            checked: isChecked,
+          };
+        },
+      );
+
+      setProductList(updatedProductList);
+    },
+  });
+
   const toggleCheck = ({ target: { id } }: ChangeEvent) => {
     const updatedProductList = productList.map((product) =>
-      product.id === Number(id)
+      product.myMedicineId === Number(id)
         ? { ...product, checked: !product.checked }
         : product,
     );
@@ -59,6 +114,20 @@ const PillboxManagePageInner = () => {
   };
 
   const allChecked = productList.every(({ checked }) => Boolean(checked));
+
+  const deleteSelectedItemList = () => {
+    const selectedItemIdList = productList
+      .filter(({ checked }) => checked)
+      .map(({ myMedicineId }) => myMedicineId);
+
+    //FIX 장바구니에 같은 상품들이 있을 경우를 대비해서 중복 제거 처리, 추후 제거 필요
+    mutate({ myMedicineIds: Array.from(new Set(selectedItemIdList)) });
+  };
+
+  const deleteItem = (id: number) => () => {
+    console.log('clicked', id);
+    mutate({ myMedicineIds: [id] });
+  };
 
   return (
     <PageLayout
@@ -79,7 +148,7 @@ const PillboxManagePageInner = () => {
       }
     >
       <div className={styles.container}>
-        <p className={styles.totalCount}>총 2개</p>
+        <p className={styles.totalCount}>총 {productList.length}개</p>
         <Spacer size={20} />
         <div className={styles.listHeader}>
           <div className={styles.listHeaderLeft}>
@@ -97,13 +166,14 @@ const PillboxManagePageInner = () => {
             action="default"
             leftButtonText="취소"
             rightButtonText="삭제"
+            onConfirm={deleteSelectedItemList}
           />
         </div>
         <Spacer size={30} />
         <div className={styles.list}>
           {productList.map(
             ({
-              id,
+              myMedicineId,
               checked,
               imageUrl,
               description,
@@ -112,23 +182,25 @@ const PillboxManagePageInner = () => {
               productIngredients,
             }) => (
               <HorizontalCard
-                key={id}
+                key={myMedicineId}
                 imageUrl={imageUrl}
                 company={description}
                 name={name}
                 label={
                   <Checkbox
-                    id={String(id)}
+                    id={String(myMedicineId)}
                     checked={checked}
                     onChange={toggleCheck}
                     className={styles.checkbox}
                   />
                 }
+                onClickDeletebutton={deleteItem(myMedicineId)}
               >
-                {(healthConcerns.length !== 0 ||
-                  productIngredients.length !== 0) && (
+                {/* TODO 현재 healthConcerns, productIngredients를 백엔드에서 내려주지 않아서 예외처리 추가 */}
+                {((healthConcerns && healthConcerns?.length !== 0) ||
+                  (productIngredients && productIngredients?.length !== 0)) && (
                   <div className={styles.chipContainer}>
-                    {healthConcerns.map(({ id, name }) => (
+                    {healthConcerns?.map(({ id, name }) => (
                       <Chip
                         shape="tag"
                         backgroundColor="blue200"
@@ -139,7 +211,7 @@ const PillboxManagePageInner = () => {
                         {name}
                       </Chip>
                     ))}
-                    {productIngredients.map(({ ingredientName }) => (
+                    {productIngredients?.map(({ ingredientName }) => (
                       <Chip
                         shape="tag"
                         backgroundColor="grey200"

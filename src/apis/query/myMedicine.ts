@@ -10,10 +10,10 @@ export const myMedicineQueryKeys = {
 export const myMedicneQueryOption = {
   list: () =>
     queryOptions({
-      queryKey: [...myMedicineQueryKeys.all()],
-      queryFn: getUserInfoAPI,
+      queryKey: [...myMedicineQueryKeys.lists()],
+      queryFn: getMyMedicineAPI,
     }),
 };
 
-const getUserInfoAPI = () =>
+const getMyMedicineAPI = () =>
   fetcher.get<GetMyMedicineAPIResponse>('my-medicine');

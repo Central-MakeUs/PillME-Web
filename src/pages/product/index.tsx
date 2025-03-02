@@ -71,7 +71,7 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
     addaddMyMedicineMutate({ productId: product.id });
   };
   const handleRemoveFromPillbox = () => {
-    deleteMyMedicineMutate({ myMedicineId: product.id });
+    deleteMyMedicineMutate({ myMedicineIds: [product.id] });
   };
 
   const onClickAddCartButton = (productId: number) => () =>

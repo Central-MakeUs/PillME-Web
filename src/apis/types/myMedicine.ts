@@ -2,7 +2,7 @@ import { ResponseFormat } from './common';
 import { Product } from './product';
 
 export type GetMyMedicineAPIResponse = ResponseFormat<
-  Array<{ product: Product }>
+  Array<{ myMedicineId: number; product: Product }>
 >;
 
 export type AddMyMedicineAPIRequest = {
@@ -12,5 +12,5 @@ export type AddMyMedicineAPIRequest = {
 export type AddMyMedicineAPIResponse = ResponseFormat<{ product: Product }>;
 
 export type DeleteMyMedicineAPIRequest = {
-  myMedicineId: number;
+  myMedicineIds: number[];
 };

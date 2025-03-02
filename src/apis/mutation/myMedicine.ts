@@ -9,5 +9,10 @@ export const addMyMedicineAPI = (data: AddMyMedicineAPIRequest) =>
   fetcher.post<AddMyMedicineAPIResponse>('my-medicine', { json: data });
 
 export const deleteMyMedicineAPI = ({
-  myMedicineId,
-}: DeleteMyMedicineAPIRequest) => fetcher.delete(`my-medicine/${myMedicineId}`);
+  myMedicineIds,
+}: DeleteMyMedicineAPIRequest) =>
+  fetcher.delete('my-medicine/multiple', {
+    json: {
+      myMedicineIds,
+    },
+  });
