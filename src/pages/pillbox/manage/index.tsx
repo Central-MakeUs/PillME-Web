@@ -65,10 +65,9 @@ const PillboxManagePageInner = () => {
         queryKey: [...myMedicineQueryKeys.lists()],
       });
 
-      const checkedStateMap = new Map();
-      productList.forEach((item) => {
-        checkedStateMap.set(item.myMedicineId, item.checked);
-      });
+      const checkedStateMap = new Map(
+        productList.map((item) => [item.myMedicineId, item.checked]),
+      );
 
       const queryData = queryClient.getQueryData<GetMyMedicineAPIResponse>([
         ...myMedicineQueryKeys.lists(),
@@ -81,9 +80,7 @@ const PillboxManagePageInner = () => {
       const updatedProductList = queryData.data.map(
         ({ product, myMedicineId }) => {
           // 기존 체크 상태가 있으면 유지, 없으면 기본값 true
-          const isChecked = checkedStateMap.has(myMedicineId)
-            ? checkedStateMap.get(myMedicineId)
-            : true;
+          const isChecked = checkedStateMap.get(myMedicineId) ?? true;
 
           return {
             myMedicineId,
@@ -124,10 +121,7 @@ const PillboxManagePageInner = () => {
     mutate({ myMedicineIds: Array.from(new Set(selectedItemIdList)) });
   };
 
-  const deleteItem = (id: number) => () => {
-    console.log('clicked', id);
-    mutate({ myMedicineIds: [id] });
-  };
+  const deleteItem = (id: number) => () => mutate({ myMedicineIds: [id] });
 
   return (
     <PageLayout
