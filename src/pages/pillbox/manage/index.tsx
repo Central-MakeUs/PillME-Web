@@ -112,6 +112,10 @@ const PillboxManagePageInner = () => {
 
   const allChecked = productList.every(({ checked }) => Boolean(checked));
 
+  const checkedCount = productList.filter(({ checked }) =>
+    Boolean(checked),
+  ).length;
+
   const deleteSelectedItemList = () => {
     const selectedItemIdList = productList
       .filter(({ checked }) => checked)
@@ -155,12 +159,20 @@ const PillboxManagePageInner = () => {
                 <ButtonText>선택 삭제</ButtonText>
               </button>
             }
-            title="제품을 내 약통에서 삭제할까요?"
-            description="제품을 삭제할 시 복용 약 성분 분석에 반영돼요"
-            action="default"
+            title={
+              checkedCount === 0
+                ? '선택된 제품이 없어요'
+                : '제품을 내 약통에서 삭제할까요?'
+            }
+            description={
+              checkedCount === 0
+                ? '삭제할 제품을 선택해주세요'
+                : '제품을 삭제할 시 복용 약 성분 분석에 반영돼요'
+            }
+            action={checkedCount === 0 ? 'single' : 'default'}
             leftButtonText="취소"
             rightButtonText="삭제"
-            onConfirm={deleteSelectedItemList}
+            onConfirm={checkedCount === 0 ? undefined : deleteSelectedItemList}
           />
         </div>
         <Spacer size={30} />
