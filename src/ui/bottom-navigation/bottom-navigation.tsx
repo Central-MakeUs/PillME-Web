@@ -42,7 +42,7 @@ export const BottomNavigation = ({
   const menuItems = [
     { id: 'home', label: '홈' },
     { id: 'pillbox', label: '내약통' },
-    { id: 'consultation', label: '상담' },
+    // { id: 'consultation', label: '상담' },
     { id: 'mypage', label: '마이페이지' },
   ] as const;
 
