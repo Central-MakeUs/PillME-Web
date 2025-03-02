@@ -14,7 +14,6 @@ import { Dialog } from '@/ui/dialog';
 import { IconButton } from '@/ui/icon-button';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
-import { name } from '../userinfo/schema';
 import * as styles from './page.css';
 
 export const CartPage = () => {
