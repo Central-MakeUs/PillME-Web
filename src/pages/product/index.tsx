@@ -2,6 +2,7 @@ import { Suspense, useState } from 'react';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { motion } from 'motion/react';
 import { useNavigate, useParams } from 'react-router';
+import { addCartAPI } from '@/apis/mutation/cart';
 import {
   addMyMedicineAPI,
   deleteMyMedicineAPI,
@@ -59,12 +60,22 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
     },
   });
 
+  const { mutate: addCartMutate } = useMutation({
+    mutationFn: addCartAPI,
+    onSuccess: () => {
+      showCustomToast('장바구니에 추가되었어요', 'success', '/cart');
+    },
+  });
+
   const handlePillboxClick = () => {
     addaddMyMedicineMutate({ productId: product.id });
   };
   const handleRemoveFromPillbox = () => {
     deleteMyMedicineMutate({ myMedicineId: product.id });
   };
+
+  const onClickAddCartButton = (productId: number) => () =>
+    addCartMutate({ productId });
 
   return (
     <PageLayout
@@ -183,18 +194,22 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
             필미님은 4개를 충족해요
           </div>
           <div className={styles.ingredientCards}>
-            {/* number props 추가 */}
+            {/* TODO number props 추가 */}
             <IngredientCard status="충족" />
             <IngredientCard status="부족" />
             <IngredientCard status="과다" />
           </div>
         </section>
         <div className={styles.buttonWrapper}>
+          {/* TODO 구매하러 가기 기능 추가 */}
           <Button size="large" variant="secondary">
             구매하러 가기
           </Button>
-          {/* 토스트 알럿 추가 */}
-          <Button size="large" variant="primary">
+          <Button
+            size="large"
+            variant="primary"
+            onClick={onClickAddCartButton(product.id)}
+          >
             장바구니 담기
           </Button>
         </div>
