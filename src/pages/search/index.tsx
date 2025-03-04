@@ -48,6 +48,11 @@ export const SearchPage = () => {
     setNewSearchList([]);
   };
 
+  const handleDeleteKeyword = (keyword: string) => {
+    const newList = searchList.filter((item) => item !== keyword);
+    setNewSearchList(newList);
+  };
+
   const handleSearch = (keyword: string = searchValue.value) => {
     if (keyword === '') return;
 
@@ -121,6 +126,8 @@ export const SearchPage = () => {
             <RecentKeyword
               list={searchList}
               handleDelete={handleDeleteSearchList}
+              handleDeleteKeyword={handleDeleteKeyword}
+              handleSearch={handleSearch}
             />
           )}
           <Recommendkeyword />

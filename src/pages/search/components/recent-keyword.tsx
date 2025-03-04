@@ -8,9 +8,16 @@ import * as styles from './recent-keyword.css';
 interface Props {
   list: string[];
   handleDelete: () => void;
+  handleDeleteKeyword: (keyword: string) => void;
+  handleSearch: (keyword: string) => void;
 }
 
-export const RecentKeyword = ({ list, handleDelete }: Props) => {
+export const RecentKeyword = ({
+  list,
+  handleDelete,
+  handleDeleteKeyword,
+  handleSearch,
+}: Props) => {
   const generateList = list.map((keyword, idx) => (
     <Fragment key={idx}>
       <Chip
@@ -18,7 +25,16 @@ export const RecentKeyword = ({ list, handleDelete }: Props) => {
         backgroundColor="white"
         borderColor="grey200"
         shape="pill"
-        right={<Delete color={globalVars.color.grey200} />}
+        onClick={() => handleSearch(keyword)}
+        right={
+          <Delete
+            color={globalVars.color.grey200}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteKeyword(keyword);
+            }}
+          />
+        }
       >
         {keyword}
       </Chip>
