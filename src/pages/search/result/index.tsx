@@ -3,15 +3,13 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { motion } from 'motion/react';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 import { productQueryOption } from '@/apis/query/product';
-import { ArrowDrop, ArrowLeft, Check } from '@/assets';
+import { ArrowLeft, Check } from '@/assets';
 import { CartButton } from '@/components/cart-botton';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { SearchFallback } from '@/components/search-fallback';
 import { AppBar } from '@/ui/app-bar';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
-import { ButtonText } from '@/ui/button-text';
 import { Card } from '@/ui/card/card';
-import { Chip } from '@/ui/chip';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { SearchField } from '@/ui/search-field';
 import * as bottomStyles from './bottomSheet.css';
@@ -73,7 +71,7 @@ type SearchResultPageInnerProps = {
 };
 
 const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
-  const { searchType, keyword } = props;
+  const { keyword } = props;
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -90,7 +88,7 @@ const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
 
   return (
     <>
-      {searchType === 'ai' && (
+      {/* {searchType === 'ai' && (
         <section className={styles.subContainer}>
           <div className={styles.tabTitle}>{keyword}에 좋은 제품 결과</div>
           <div className={styles.tabChip}>
@@ -115,11 +113,11 @@ const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
             </Chip>
           </div>
         </section>
-      )}
+      )} */}
       <section className={styles.mainContainer}>
         <div className={styles.subBanner}>
           <div>총 {data.length}개</div>
-          {searchType === 'default' && (
+          {/* {searchType === 'default' && (
             <ButtonText>
               연관도 순
               <ArrowDrop />
@@ -136,7 +134,7 @@ const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
                 <ArrowDrop />
               </ButtonText>
             </div>
-          )}
+          )} */}
         </div>
         {data.length === 0 ? (
           <SearchFallback />
