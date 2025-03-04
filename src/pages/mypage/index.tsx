@@ -63,7 +63,8 @@ const MyPageInner = () => {
               {listItemList.map(({ text }) => (
                 <div className={styles.item} key={text}>
                   <p className={styles.itemText}>{text}</p>
-                  <button>
+                  {/* FIX 임시 코드 나중에 수정 필요 */}
+                  <button onClick={() => navigate('/pillbox/manage')}>
                     <ArrowRightr />
                   </button>
                 </div>
@@ -80,14 +81,17 @@ const MyPageInner = () => {
 const CONTENT_LIST = [
   {
     title: '서비스',
-    listItemList: [{ text: '나의 상담 기록' }, { text: '내 약통 관리' }],
-  },
-  {
-    title: '고객센터',
     listItemList: [
-      { text: '공지사항' },
-      { text: '이용약관' },
-      { text: '1:1 카톡 채널 문의' },
+      // { text: '나의 상담 기록' },
+      { text: '내 약통 관리' },
     ],
   },
+  // {
+  //   title: '고객센터',
+  //   listItemList: [
+  //     { text: '공지사항' },
+  //     { text: '이용약관' },
+  //     { text: '1:1 카톡 채널 문의' },
+  //   ],
+  // },
 ];
