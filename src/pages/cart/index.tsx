@@ -154,7 +154,7 @@ const CartPageInner = () => {
         exit={{ opacity: 0, x: 50 }}
         className={styles.container}
       >
-        {checkedCount === 0 ? (
+        {productList.length === 0 ? (
           <Fallback />
         ) : (
           <>
