@@ -192,7 +192,7 @@ export const CategoryResultPageInner = (
       </div>
       <div className={styles.subBanner}>
         <div>총 {productList.length}개</div>
-        <div className={styles.userFilterContainer}>
+        {/* <div className={styles.userFilterContainer}>
           <ButtonText>
             전체 연령대
             <ArrowDrop />
@@ -201,7 +201,7 @@ export const CategoryResultPageInner = (
             연관도 순
             <ArrowDrop />
           </ButtonText>
-        </div>
+        </div> */}
       </div>
       {productList.length === 0 ? (
         <SearchFallback />

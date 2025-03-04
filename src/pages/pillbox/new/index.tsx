@@ -74,7 +74,8 @@ export const PillboxNewPage = () => {
         </div>
 
         {isSearching ? (
-          <SearchingKeywordList keyword={keyword} />
+          // TODO 키워드 자동완성 추가<SearchingKeywordList keyword={keyword} />
+          <></>
         ) : (
           <Suspense>
             <PillBoxCardList keyword={searchedKeyword} />

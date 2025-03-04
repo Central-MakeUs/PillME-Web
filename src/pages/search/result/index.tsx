@@ -90,7 +90,7 @@ const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
 
   return (
     <>
-      {searchType === 'ai' && (
+      {/* {searchType === 'ai' && (
         <section className={styles.subContainer}>
           <div className={styles.tabTitle}>{keyword}에 좋은 제품 결과</div>
           <div className={styles.tabChip}>
@@ -115,11 +115,11 @@ const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
             </Chip>
           </div>
         </section>
-      )}
+      )} */}
       <section className={styles.mainContainer}>
         <div className={styles.subBanner}>
           <div>총 {data.length}개</div>
-          {searchType === 'default' && (
+          {/* {searchType === 'default' && (
             <ButtonText>
               연관도 순
               <ArrowDrop />
@@ -136,7 +136,7 @@ const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
                 <ArrowDrop />
               </ButtonText>
             </div>
-          )}
+          )} */}
         </div>
         {data.length === 0 ? (
           <SearchFallback />
