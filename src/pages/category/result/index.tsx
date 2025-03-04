@@ -10,7 +10,6 @@ import { SearchFallback } from '@/components/search-fallback';
 import { CATEGORY_LIST, CategoryId } from '@/constants/category';
 import { INGREDIENT_MAP } from '@/constants/ingredient';
 import { AppBar } from '@/ui/app-bar';
-import { ButtonText } from '@/ui/button-text';
 import { Card } from '@/ui/card/card';
 import { Chip } from '@/ui/chip';
 import { IconButton } from '@/ui/icon-button';

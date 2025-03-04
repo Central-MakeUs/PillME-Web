@@ -71,7 +71,7 @@ type SearchResultPageInnerProps = {
 };
 
 const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
-  const { searchType, keyword } = props;
+  const { keyword } = props;
 
   const [isOpen, setIsOpen] = useState(false);
 
