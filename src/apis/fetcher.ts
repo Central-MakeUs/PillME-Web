@@ -7,7 +7,7 @@ const defaultOption: Options = {
   timeout: 30_000,
 };
 
-const API_ENDPOINT = 'http://15.165.247.109:8080/api';
+const API_ENDPOINT = 'https://api.pillme.kr/api';
 // MSW 사용하기 위해선 아래 엔드 포인트 사용하거나 위의 msw endpoint를 msw path에 합치면 됨
 // const API_ENDPOINT = '/';
 
