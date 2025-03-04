@@ -131,7 +131,7 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
               <span className={styles.won}>원</span>
             </div>
             <div className={styles.tags}>
-              {product.healthConcerns.map(({ id, name }) => (
+              {product.healthConcerns.slice(0, 1).map(({ id, name }) => (
                 <Chip
                   shape="pill"
                   color="blue400"
@@ -141,16 +141,18 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
                   {name}
                 </Chip>
               ))}
-              {product.productIngredients.map(({ ingredientName }) => (
-                <Chip
-                  shape="pill"
-                  color="grey500"
-                  backgroundColor="grey200"
-                  key={ingredientName}
-                >
-                  {ingredientName}
-                </Chip>
-              ))}
+              {product.productIngredients
+                .slice(0, 2)
+                .map(({ ingredientName }) => (
+                  <Chip
+                    shape="pill"
+                    color="grey500"
+                    backgroundColor="grey200"
+                    key={ingredientName}
+                  >
+                    {ingredientName}
+                  </Chip>
+                ))}
             </div>
           </div>
           <div className={styles.pillButtonBox}>
