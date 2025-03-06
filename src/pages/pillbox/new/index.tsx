@@ -10,7 +10,6 @@ import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { AppBar, AppBarElement } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { SearchField } from '@/ui/search-field';
-import { SearchingKeywordList } from './components/KeywordList';
 import { PillBoxCardList } from './components/PillBoxCardList';
 import * as styles from './page.css';
 
@@ -74,7 +73,8 @@ export const PillboxNewPage = () => {
         </div>
 
         {isSearching ? (
-          <SearchingKeywordList keyword={keyword} />
+          // TODO 키워드 자동완성 추가<SearchingKeywordList keyword={keyword} />
+          <></>
         ) : (
           <Suspense>
             <PillBoxCardList keyword={searchedKeyword} />
