@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
+import { Link } from 'react-router';
 import emptyImageUrl from '@/assets/img_empty.png';
 import { LOCAL_STORAGE } from '@/constants';
 import { NotFoundPage } from '@/pages/not-found';
@@ -32,6 +33,12 @@ function RetryErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
       <Button onClick={() => resetErrorBoundary()} size="middle">
         다시 불러오기
       </Button>
+      <Spacer size={20} />
+      <Link to="/home">
+        <Button variant="secondary" size="middle">
+          홈으로 돌아가기
+        </Button>
+      </Link>
     </PageLayout>
   );
 }
