@@ -77,4 +77,4 @@ const getProductDistributionAPI = ({
   );
 
 const getProductAnalysisAPI = ({ productId }: GetProductAnalysisAPIRequest) =>
-  fetcher.post<GetProductAnalysisAPIResponse>(`product/analysis/${productId}`);
+  fetcher.get<GetProductAnalysisAPIResponse>(`product/analysis/${productId}`);
