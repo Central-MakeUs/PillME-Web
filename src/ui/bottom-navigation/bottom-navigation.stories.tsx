@@ -22,7 +22,7 @@ type Story = StoryObj<typeof BottomNavigation>;
 
 export const Default: Story = {
   args: {
-    selected: null,
+    selected: 'home',
   },
 };
 
@@ -33,7 +33,7 @@ export const SelectedHome: Story = {
 };
 
 const BottomNavigationWithState = () => {
-  const [selected, setSelected] = useState<MenuItem | null>(null);
+  const [selected, setSelected] = useState<MenuItem>('home');
   return <BottomNavigation selected={selected} onSelect={setSelected} />;
 };
 
