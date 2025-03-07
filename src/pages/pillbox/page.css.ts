@@ -9,6 +9,11 @@ export const boxContainer = style({
   gap: 15,
 });
 
+export const titleContainer = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+});
+
 export const boxTitle = style([
   { color: color('grey800') },
   typography('title_2_20_b'),

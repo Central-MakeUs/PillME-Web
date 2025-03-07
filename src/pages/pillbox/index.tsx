@@ -1,5 +1,6 @@
 import { Suspense, useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { Fragment } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router';
 import { myMedicneQueryOption } from '@/apis/query/myMedicine';
 import { Cart, Intake, Notice, PillBox, PlusBlue } from '@/assets';
@@ -7,6 +8,7 @@ import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import * as bottomStyles from '@/pages/product/ingredient/bottomSheet.css';
 import { AppBar } from '@/ui/app-bar';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
+import { ButtonText } from '@/ui/button-text';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
 import { Tab, TabContent, TabLabel } from '@/ui/tab';
@@ -24,8 +26,17 @@ export const PillboxPage = () => {
   );
 };
 
+type StatusKey = 'DEFICIENT' | 'ADEQUATE' | 'EXCESS';
+type StatusColor = 'red' | 'green' | 'yellow';
+
+const statusMapping: Record<StatusKey, { label: string; color: StatusColor }> =
+  {
+    DEFICIENT: { label: '부족', color: 'red' },
+    ADEQUATE: { label: '충족', color: 'green' },
+    EXCESS: { label: '과다', color: 'yellow' },
+  };
+
 const PillboxPageInner = () => {
-  const pillData = [];
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const {
@@ -39,8 +50,25 @@ const PillboxPageInner = () => {
     },
   } = useSuspenseQuery(myMedicneQueryOption.analysis());
 
-  console.log(summary, ingredients);
+  // console.log(summary, ingredients);
 
+  const categorizedIngredients = {
+    VITAMIN: ingredients.filter((item) => item.category === 'VITAMIN'),
+    MINERAL: ingredients.filter((item) => item.category === 'MINERAL'),
+    FUNCTIONAL: ingredients.filter((item) => item.category === 'FUNCTIONAL'),
+  };
+
+  // 실제 존재하는 카테고리만 필터링
+  const availableCategories = Object.entries(categorizedIngredients)
+    .filter(([_, items]) => items.length > 0)
+    .map(([category]) => category);
+
+  console.log(availableCategories);
+
+  // 첫 번째 카테고리를 defaultValue로 설정 (없을 경우 빈 문자열)
+  const defaultTabValue =
+    availableCategories.length > 0 ? availableCategories[0] : undefined;
+  console.log('defaultTabValue: ', defaultTabValue);
   return (
     <PageLayout
       header={
@@ -51,7 +79,13 @@ const PillboxPageInner = () => {
     >
       <Spacer size={37} />
       <section className={styles.boxContainer}>
-        <div className={styles.boxTitle}>필미님의 약통</div>
+        <div className={styles.titleContainer}>
+          <div className={styles.boxTitle}>약통</div>
+          <ButtonText icon onClick={() => navigate(`/pillbox/manage`)}>
+            전체 보기
+          </ButtonText>
+        </div>
+
         {medicineList.length === 0 ? (
           <div className={styles.myPillBox}>
             <PlusBlue />
@@ -61,21 +95,23 @@ const PillboxPageInner = () => {
             <PillBox className={styles.boxIcon} />
           </div>
         ) : (
-          <div className={styles.itemContents}>
-            {medicineList.map(({ product, myMedicineId }) => (
-              <div
-                key={myMedicineId}
-                onClick={() => navigate(`/product/${product.id}`)}
-              >
-                <img
-                  src={product.imageUrl}
-                  className={styles.image}
-                  alt="제품"
-                />
-                <div className={styles.name}>{product.name}</div>
-              </div>
-            ))}
-          </div>
+          <>
+            <div className={styles.itemContents}>
+              {medicineList.map(({ product, myMedicineId }) => (
+                <div
+                  key={myMedicineId}
+                  onClick={() => navigate(`/product/${product.id}`)}
+                >
+                  <img
+                    src={product.imageUrl}
+                    className={styles.image}
+                    alt="제품"
+                  />
+                  <div className={styles.name}>{product.name}</div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </section>
       <Spacer size={10} className={styles.spaceColor} />
@@ -87,48 +123,56 @@ const PillboxPageInner = () => {
             성분 그래프 안내
           </span>
         </div>
-        <Tab defaultValue="비타민" customTabsListClass={styles.tabLabel}>
-          <TabLabel label="비타민" value="비타민" />
-          <TabLabel label="무기질" value="무기질" />
-          <TabLabel label="기능성" value="기능성" />
-          {pillData.length === 0 ? (
-            <div className={styles.analyzeTitle}>
-              해당하는 복용 성분이 없어요
-            </div>
-          ) : (
-            <>
-              <TabContent value="비타민">
-                <IngredientGraph />
-              </TabContent>
+        {availableCategories.length > 1 ? (
+          <Tab
+            defaultValue={defaultTabValue}
+            customTabsListClass={styles.tabLabel}
+          >
+            <TabLabel label="비타민" value="VITAMIN" />
+            <TabLabel label="무기질" value="MINERAL" />
+            <TabLabel label="기능성" value="FUNCTIONAL" />
+            <TabContent value="VITAMIN">
+              <IngredientGraph
+                ingredients={categorizedIngredients['VITAMIN']}
+              />
+            </TabContent>
+            <TabContent value="MINERAL">
+              <IngredientGraph
+                ingredients={categorizedIngredients['MINERAL']}
+              />
+            </TabContent>
+            <TabContent value="FUNCTIONAL">
+              <IngredientGraph
+                ingredients={categorizedIngredients['FUNCTIONAL']}
+              />
+            </TabContent>
+          </Tab>
+        ) : (
+          <div className={styles.analyzeTitle}>해당하는 복용 성분이 없어요</div>
+        )}
 
-              <TabContent value="무기질">
-                <IngredientGraph />
-              </TabContent>
-
-              <TabContent value="기능성">
-                <IngredientGraph />
-              </TabContent>
-            </>
-          )}
-        </Tab>
         <div className={styles.ingredientGrid}>
-          <div className={styles.flexStyle}>
-            <div className={styles.statusIndicator({ status: 'red' })}></div>
-            <div className={styles.statusText({ status: 'red' })}>부족</div>
-            <div className={styles.countText}>0개</div>
-          </div>
-          <div className={styles.line}></div>
-          <div className={styles.flexStyle}>
-            <div className={styles.statusIndicator({ status: 'green' })}></div>
-            <div className={styles.statusText({ status: 'green' })}>충족</div>
-            <div className={styles.countText}>0개</div>
-          </div>
-          <div className={styles.line}></div>
-          <div className={styles.flexStyle}>
-            <div className={styles.statusIndicator({ status: 'yellow' })}></div>
-            <div className={styles.statusText({ status: 'yellow' })}>과다</div>
-            <div className={styles.countText}>0개</div>
-          </div>
+          {['DEFICIENT', 'ADEQUATE', 'EXCESS'].map((key, index) => {
+            const statusData = summary.find((item) => item.statusType === key);
+            const count = statusData ? statusData.count : 0;
+            const { label, color } =
+              statusMapping[key as keyof typeof statusMapping];
+
+            return (
+              <Fragment key={key}>
+                {index !== 0 && <div className={styles.line}></div>}
+                <div className={styles.flexStyle}>
+                  <div
+                    className={styles.statusIndicator({ status: color })}
+                  ></div>
+                  <div className={styles.statusText({ status: color })}>
+                    {label}
+                  </div>
+                  <div className={styles.countText}>{count}개</div>
+                </div>
+              </Fragment>
+            );
+          })}
         </div>
       </section>
       <BottomSheet.Root open={isOpen} onOpenChange={() => setIsOpen(false)}>
