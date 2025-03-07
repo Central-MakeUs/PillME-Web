@@ -7,6 +7,7 @@ import {
 import { useNavigate, useSearchParams } from 'react-router';
 import { ArrowLeft } from '@/assets';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
+import { Loading } from '@/pages/loading';
 import { AppBar, AppBarElement } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { SearchField } from '@/ui/search-field';
@@ -76,7 +77,7 @@ export const PillboxNewPage = () => {
           // TODO 키워드 자동완성 추가<SearchingKeywordList keyword={keyword} />
           <></>
         ) : (
-          <Suspense>
+          <Suspense fallback={<Loading />}>
             <PillBoxCardList keyword={searchedKeyword} />
           </Suspense>
         )}

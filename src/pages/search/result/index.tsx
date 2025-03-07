@@ -7,6 +7,7 @@ import { ArrowLeft, Check } from '@/assets';
 import { CartButton } from '@/components/cart-botton';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { SearchFallback } from '@/components/search-fallback';
+import { Loading } from '@/pages/loading';
 import { AppBar } from '@/ui/app-bar';
 import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
 import { Card } from '@/ui/card/card';
@@ -56,7 +57,7 @@ export const SearchResultPage = () => {
           exit={{ opacity: 0, y: 20 }}
           className={styles.mainContainer}
         >
-          <Suspense fallback={<></>}>
+          <Suspense fallback={<Loading />}>
             <SearchResultPageInner searchType={searchType} keyword={keyword} />
           </Suspense>
         </motion.div>

@@ -9,13 +9,14 @@ import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
 import { Tab, TabContent, TabLabel } from '@/ui/tab';
+import { Loading } from '../loading';
 import { IngredientGraph } from '../product/components/ingredient-graph';
 import * as styles from './page.css';
 
 export const PillboxPage = () => {
   return (
     <LocalErrorBoundary>
-      <Suspense>
+      <Suspense fallback={<Loading />}>
         <PillboxPageInner />
       </Suspense>
     </LocalErrorBoundary>

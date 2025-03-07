@@ -25,6 +25,7 @@ import { Dialog } from '@/ui/dialog';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
 import { useShowCustomToast } from '@/ui/toast/toast';
+import { Loading } from '../loading';
 import { IngredientCard } from './components/ingredient-card';
 import { IngredientChart } from './components/ingredient-chart';
 import * as styles from './page.css';
@@ -33,7 +34,7 @@ export const ProductPage = () => {
   const { productId } = useParams();
   return (
     <LocalErrorBoundary>
-      <Suspense>
+      <Suspense fallback={<Loading />}>
         <ProductPageInner productId={Number(productId)} />
       </Suspense>
     </LocalErrorBoundary>

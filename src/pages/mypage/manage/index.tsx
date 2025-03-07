@@ -6,6 +6,7 @@ import { deleteUserAPI, logout } from '@/apis/mutation/user';
 import { userQueryOption } from '@/apis/query/user';
 import { ArrowLeft, ArrowRightr } from '@/assets';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
+import { Loading } from '@/pages/loading';
 import { EmailIcon } from '@/pages/onboarding/assets/EmailIcon';
 import { AppBar } from '@/ui/app-bar';
 import { Dialog } from '@/ui/dialog';
@@ -21,7 +22,7 @@ import * as styles from './page.css';
 export const MyInfoManagePage = () => {
   return (
     <LocalErrorBoundary>
-      <Suspense>
+      <Suspense fallback={<Loading />}>
         <MyInfoManageInner />
       </Suspense>
     </LocalErrorBoundary>

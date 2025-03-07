@@ -9,6 +9,7 @@ import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { SearchFallback } from '@/components/search-fallback';
 import { CATEGORY_LIST, CategoryId } from '@/constants/category';
 import { INGREDIENT_MAP } from '@/constants/ingredient';
+import { Loading } from '@/pages/loading';
 import { AppBar } from '@/ui/app-bar';
 import { Card } from '@/ui/card/card';
 import { Chip } from '@/ui/chip';
@@ -29,7 +30,7 @@ export const CategoryResultPage = () => {
 
   return (
     <LocalErrorBoundary>
-      <Suspense>
+      <Suspense fallback={<Loading />}>
         <CategoryResultPageInner categoryId={categoryId} />
       </Suspense>
     </LocalErrorBoundary>
