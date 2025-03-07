@@ -1,5 +1,6 @@
 import { Suspense, useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router';
 import { myMedicneQueryOption } from '@/apis/query/myMedicine';
 import { Cart, Intake, Notice, PillBox, PlusBlue } from '@/assets';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
@@ -25,7 +26,7 @@ export const PillboxPage = () => {
 const PillboxPageInner = () => {
   const pillData = [];
   const [isOpen, setIsOpen] = useState(false);
-
+  const navigate = useNavigate();
   const {
     data: { data: medicineList },
   } = useSuspenseQuery(myMedicneQueryOption.list());
@@ -52,7 +53,10 @@ const PillboxPageInner = () => {
         ) : (
           <div className={styles.itemContents}>
             {medicineList.map(({ product, myMedicineId }) => (
-              <div key={myMedicineId}>
+              <div
+                key={myMedicineId}
+                onClick={() => navigate(`/product/${product.id}`)}
+              >
                 <img
                   src={product.imageUrl}
                   className={styles.image}
