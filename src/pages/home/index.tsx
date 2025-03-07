@@ -56,7 +56,7 @@ export const HomePage = () => {
 
   const onClickCategory = () => navigate('/category');
 
-  const [searchMode, setSearchMode] = useState<string>('AI 증상 검색');
+  const [searchMode, setSearchMode] = useState<string>('증상 AI 검색');
 
   const handleSearchClick = () => {
     const searchPath =
