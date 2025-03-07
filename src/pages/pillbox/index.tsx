@@ -29,7 +29,7 @@ const PillboxPageInner = () => {
   const {
     data: { data: medicineList },
   } = useSuspenseQuery(myMedicneQueryOption.list());
-
+  console.log(medicineList);
   return (
     <PageLayout
       header={
@@ -50,8 +50,18 @@ const PillboxPageInner = () => {
             <PillBox className={styles.boxIcon} />
           </div>
         ) : (
-          //TODO ui 추가 필요
-          <div>약</div>
+          <div className={styles.itemContents}>
+            {medicineList.map(({ product, myMedicineId }) => (
+              <div key={myMedicineId}>
+                <img
+                  src={product.imageUrl}
+                  className={styles.image}
+                  alt="제품"
+                />
+                <div className={styles.name}>{product.name}</div>
+              </div>
+            ))}
+          </div>
         )}
       </section>
       <Spacer size={10} className={styles.spaceColor} />
