@@ -130,8 +130,8 @@ export const SearchPage = () => {
               handleSearch={handleSearch}
             />
           )}
-          <Recommendkeyword />
-          <PopularKeyword />
+          <Recommendkeyword searchType={searchType} />
+          <PopularKeyword searchType={searchType} />
         </section>
       </motion.div>
     </PageLayout>
