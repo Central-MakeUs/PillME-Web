@@ -1,5 +1,5 @@
 import { Suspense, useState } from 'react';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { motion } from 'motion/react';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 import { productQueryOption } from '@/apis/query/product';
@@ -13,6 +13,7 @@ import { BottomSheet } from '@/ui/bottom-sheet/bottom-sheet';
 import { Card } from '@/ui/card/card';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { SearchField } from '@/ui/search-field';
+import { AISearchSection } from '../components/ai-search-section';
 import * as bottomStyles from './bottomSheet.css';
 import * as styles from './style.css';
 
@@ -72,7 +73,7 @@ type SearchResultPageInnerProps = {
 };
 
 const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
-  const { keyword } = props;
+  const { keyword, searchType } = props;
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -85,36 +86,28 @@ const SearchResultPageInner = (props: SearchResultPageInnerProps) => {
 
   const {
     data: { data },
-  } = useSuspenseQuery(productQueryOption.list({ search: keyword }));
+  } = useSuspenseQuery(
+    productQueryOption.list({
+      search: searchType === 'ai' ? undefined : keyword,
+    }),
+  );
+
+  const { data: gptData, isLoading } = useQuery(
+    productQueryOption.ai({ search: keyword, enabled: searchType === 'ai' }),
+  );
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
-      {/* {searchType === 'ai' && (
-        <section className={styles.subContainer}>
-          <div className={styles.tabTitle}>{keyword}에 좋은 제품 결과</div>
-          <div className={styles.tabChip}>
-            <ButtonText style={{ color: 'black' }}>
-              관련성분 <ArrowDrop />
-            </ButtonText>
-            <Chip
-              shape="pill"
-              borderColor="grey100"
-              color="grey500"
-              typography="body_3_14_r"
-            >
-              콜라겐
-            </Chip>
-            <Chip
-              shape="pill"
-              borderColor="grey100"
-              color="grey500"
-              typography="body_3_14_r"
-            >
-              콜라겐
-            </Chip>
-          </div>
-        </section>
-      )} */}
+      {searchType === 'ai' && gptData && (
+        <AISearchSection
+          title={gptData.data.title}
+          description={gptData.data.description}
+        />
+      )}
       <section className={styles.mainContainer}>
         <div className={styles.subBanner}>
           <div>총 {data.length}개</div>

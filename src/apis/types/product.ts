@@ -75,3 +75,9 @@ export type GetProductAnalysisAPIResponse = ResponseFormat<{
     },
   ];
 }>;
+
+export type SearchWithAIAPIRespinse = ResponseFormat<{
+  title: string;
+  description: string;
+  ingredients: string[];
+}>;

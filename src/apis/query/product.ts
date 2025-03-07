@@ -8,6 +8,7 @@ import {
   GetProductDistributionAPIResponse,
   GetProductListAPIRequest,
   GetProductListAPIResponse,
+  SearchWithAIAPIRespinse,
   getProductDetailAPIResponse,
 } from '../types/product';
 
@@ -17,6 +18,7 @@ export const productQueryKeys = {
   details: () => [...productQueryKeys.all(), 'detail'],
   distributions: () => [...productQueryKeys.all(), 'distribution'],
   analysis: () => [...productQueryKeys.all(), 'analysis'],
+  ai: () => [...productQueryKeys.all(), 'search'],
 };
 
 export const productQueryOption = {
@@ -39,6 +41,13 @@ export const productQueryOption = {
     queryOptions({
       queryKey: [...productQueryKeys.analysis()],
       queryFn: () => getProductAnalysisAPI({ productId }),
+    }),
+  ai: ({ search, enabled }: { search: string; enabled: boolean }) =>
+    queryOptions({
+      queryKey: [...productQueryKeys.ai(), search],
+      queryFn: () => searchWithAI({ search }),
+      enabled,
+      throwOnError: true,
     }),
 };
 
@@ -78,3 +87,10 @@ const getProductDistributionAPI = ({
 
 const getProductAnalysisAPI = ({ productId }: GetProductAnalysisAPIRequest) =>
   fetcher.get<GetProductAnalysisAPIResponse>(`product/analysis/${productId}`);
+
+const searchWithAI = ({ search }: { search: string }) =>
+  fetcher.get<SearchWithAIAPIRespinse>('product/gpt', {
+    searchParams: {
+      search,
+    },
+  });
