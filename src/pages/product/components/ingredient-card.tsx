@@ -12,19 +12,27 @@ const statusConfig: Record<
   과다: { text: '과다', Icon: Overflow },
 };
 
-export const IngredientCard = ({ status }: { status: StatusType }) => {
+interface IngredientCardProps {
+  status: StatusType;
+  count: number;
+  items: string[];
+}
+
+export const IngredientCard = ({
+  status,
+  count,
+  items,
+}: IngredientCardProps) => {
   const { text, Icon } = statusConfig[status];
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.box}>
         <div className={styles.title}>
-          4개의 성분 <span className={styles.status({ status })}>{text}</span>
+          {count}개의 성분&nbsp;
+          <span className={styles.status({ status })}>{text}</span>
         </div>
-        <div className={styles.description}>
-          비타민 비타민 비타민 비타민 비타민 비타민 비타민 비타민 비타민 비타민
-          비타민 비타민
-        </div>
+        <div className={styles.description}>{items.join(', ')}</div>
       </div>
       <Icon />
     </div>
