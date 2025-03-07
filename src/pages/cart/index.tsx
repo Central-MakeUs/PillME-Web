@@ -21,13 +21,14 @@ import { IconButton } from '@/ui/icon-button';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
 import { useShowCustomToast } from '@/ui/toast/toast';
+import { Loading } from '../loading';
 import { Fallback } from './components/Fallback';
 import * as styles from './page.css';
 
 export const CartPage = () => {
   return (
     <LocalErrorBoundary>
-      <Suspense>
+      <Suspense fallback={<Loading />}>
         <CartPageInner />
       </Suspense>
     </LocalErrorBoundary>

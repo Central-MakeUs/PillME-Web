@@ -13,6 +13,7 @@ import {
 import { GetMyMedicineAPIResponse } from '@/apis/types/myMedicine';
 import { ArrowLeft } from '@/assets';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
+import { Loading } from '@/pages/loading';
 import { AppBar } from '@/ui/app-bar';
 import { Button } from '@/ui/button';
 import { ButtonText } from '@/ui/button-text';
@@ -29,7 +30,7 @@ import * as styles from './page.css';
 export const PillboxManagePage = () => {
   return (
     <LocalErrorBoundary>
-      <Suspense>
+      <Suspense fallback={<Loading />}>
         <PillboxManagePageInner />
       </Suspense>
     </LocalErrorBoundary>

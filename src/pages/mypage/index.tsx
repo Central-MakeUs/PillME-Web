@@ -9,13 +9,14 @@ import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { AppBar } from '@/ui/app-bar';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
+import { Loading } from '../loading';
 import { EmailIcon } from '../onboarding/assets/EmailIcon';
 import * as styles from './page.css';
 
 export const MyPage = () => {
   return (
     <LocalErrorBoundary>
-      <Suspense>
+      <Suspense fallback={<Loading />}>
         <MyPageInner />
       </Suspense>
     </LocalErrorBoundary>
