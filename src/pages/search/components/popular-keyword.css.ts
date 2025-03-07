@@ -22,6 +22,7 @@ export const keywordItem = style({
   alignItems: 'center',
   gap: '8px',
   width: '156px',
+  cursor: 'pointer',
 });
 
 export const rank = style([typography('body_2_14_sb')]);
