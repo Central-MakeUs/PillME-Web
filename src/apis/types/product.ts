@@ -1,4 +1,5 @@
 import { ResponseFormat } from './common';
+import { MedicineAnalysisCategory, MedicineAnalysisStatus } from './myMedicine';
 
 export type Product = {
   id: number;
@@ -48,3 +49,29 @@ export type ProductDistribution = {
 export type GetProductDistributionAPIResponse = ResponseFormat<
   ProductDistribution[]
 >;
+
+export type GetProductAnalysisAPIRequest = {
+  productId: number;
+};
+
+export type GetProductAnalysisAPIResponse = ResponseFormat<{
+  summary: [
+    {
+      statusType: MedicineAnalysisStatus;
+      count: number;
+      items: string[];
+    },
+  ];
+  ingredients: [
+    {
+      ingredientName: string;
+      category: MedicineAnalysisCategory;
+      totalAmount: number;
+      minIntake: number;
+      maxIntake: number;
+      upperLimit: number;
+      unit: string;
+      status: MedicineAnalysisStatus;
+    },
+  ];
+}>;

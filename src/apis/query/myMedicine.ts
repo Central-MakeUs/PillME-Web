@@ -1,10 +1,14 @@
 import { queryOptions } from '@tanstack/react-query';
 import { fetcher } from '../fetcher';
-import { GetMyMedicineAPIResponse } from '../types/myMedicine';
+import {
+  GetMYMedicineAnalysiAPIResponse,
+  GetMyMedicineAPIResponse,
+} from '../types/myMedicine';
 
 export const myMedicineQueryKeys = {
   all: () => ['myMedicine'],
   lists: () => [...myMedicineQueryKeys.all(), 'list'],
+  analysis: () => [...myMedicineQueryKeys.all(), 'analysis'],
 };
 
 export const myMedicneQueryOption = {
@@ -13,7 +17,15 @@ export const myMedicneQueryOption = {
       queryKey: [...myMedicineQueryKeys.lists()],
       queryFn: getMyMedicineAPI,
     }),
+  analysis: () =>
+    queryOptions({
+      queryKey: [...myMedicineQueryKeys.analysis()],
+      queryFn: getMYMedicineAnalysisAPI,
+    }),
 };
 
 const getMyMedicineAPI = () =>
   fetcher.get<GetMyMedicineAPIResponse>('my-medicine');
+
+const getMYMedicineAnalysisAPI = () =>
+  fetcher.get<GetMYMedicineAnalysiAPIResponse>('my-medicine/analysis');
