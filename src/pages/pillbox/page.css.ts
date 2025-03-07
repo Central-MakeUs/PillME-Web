@@ -139,3 +139,32 @@ export const line = style({
   border: `1px dashed ${color('grey300')}`,
   margin: '24px 8px',
 });
+
+export const itemContents = style({
+  display: 'flex',
+  gap: 10,
+  overflowX: 'auto',
+  whiteSpace: 'nowrap',
+  WebkitOverflowScrolling: 'touch',
+  '::-webkit-scrollbar': {
+    display: 'none',
+  },
+});
+
+export const item = style({
+  display: 'flex',
+  gap: 10,
+});
+
+export const image = style({
+  width: 105,
+  borderRadius: 6,
+  aspectRatio: '1',
+});
+
+export const name = style({
+  width: 105,
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+});
