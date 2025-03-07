@@ -62,7 +62,7 @@ export const WithBottomNavigation: Story = {
           hello
         </div>
       </PageLayout>
-      <BottomNavigation />
+      <BottomNavigation selected="home" />
     </MobileLayout>
   ),
 };
