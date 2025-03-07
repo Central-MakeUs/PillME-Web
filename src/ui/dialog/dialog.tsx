@@ -4,13 +4,15 @@ import * as styles from './dialog.css';
 export type DialogAction = 'single' | 'danger' | 'default';
 
 export interface DialogProps {
-  trigger: React.ReactNode;
+  trigger?: React.ReactNode;
   title: string;
   description: string;
   action: DialogAction;
   leftButtonText?: string;
   rightButtonText?: string;
   onConfirm?: () => void;
+  open?: boolean;
+  onClose?: VoidFunction;
 }
 
 export const Dialog = ({
@@ -21,9 +23,11 @@ export const Dialog = ({
   leftButtonText = '취소',
   rightButtonText = '확인',
   onConfirm,
+  open,
+  onClose,
 }: DialogProps) => {
   return (
-    <RadixDialog.Root>
+    <RadixDialog.Root open={open} onOpenChange={onClose}>
       <RadixDialog.Trigger asChild>{trigger}</RadixDialog.Trigger>
 
       <RadixDialog.Portal>
