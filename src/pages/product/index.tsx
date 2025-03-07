@@ -19,7 +19,7 @@ import { CartButton } from '@/components/cart-botton';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
 import { AppBar } from '@/ui/app-bar';
 import { Button } from '@/ui/button';
-import { ButtonText } from '@/ui/button-text';
+// import { ButtonText } from '@/ui/button-text';
 import { Chip } from '@/ui/chip';
 import { Dialog } from '@/ui/dialog';
 import { PageLayout } from '@/ui/layout/page-layout';
@@ -196,12 +196,13 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
         <section className={styles.chartContainer}>
           <div className={styles.chartHeader}>
             <div className={styles.sectionTitle}>제품 성분 분포도</div>
-            <ButtonText
+            {/* ToDo: api 나오면 성분 전체보기 그래프 연결 */}
+            {/* <ButtonText
               icon
               onClick={() => navigate(`/product/${product.id}/ingredient`)}
             >
               성분 전체보기
-            </ButtonText>
+            </ButtonText> */}
           </div>
           <div className={styles.chartBox}>
             <IngredientChart productId={productId} />
