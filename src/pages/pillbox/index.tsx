@@ -1,5 +1,6 @@
 import { Suspense, useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router';
 import { myMedicneQueryOption } from '@/apis/query/myMedicine';
 import { Cart, Intake, Notice, PillBox, PlusBlue } from '@/assets';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
@@ -25,11 +26,11 @@ export const PillboxPage = () => {
 const PillboxPageInner = () => {
   const pillData = [];
   const [isOpen, setIsOpen] = useState(false);
-
+  const navigate = useNavigate();
   const {
     data: { data: medicineList },
   } = useSuspenseQuery(myMedicneQueryOption.list());
-
+  console.log(medicineList);
   return (
     <PageLayout
       header={
@@ -50,8 +51,21 @@ const PillboxPageInner = () => {
             <PillBox className={styles.boxIcon} />
           </div>
         ) : (
-          //TODO ui 추가 필요
-          <div>약</div>
+          <div className={styles.itemContents}>
+            {medicineList.map(({ product, myMedicineId }) => (
+              <div
+                key={myMedicineId}
+                onClick={() => navigate(`/product/${product.id}`)}
+              >
+                <img
+                  src={product.imageUrl}
+                  className={styles.image}
+                  alt="제품"
+                />
+                <div className={styles.name}>{product.name}</div>
+              </div>
+            ))}
+          </div>
         )}
       </section>
       <Spacer size={10} className={styles.spaceColor} />
