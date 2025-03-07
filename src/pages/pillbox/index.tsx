@@ -30,7 +30,16 @@ const PillboxPageInner = () => {
   const {
     data: { data: medicineList },
   } = useSuspenseQuery(myMedicneQueryOption.list());
-  console.log(medicineList);
+
+  //TODO suspensive queries로 수정
+  const {
+    data: {
+      data: { summary, ingredients },
+    },
+  } = useSuspenseQuery(myMedicneQueryOption.analysis());
+
+  console.log(summary, ingredients);
+
   return (
     <PageLayout
       header={

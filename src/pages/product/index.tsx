@@ -26,7 +26,7 @@ import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
 import { useShowCustomToast } from '@/ui/toast/toast';
 import { isLogin } from '@/utils/isLogin';
-import { IngredientCard } from './components/ingredient-card';
+import { AnalysisSection } from './components/analysis-section';
 import { IngredientChart } from './components/ingredient-chart';
 import * as styles from './page.css';
 
@@ -207,21 +207,9 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
           </div>
         </section>
         {isLogin() && (
-          <>
-            <Spacer size={10} className={styles.spaceColor} />
-            <section className={styles.compareContainer}>
-              <div className={styles.sectionTitle}>
-                제품의 총 19개의 성분 중<br />
-                필미님은 4개를 충족해요
-              </div>
-              <div className={styles.ingredientCards}>
-                {/* TODO number props 추가 */}
-                <IngredientCard status="충족" />
-                <IngredientCard status="부족" />
-                <IngredientCard status="과다" />
-              </div>
-            </section>
-          </>
+          <Suspense>
+            <AnalysisSection productId={productId} />
+          </Suspense>
         )}
 
         <div className={styles.buttonWrapper}>
