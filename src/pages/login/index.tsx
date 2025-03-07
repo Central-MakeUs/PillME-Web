@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router';
+import { IconButton } from '@/ui/icon-button';
 import { ArrowLeft } from '../../assets';
 import { AppBar } from '../../ui/app-bar';
 import { ButtonText } from '../../ui/button-text';
@@ -10,7 +11,18 @@ export const LoginPage = () => {
   const navigate = useNavigate();
 
   return (
-    <PageLayout header={<AppBar left={<ArrowLeft />} variant="page" />}>
+    <PageLayout
+      header={
+        <AppBar
+          left={
+            <IconButton onClick={() => navigate(-1)}>
+              <ArrowLeft />
+            </IconButton>
+          }
+          variant="page"
+        />
+      }
+    >
       <div className={styles.container}>
         <div className={styles.title}>
           이메일과 비밀번호를
