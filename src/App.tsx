@@ -1,5 +1,6 @@
 import { setDefaultOptions } from 'date-fns';
 import { ko } from 'date-fns/locale';
+import { ClarityEffector } from './components/ClarityEffector';
 import { QueryClientProvider } from './providers/QueryClientProvider';
 import { Router } from './router';
 import { MobileLayout } from './ui/layout/mobile-layout';
@@ -15,6 +16,7 @@ function App() {
         <CustomToastProvider />
         <Router />
       </QueryClientProvider>
+      <ClarityEffector />
     </MobileLayout>
   );
 }

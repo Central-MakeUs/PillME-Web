@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
+    "@microsoft/clarity": "^1.0.0",
     "@radix-ui/react-dialog": "^1.1.4",
     "@radix-ui/react-dropdown-menu": "^2.1.5",
     "@radix-ui/react-switch": "^1.1.2",
