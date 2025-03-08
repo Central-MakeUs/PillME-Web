@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { recipe } from '@vanilla-extract/recipes';
 import { color, typography } from '@/ui';
 
 export const searchContainer = style({
@@ -38,13 +39,49 @@ export const products = style({
 });
 
 export const subContainer = style({
-  padding: '0 20px',
-  paddingTop: '20px',
+  paddingInline: 20,
+  paddingTop: 14,
+  paddingBottom: 20,
   marginTop: '10px',
   borderTop: '1px solid',
 
   display: 'flex',
   flexDirection: 'column',
+});
+
+export const blueTitle = style([
+  {
+    color: color('mainblue500'),
+  },
+  typography('body_2_14_sb'),
+]);
+
+export const promptTitle = style([
+  {
+    color: color('black'),
+  },
+  typography('title_2_20_b'),
+]);
+
+export const propmptDescription = recipe({
+  base: [
+    {
+      color: color('grey800'),
+      transition: 'all ease-in-out 0.2s',
+    },
+    typography('head_1_18_sb'),
+  ],
+  variants: {
+    isFullHeight: {
+      true: {},
+      false: {
+        overflow: 'hidden',
+        display: '-webkit-box',
+        WebkitBoxOrient: 'vertical',
+        WebkitLineClamp: 1,
+      },
+    },
+  },
 });
 
 export const tabTitle = style([typography('head_1_18_sb')]);
