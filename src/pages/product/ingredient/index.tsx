@@ -8,7 +8,7 @@ import { Chip } from '@/ui/chip';
 import { PageLayout } from '@/ui/layout/page-layout';
 import { Spacer } from '@/ui/spacer/spacer';
 import { Tab, TabContent, TabLabel } from '@/ui/tab';
-import { IngredientGraph } from '../components/ingredient-graph';
+// import { IngredientGraph } from '../components/ingredient-graph';
 import * as bottomStyles from './bottomSheet.css';
 import * as styles from './styles.css';
 
@@ -59,9 +59,11 @@ export const ProductIngredientPage = () => {
         <TabLabel label="비타민" value="비타민" />
         <TabLabel label="무기질" value="무기질" />
         <TabLabel label="기능성" value="기능성" />
-
-        {/* Tab Contents */}
         <TabContent value="비타민">
+          <div>테스트</div>
+        </TabContent>
+        {/* Tab Contents */}
+        {/* <TabContent value="비타민">
           <IngredientGraph />
         </TabContent>
 
@@ -71,7 +73,7 @@ export const ProductIngredientPage = () => {
 
         <TabContent value="기능성">
           <IngredientGraph />
-        </TabContent>
+        </TabContent> */}
       </Tab>
       <div className={styles.notice} onClick={() => setIsOpen(true)}>
         <Notice />
