@@ -60,7 +60,10 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
         queryKey: [...myMedicineQueryKeys.lists()],
       });
       setIsAddedToPillbox(true);
-      showCustomToast('내 약통에 추가 되었어요', 'success', '/pillbox/manage');
+      showCustomToast('내 약통에 추가되었어요', 'success', '/pillbox/manage');
+    },
+    onError: () => {
+      showCustomToast('내 약통에 추가하지 못했어요', 'error');
     },
   });
 
@@ -73,6 +76,9 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
       setIsAddedToPillbox(false);
       showCustomToast('내 약통에서 삭제되었어요', 'remove', '/pillbox/manage');
     },
+    onError: () => {
+      showCustomToast('내 약통에서 삭제하지 못했어요', 'error');
+    },
   });
 
   const { mutate: addCartMutate } = useMutation({
@@ -82,6 +88,9 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
         queryKey: [...cartQueryKeys.lists()],
       });
       showCustomToast('장바구니에 추가되었어요', 'success', '/cart');
+    },
+    onError: () => {
+      showCustomToast('장바구니에 추가하지 못했어요', 'error');
     },
   });
 

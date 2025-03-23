@@ -89,6 +89,9 @@ const CartPageInner = () => {
 
       setProductList(updatedProductList);
     },
+    onError: async () => {
+      showCustomToast('장바구니에서 삭제하지 못했어요', 'error');
+    },
   });
 
   const toggleCheck = ({ target: { id } }: ChangeEvent) => {

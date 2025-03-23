@@ -48,6 +48,9 @@ export const PillBoxCardList = ({ keyword }: { keyword: string }) => {
         queryKey: [...myMedicineQueryKeys.lists()],
       });
     },
+    onError: () => {
+      showCustomToast('내 약통에 추가하지 못했어요', 'error');
+    },
   });
 
   const onClickSaveButton = (productId: number) => () => {
