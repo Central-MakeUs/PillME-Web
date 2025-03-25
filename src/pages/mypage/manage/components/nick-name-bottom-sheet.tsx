@@ -47,6 +47,9 @@ export const NickNameBottomSheet = (props: NickNameBottomSheetProps) => {
       });
       onOpenChange();
     },
+    onError: () => {
+      toast('이름 변경에 실패했어요', 'error');
+    },
   });
 
   const form = useForm<NameSchema>({

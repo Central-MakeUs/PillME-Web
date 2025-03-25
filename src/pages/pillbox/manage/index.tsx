@@ -93,6 +93,9 @@ const PillboxManagePageInner = () => {
 
       setProductList(updatedProductList);
     },
+    onError: () => {
+      showCustomToast('내 약통에서 삭제하지 못했어요', 'error');
+    },
   });
 
   const toggleCheck = ({ target: { id } }: ChangeEvent) => {

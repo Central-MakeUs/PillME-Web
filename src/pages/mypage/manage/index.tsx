@@ -48,6 +48,9 @@ export const MyInfoManageInner = () => {
     onSuccess: () => {
       toast('회원탈퇴가 완료되었어요', 'remove', '', false);
     },
+    onError: () => {
+      toast('회원탈퇴에 실패했어요', 'error', '', false);
+    },
   });
 
   const {

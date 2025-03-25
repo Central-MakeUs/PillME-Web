@@ -48,6 +48,9 @@ export const BirthBottomSheet = (props: BirthBottomSheetProps) => {
       });
       onOpenChange();
     },
+    onError: () => {
+      toast('생년월일 변경에 실패했어요', 'error');
+    },
   });
 
   const form = useForm<BirthSchema>({
