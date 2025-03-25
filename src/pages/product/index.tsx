@@ -17,6 +17,7 @@ import { productQueryOption } from '@/apis/query/product';
 import { ArrowLeft, Check, Plus } from '@/assets';
 import { CartButton } from '@/components/cart-botton';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
+import { openExternalUrl } from '@/libs/bridge/openExternalUrl';
 import { AppBar } from '@/ui/app-bar';
 import { Button } from '@/ui/button';
 // import { ButtonText } from '@/ui/button-text';
@@ -103,6 +104,9 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
 
   const onClickAddCartButton = (productId: number) => () =>
     addCartMutate({ productId });
+
+  const onClickPurchaseButton = (content: string) => () =>
+    openExternalUrl(content, { target: '_blank' });
 
   return (
     <PageLayout
@@ -224,8 +228,11 @@ export const ProductPageInner = ({ productId }: { productId: number }) => {
         )}
 
         <div className={styles.buttonWrapper}>
-          {/* TODO 구매하러 가기 기능 추가 */}
-          <Button size="large" variant="secondary">
+          <Button
+            size="large"
+            variant="secondary"
+            onClick={onClickPurchaseButton(product.purchaseLink)}
+          >
             구매하러 가기
           </Button>
           <Button

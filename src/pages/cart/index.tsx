@@ -11,6 +11,7 @@ import { cartQueryKeys, cartQueryOption } from '@/apis/query/cart';
 import { GetCartAPIResponse } from '@/apis/types/cart';
 import { ArrowLeft } from '@/assets';
 import { LocalErrorBoundary } from '@/components/LocalErrorBoundary';
+import { copyClipBoard } from '@/libs/bridge/copyClipBoard';
 import { AppBar } from '@/ui/app-bar';
 import { Button } from '@/ui/button';
 import { ButtonText } from '@/ui/button-text';
@@ -127,6 +128,16 @@ const CartPageInner = () => {
 
   const deleteItem = (id: number) => () => mutate({ myMedicineIds: [id] });
 
+  const onClickPurchaseLinkCopyButton = () => {
+    const checkedPurchaseLinkListString = productList
+      .filter(({ checked }) => Boolean(checked))
+      .map(({ purchaseLink }) => purchaseLink)
+      .join('\n');
+
+    copyClipBoard(checkedPurchaseLinkListString);
+    showCustomToast('구매 링크가 복사되었어요', 'success');
+  };
+
   return (
     <PageLayout
       header={
@@ -232,7 +243,9 @@ const CartPageInner = () => {
       </motion.div>
       {checkedCount !== 0 && (
         <div className={styles.buttonContainer}>
-          <Button size="large">총 {checkedCount}건 구매 링크 복사하기</Button>
+          <Button size="large" onClick={onClickPurchaseLinkCopyButton}>
+            총 {checkedCount}건 구매 링크 복사하기
+          </Button>
         </div>
       )}
     </PageLayout>
